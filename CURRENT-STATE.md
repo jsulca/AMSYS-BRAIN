@@ -52,26 +52,61 @@
 - [x] Prueba manual de punta a punta: Migrator + API en Development + login/yo/Scalar OK. En Production sin
       `Jwt:Clave` la API no arranca (validación de opciones).
 
+- [x] **API: cambio de contraseña** (`POST auth/cambiar-clave`): verifica la actual, valida la nueva con
+      `CambiarClaveRequestValidator` (mín. 8, letras y números, distinta), revoca todas las sesiones y devuelve
+      una nueva. Claim `debe_cambiar_clave` en el JWT. Política por defecto de la API: token válido **y** sin
+      cambio pendiente; `auth/yo` y `auth/cambiar-clave` usan la política `sesion-iniciada`. `/auth` quedó
+      fuera del grupo protegido por defecto; los módulos van en `v1.MapGroup("").RequireAuthorization()`.
+- [x] **Web Blazor Server (paso 4)**:
+      - MudBlazor 9; `InteractiveServer` **sin prerender** (global, en `App.razor`); tema `TemaAmsys`.
+      - Sesión: cookie `amsys.sesion` (HttpOnly) con claims básicos + id de sesión; **los tokens de la API
+        viven en el servidor** (`AlmacenSesiones` sobre `IDistributedCache`, hoy en memoria).
+      - Login interactivo → código de un solo uso (60 s) → `GET /cuenta/completar-ingreso` emite la cookie
+        (un circuito no puede escribir cookies). `POST /cuenta/salir` (antiforgery) revoca en la API.
+        `GET /cuenta/sesion-expirada` limpia la cookie.
+      - Renovación del token de acceso 1 min antes de vencer, **una sola a la vez por sesión** (candado):
+        dos refrescos simultáneos serían "reuso" para la API y cerrarían la sesión.
+      - `ProveedorEstadoAutenticacion` revalida la sesión cada minuto; la cookie se rechaza si la sesión ya no
+        existe. Si la API devuelve 401, `ClienteApi` lleva a `sesion-expirada`.
+      - Autorización: `Pages/_Imports.razor` pone `[Authorize]` a todas las páginas (política por defecto =
+        sesión y sin cambio de clave pendiente). Las páginas de cuenta están en `Components/Cuenta/` para
+        **no** heredarlo (si no, `cambiar-clave` se redirigía a sí misma en bucle — lo detectó un test).
+      - `ClienteApi` tipado (`Contracts`) → `ResultadoApi<T>` / `ErrorApi` (lee ProblemDetails: título,
+        `codigo`, errores por campo; mensajes genéricos por estado: 401, 403, 404, 429, 5xx).
+      - Formularios validan con los **mismos validadores de `Contracts`** que la API (`ValidacionFormulario`).
+      - Páginas: Login, Cambiar contraseña (obligatoria si `DebeCambiarClave`), Inicio, Seguridad/Usuarios
+        (MudDataGrid con búsqueda), No encontrado, Acceso denegado. Layout con menú lateral y menú de usuario.
+      - Menú: `Navegacion/MenuAmsys.cs` con `Modulo`/`Permiso` por opción; `Visibles()` es el punto de
+        extensión para filtrar por módulos (paso 5) y permisos (NP-1).
+- [x] Tests: **65/65**. Nuevo `tests/Amsys.Web.Tests` (WebApplicationFactory de la web con API simulada):
+      redirecciones, código de un solo uso, cambio de clave obligatorio, open redirect, cookie sin sesión,
+      renovación de token (10 llamadas simultáneas → 1 refresco), refresco rechazado.
+- [ ] **Sin probar en navegador**: la parte visual (MudBlazor, menú, formularios) no se verificó con un
+      navegador en esta sesión. Prueba manual pendiente del propietario.
+
 ## Pendiente inmediato
 
+- [ ] Prueba manual en navegador del flujo completo (ver *Entorno de desarrollo*).
 - [ ] Quitar `--ignore-exit-code 8` de `Amsys.Application.Tests` cuando tenga tests.
 - [ ] **Permisos por rol** en `seguridad/usuarios`: hoy basta con estar autenticado (temporal, ver `D-NP-16`).
 - [ ] Bloqueo de usuario tras N intentos fallidos (el legacy tiene `ControlIntentos`); hoy sólo hay límite por IP.
-- [ ] Cambio de contraseña obligatorio (`DebeCambiarClave`): endpoint `POST auth/cambiar-clave`.
-- [ ] Migración de usuarios del legacy: revisar cómo guarda claves `AMSYS.Utilitarios/Criptografia` (si es
-      reversible se re-hashean en el ETL; si no, se fuerza restablecimiento).
+- [ ] Migración de usuarios del legacy: revisar cómo guarda claves `AMSYS.Utilitarios/Criptografia`.
+- [ ] Producción con varias réplicas de la web: caché distribuido (Redis) para `AlmacenSesiones`, claves de
+      Data Protection persistidas y compartidas, afinidad de sesión (Blazor Server).
+- [ ] Zona horaria: las fechas se muestran con la hora del servidor (`ToLocalTime`); definir zona por empresa.
 - [ ] `Amsys.Migrator` imprime todo el SQL de EF: bajar el log de EF a Warning.
 - [ ] Confirmar `D-MC-05` (eliminación lógica para todo; ya implementada así).
 - [ ] Revisar carpeta `k8s/` (existe, vacía).
 
-## Siguiente paso (NP-0, paso 4: Web Blazor Server)
+## Siguiente paso (NP-0, paso 5: configuración multicliente)
 
-1. MudBlazor en `Amsys.Web`; layout principal (barra, menú lateral, tema).
-2. Cliente HTTP tipado hacia `Amsys.Api` (`Contracts`), con manejo de ProblemDetails.
-3. Pantalla de login; guardar la sesión en el circuito; refresco automático del token.
-4. `AuthenticationStateProvider` propio; páginas protegidas; cerrar sesión.
-5. Pantalla de cambio de contraseña cuando `DebeCambiarClave`.
-6. Menú filtrado por permisos y módulos activos (los permisos llegan en NP-1; dejar el punto de extensión).
+1. Domain/Configuracion: `EmpresaModulo` (módulos activables), `CampoPersonalizado` + `datos_adicionales jsonb`
+   (Equipo, Ubicacion, OrdenTrabajo, Aviso — se crean en sus etapas; aquí la infraestructura),
+   `EtiquetaEstado`, branding (`Codigo` ya existe; color primario, nombre comercial, logo).
+2. API: `GET /api/v1/configuracion` (módulos activos, etiquetas, branding de la empresa actual).
+3. Web: cargar la configuración al iniciar el circuito; `MenuAmsys.Visibles()` filtra por módulo;
+   tema y logo por cliente (`wwwroot/clientes/<codigo>/` con fallback).
+4. Administración básica de módulos por empresa (superadministrador).
 
 ## Entorno de desarrollo
 
@@ -81,6 +116,8 @@
   - Iniciar / detener: `docker start amsys-postgres-dev` / `docker stop amsys-postgres-dev`
 - Migrar + semilla: `dotnet run --project src/Amsys.Migrator -- --semilla-desarrollo "--ConnectionStrings:Amsys=Host=localhost;Port=5432;Database=amsys_dev;Username=postgres;Password=postgres" "--Semilla:ClaveAdmin=<clave>"`
 - API: `dotnet run --project src/Amsys.Api --launch-profile http` → Scalar en `http://localhost:5276/scalar/v1`
+- Web: `dotnet run --project src/Amsys.Web --launch-profile http` → `http://localhost:5296` (necesita la API corriendo;
+  `Api:UrlBase` en `src/Amsys.Web/appsettings.Development.json`)
 - Usuario de desarrollo: `admin` (empresa `demo`); la clave es la pasada en `Semilla:ClaveAdmin`.
 - En otros entornos `Jwt:Clave` y la cadena van por variables de entorno (`Jwt__Clave`, `ConnectionStrings__Amsys`).
 
@@ -88,6 +125,7 @@
 
 - Compilar: `dotnet build Amsys.slnx` (Release = warnings como errores).
 - Tests: `dotnet test --solution Amsys.slnx` — **requiere Docker Desktop encendido** (Infrastructure y Api tests).
+  Detén la API/Web si están corriendo: bloquean los .exe y la compilación falla (MSB3027).
 - Nueva migración: `dotnet ef migrations add <Nombre> -p src/Amsys.Infrastructure -s src/Amsys.Infrastructure -o Persistence/Migrations`
 - Ver SQL: `dotnet ef migrations script -p src/Amsys.Infrastructure -s src/Amsys.Infrastructure`
 
@@ -104,3 +142,4 @@
 | 2026-10-02 | Paso 1: limpieza de plantillas, `.editorconfig`, commit inicial |
 | 2026-10-02 | Paso 2: dominio base (Entidad, Result, Empresa, Usuario), `AmsysDbContext` con filtros por empresa y eliminados, `AuditoriaInterceptor`, migración `Inicial`, 27 tests verdes (incluye aislamiento entre empresas con Postgres real) |
 | 2026-10-02 | Paso 3: autenticación JWT + refresh token rotado con detección de reuso, Minimal APIs `/api/v1`, ProblemDetails, validación, límite de intentos, OpenAPI/Scalar, Migrator con semilla, 41 tests verdes, prueba manual de punta a punta con Postgres local en Docker |
+| 2026-10-02 | Paso 4: `auth/cambiar-clave` + política "sin cambio de clave pendiente" en API y web; web Blazor Server con MudBlazor, sesión con tokens en servidor, renovación con candado por sesión, login, cambio de clave, inicio, usuarios; nuevo `Amsys.Web.Tests`; 65 tests verdes. Bug de bucle de redirección en `cambiar-clave` detectado por test y corregido. Falta prueba manual en navegador |

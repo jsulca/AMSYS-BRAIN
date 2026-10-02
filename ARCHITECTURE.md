@@ -12,13 +12,14 @@ habla con la API por HTTP, una sola BD por despliegue y una sola cadena de migra
 | `src/Amsys.Contracts` | classlib | DTOs Request/Response + validadores FluentValidation (compartido API ↔ Blazor ↔ móvil) | — |
 | `src/Amsys.Infrastructure` | classlib | EF Core + Npgsql, migraciones, email, archivos, Excel, PDF | Application |
 | `src/Amsys.Api` | `Sdk.Web` | API REST `/api/v1` con **Minimal APIs** (`MapGroup` por módulo), JWT, OpenAPI | Application, Infrastructure, Contracts |
-| `src/Amsys.Web` | `Sdk.Web` (Blazor Server, `InteractiveServer`) | Páginas, componentes, cliente HTTP tipado a la API, assets por cliente | Contracts |
+| `src/Amsys.Web` | `Sdk.Web` (Blazor Server, `InteractiveServer` sin prerender) + MudBlazor | Páginas, componentes, cliente HTTP tipado a la API, sesión (cookie + tokens en servidor), assets por cliente | Contracts |
 | `src/Amsys.Worker` | `Sdk.Worker` | Correos, alertas. **No genera OT** (D-05) | Infrastructure |
 | `src/Amsys.Migrator` | console | Aplica migraciones a la BD de un cliente, explícitamente | Infrastructure |
 | `tools/Amsys.Importador` | console | Importación Excel / ETL desde BD legacy por cliente | Infrastructure |
 | `tests/Amsys.Domain.Tests` | xunit.v3 | Reglas de dominio (cálculo de posiciones, estados) | Domain |
 | `tests/Amsys.Application.Tests` | xunit.v3 + NSubstitute | Casos de uso | Application |
 | `tests/Amsys.Infrastructure.Tests` | xunit.v3 + Testcontainers | Persistencia contra Postgres real: aislamiento por empresa, auditoría, concurrencia | Infrastructure |
+| `tests/Amsys.Web.Tests` | xunit.v3 + Mvc.Testing | Web en memoria con API simulada: cookie, redirecciones, renovación de tokens | Web |
 | `tests/Amsys.Api.IntegrationTests` | xunit.v3 + Mvc.Testing + Testcontainers | API contra Postgres real | Api |
 
 ```
@@ -90,3 +91,18 @@ Dentro de Domain / Application / Infrastructure / Api / Web se usan las mismas c
 | Límite de intentos | Política `login`: `Seguridad:IntentosLoginPorMinuto` (10) por IP en login y refresco → 429 |
 | Configuración | `ConnectionStrings:Amsys`, `Jwt:{Emisor,Audiencia,Clave,...}`. `JwtOpciones` se valida al arrancar: sin clave la API no inicia |
 | Documentación | OpenAPI (`/openapi/v1.json`) con esquema Bearer + Scalar (`/scalar/v1`) sólo en Development |
+
+## Web (implementado)
+
+| Pieza | Dónde | Detalle |
+|-------|-------|---------|
+| Modo de render | `Components/App.razor` | `InteractiveServerRenderMode(prerender: false)` global |
+| Sesión | `Sesion/AlmacenSesiones.cs` | Tokens de la API en `IDistributedCache` por id de sesión; renovación 1 min antes de vencer con candado por sesión |
+| Cookie | `Program.cs` | `amsys.sesion`, HttpOnly, expira con el token de refresco; `OnValidatePrincipal` exige que la sesión exista |
+| Endpoints HTTP de cuenta | `Sesion/EndpointsCuenta.cs` | `completar-ingreso` (canjea código → cookie), `salir` (POST + antiforgery), `sesion-expirada`. `UrlLocal` evita open redirect |
+| Estado de autenticación | `Sesion/ProveedorEstadoAutenticacion.cs` | Revalida cada minuto |
+| Autorización | `Program.cs` + `Components/Pages/_Imports.razor` | Política por defecto = sesión y sin cambio de clave pendiente; `PoliticasWeb.SesionIniciada` para cuenta. **Páginas en `Components/Pages/` exigen la política por defecto; las de `Components/Cuenta/` declaran la suya** |
+| Cliente de la API | `Api/ClienteApi.cs` | Un método por endpoint; devuelve `ResultadoApi<T>`; 401 → `sesion-expirada` |
+| Validación de formularios | `Api/ValidacionFormulario.cs` | Validadores de `Contracts` campo a campo (MudTextField `Validation`) |
+| Menú | `Navegacion/MenuAmsys.cs` | Opciones con `Grupo`, `Modulo`, `Permiso`; `Visibles()` = punto de extensión |
+| Nueva página | `Components/Pages/<Modulo>/<Pagina>.razor` | Agregar la opción a `MenuAmsys.Opciones` y el método a `ClienteApi` |

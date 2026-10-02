@@ -5,7 +5,7 @@ producción hasta el corte de cada cliente.
 
 | Etapa | Contenido | Hito | Estado |
 |-------|-----------|------|--------|
-| **NP-0 Fundaciones** | Solución, CI, auth JWT, tenant + query filters, configuración multicliente (módulos, campos, etiquetas, branding), layout Blazor | Login + menú filtrado por permisos y módulos | 🟡 En curso (pasos 1–3 de 5 hechos) |
+| **NP-0 Fundaciones** | Solución, CI, auth JWT, tenant + query filters, configuración multicliente (módulos, campos, etiquetas, branding), layout Blazor | Login + menú filtrado por permisos y módulos | 🟡 En curso (pasos 1–4 de 5 hechos) |
 | **NP-1 Maestros** | Seguridad (usuarios, roles, permisos), catálogos de Administración | CRUD genérico reutilizable | ⚪ |
 | **NP-2 Activos** | Equipos, Ubicaciones, árbol jerárquico, contadores, puntos de medida, datos técnicos | Primer uso de campos personalizados | ⚪ |
 | **NP-3 Correctivo** | Avisos → OT, notificación, Kanban, costos | **MVP** → migrar ares, energiaycombustion, itc | ⚪ |

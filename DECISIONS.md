@@ -20,6 +20,9 @@
 | `D-NP-14` | 2026-10-02 | Límite de 10 intentos/min por IP en login y refresco | Fuerza bruta. Pendiente: bloqueo por usuario |
 | `D-NP-15` | 2026-10-02 | Errores de API como ProblemDetails con un `codigo` estable (`Auth.CredencialesInvalidas`, …) | El front y la app móvil deciden por código, no por texto |
 | `D-NP-16` | 2026-10-02 | **Temporal**: `seguridad/usuarios` sólo exige estar autenticado (lista usuarios de la propia empresa) | Los permisos por rol llegan en NP-1 |
+| `D-NP-17` | 2026-10-02 | Web: los tokens de la API **no** llegan al navegador; viven en el servidor web y la cookie sólo lleva un id de sesión | Un XSS no puede robar tokens; Blazor Server ya mantiene estado en servidor |
+| `D-NP-18` | 2026-10-02 | Web: `InteractiveServer` **sin prerender** | Evita doble ejecución de páginas y llamadas a la API, y redirecciones durante el prerender |
+| `D-NP-19` | 2026-10-02 | Usuario con cambio de clave pendiente sólo puede usar `auth/yo` y `auth/cambiar-clave` (API) y la página de cambio de clave (web) | Forzar el cambio de la clave inicial o restablecida |
 | `D-NP-07` | 2026-10-02 | .NET 10, `.slnx`, Central Package Management, xunit.v3 + Microsoft.Testing.Platform | Estándar actual; versiones centralizadas |
 
 ### Heredadas del legacy (vinculantes)
