@@ -15,6 +15,11 @@
 | `D-NP-09` | 2026-10-02 | Claves primarias `int` identity | Igual que el legacy: simplifica el ETL de migración de clientes |
 | `D-NP-10` | 2026-10-02 | Sin empresa actual, las consultas de entidades por empresa devuelven vacío (seguro por defecto). Procesos del sistema (semillas, ETL) escriben con `EmpresaId` explícito | Imposible filtrar datos por olvido |
 | `D-NP-11` | 2026-10-02 | Reloj = `TimeProvider` de .NET (no interfaz propia `IReloj`) | Estándar del framework, testeable |
+| `D-NP-12` | 2026-10-02 | Application usa EF Core a través de `IAmsysDbContext` (sin repositorios) y devuelve DTOs de `Contracts` | Menos capas y mapeos; los filtros globales siguen aplicando |
+| `D-NP-13` | 2026-10-02 | JWT de 15 min + token de refresco de 7 días, rotado en cada uso, guardado como hash, con detección de reuso | Sesiones largas sin tokens de acceso largos; un token robado se invalida al reutilizarse |
+| `D-NP-14` | 2026-10-02 | Límite de 10 intentos/min por IP en login y refresco | Fuerza bruta. Pendiente: bloqueo por usuario |
+| `D-NP-15` | 2026-10-02 | Errores de API como ProblemDetails con un `codigo` estable (`Auth.CredencialesInvalidas`, …) | El front y la app móvil deciden por código, no por texto |
+| `D-NP-16` | 2026-10-02 | **Temporal**: `seguridad/usuarios` sólo exige estar autenticado (lista usuarios de la propia empresa) | Los permisos por rol llegan en NP-1 |
 | `D-NP-07` | 2026-10-02 | .NET 10, `.slnx`, Central Package Management, xunit.v3 + Microsoft.Testing.Platform | Estándar actual; versiones centralizadas |
 
 ### Heredadas del legacy (vinculantes)

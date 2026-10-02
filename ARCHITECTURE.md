@@ -8,7 +8,7 @@ habla con la API por HTTP, una sola BD por despliegue y una sola cadena de migra
 | Proyecto | Tipo (SDK) | Rol | Referencia a |
 |----------|------------|-----|--------------|
 | `src/Amsys.Domain` | classlib | Entidades, enums, reglas puras. Sin EF ni ASP.NET | — |
-| `src/Amsys.Application` | classlib | Casos de uso por módulo; interfaces de infraestructura | Domain |
+| `src/Amsys.Application` | classlib | Casos de uso por módulo (`Servicio<Algo>`); interfaces de infraestructura; acceso a datos vía `IAmsysDbContext` (EF Core) | Domain, Contracts |
 | `src/Amsys.Contracts` | classlib | DTOs Request/Response + validadores FluentValidation (compartido API ↔ Blazor ↔ móvil) | — |
 | `src/Amsys.Infrastructure` | classlib | EF Core + Npgsql, migraciones, email, archivos, Excel, PDF | Application |
 | `src/Amsys.Api` | `Sdk.Web` | API REST `/api/v1` con **Minimal APIs** (`MapGroup` por módulo), JWT, OpenAPI | Application, Infrastructure, Contracts |
@@ -24,7 +24,7 @@ habla con la API por HTTP, una sola BD por despliegue y una sola cadena de migra
 ```
 Web ─────────► Contracts   (HTTP → Api)
 Api ─────────► Application, Infrastructure, Contracts
-Infrastructure ► Application ► Domain
+Infrastructure ► Application ► Domain, Contracts
 Worker, Migrator, Importador ► Infrastructure
 ```
 
@@ -74,3 +74,19 @@ Dentro de Domain / Application / Infrastructure / Api / Web se usan las mismas c
 | Enums | Guardados como texto | p. ej. `TipoPlan` |
 | Errores de negocio | `Result` / `Result<T>` con `Error(Codigo, Mensaje, TipoError)` | Las fábricas de dominio no lanzan excepciones por validación |
 | Configuración EF | `Persistence/Configuraciones/<Modulo>/<Entidad>Configuracion.cs` | `IEntityTypeConfiguration<T>`, descubiertas por ensamblado |
+
+## Autenticación y API (implementado)
+
+| Pieza | Detalle |
+|-------|---------|
+| Token de acceso | JWT HS256, 15 min (`Jwt:MinutosTokenAcceso`). Claims: `sub` (usuario), `empresa_id`, `unique_name`, `name`, `jti` (`ClaimsAmsys`) |
+| Token de refresco | Aleatorio de 64 bytes, 7 días (`Jwt:DiasTokenRefresco`). En BD sólo su SHA-256 (`seguridad.token_refresco`). Se rota en cada uso; reutilizar uno rotado revoca todas las sesiones del usuario |
+| Contraseñas | PBKDF2 vía `PasswordHasher` de ASP.NET Core Identity (`HasherClave`) |
+| Empresa actual | `ContextoUsuarioHttp` lee `empresa_id`/`sub` del JWT → `ITenantContext`/`IUsuarioActual`. Procesos sin usuario: `ContextoSistema` |
+| Login / refresco | Corren sin empresa: desactivan sólo `FiltrosConsulta.Empresa` y escriben con `EmpresaId` explícito |
+| Endpoints | `app.MapGroup("/api/v1").RequireAuthorization()`; cada módulo expone `Map<Modulo>(this RouteGroupBuilder)` en `Api/<Modulo>/Endpoints<Algo>.cs`; anónimos con `.AllowAnonymous()` |
+| Errores | `Result`/`Error` → `ProblemDetails` con extensión `codigo` (`Api/Comun/ResultadosHttp.cs`): Validacion 400, NoAutorizado 401, Prohibido 403, NoEncontrado 404, Conflicto 409 |
+| Validación | `.Validar<TRequest>()` ejecuta el validador FluentValidation de `Contracts` → 400 ValidationProblem |
+| Límite de intentos | Política `login`: `Seguridad:IntentosLoginPorMinuto` (10) por IP en login y refresco → 429 |
+| Configuración | `ConnectionStrings:Amsys`, `Jwt:{Emisor,Audiencia,Clave,...}`. `JwtOpciones` se valida al arrancar: sin clave la API no inicia |
+| Documentación | OpenAPI (`/openapi/v1.json`) con esquema Bearer + Scalar (`/scalar/v1`) sólo en Development |
