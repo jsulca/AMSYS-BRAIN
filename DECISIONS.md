@@ -11,6 +11,10 @@
 | `D-NP-03` | 2026-10-02 | **Minimal APIs** agrupadas por módulo con `MapGroup` | Decisión del propietario |
 | `D-NP-04` | 2026-10-02 | **Nueva versión de la app móvil** contra `/api/v1`; la API legacy sigue viva hasta el corte de cada cliente | Decisión del propietario |
 | `D-NP-06` | 2026-10-02 | API separada (`Amsys.Api`) como único backend para web y móvil | Una sola fuente de lógica y autorización |
+| `D-NP-08` | 2026-10-02 | `NombreUsuario` **único en toda la BD** (índice único parcial, los eliminados liberan el nombre) | El login ocurre antes de saber la empresa |
+| `D-NP-09` | 2026-10-02 | Claves primarias `int` identity | Igual que el legacy: simplifica el ETL de migración de clientes |
+| `D-NP-10` | 2026-10-02 | Sin empresa actual, las consultas de entidades por empresa devuelven vacío (seguro por defecto). Procesos del sistema (semillas, ETL) escriben con `EmpresaId` explícito | Imposible filtrar datos por olvido |
+| `D-NP-11` | 2026-10-02 | Reloj = `TimeProvider` de .NET (no interfaz propia `IReloj`) | Estándar del framework, testeable |
 | `D-NP-07` | 2026-10-02 | .NET 10, `.slnx`, Central Package Management, xunit.v3 + Microsoft.Testing.Platform | Estándar actual; versiones centralizadas |
 
 ### Heredadas del legacy (vinculantes)
@@ -30,5 +34,5 @@
 | `D-MC-02` | Campos personalizados en JSONB o columnas | JSONB |
 | `D-MC-03` | ¿Estados renombrados de caja_arequipa equivalen a los canónicos? | Confirmar con el cliente |
 | `D-MC-04` | Módulos de oterra (Área, Impacto, Conformidad, Turnos): ¿producto o exclusivos? | Producto |
-| `D-MC-05` | Soft delete para todos | Sí |
+| `D-MC-05` | Soft delete para todos | Sí — **ya implementado así en `Entidad`**; confirmar |
 | `D-MC-06` | Versión base de MTBF/MTTR/Disponibilidad | La de oterra, revisada con cada cliente |

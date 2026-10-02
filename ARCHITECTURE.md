@@ -18,6 +18,7 @@ habla con la API por HTTP, una sola BD por despliegue y una sola cadena de migra
 | `tools/Amsys.Importador` | console | Importación Excel / ETL desde BD legacy por cliente | Infrastructure |
 | `tests/Amsys.Domain.Tests` | xunit.v3 | Reglas de dominio (cálculo de posiciones, estados) | Domain |
 | `tests/Amsys.Application.Tests` | xunit.v3 + NSubstitute | Casos de uso | Application |
+| `tests/Amsys.Infrastructure.Tests` | xunit.v3 + Testcontainers | Persistencia contra Postgres real: aislamiento por empresa, auditoría, concurrencia | Infrastructure |
 | `tests/Amsys.Api.IntegrationTests` | xunit.v3 + Mvc.Testing + Testcontainers | API contra Postgres real | Api |
 
 ```
@@ -58,3 +59,18 @@ Dentro de Domain / Application / Infrastructure / Api / Web se usan las mismas c
 - ClosedXML (Excel) · QuestPDF (revisar licencia).
 - Tests: xunit.v3 sobre Microsoft.Testing.Platform → `dotnet test --solution Amsys.slnx`.
 - Namespaces `Amsys.*` (el legacy usa `AMSYS.*`).
+
+## Persistencia (implementado)
+
+| Convención | Dónde | Detalle |
+|------------|-------|---------|
+| Base de entidades | `Domain/Common/Entidad.cs` | `Id int`, auditoría (`CreadoEn/Por`, `ModificadoEn/Por`), eliminación lógica (`Eliminado`, `EliminadoEn/Por`), `Version` = columna de sistema `xmin` (concurrencia optimista) |
+| Pertenencia a empresa | `IEntidadEmpresa` | Toda entidad operativa la implementa. FK a `seguridad.empresa` e índice por `empresa_id` se crean solos |
+| Filtros globales con nombre | `AmsysDbContext` | `FiltrosConsulta.Empresa` (empresa actual; sin empresa → no devuelve nada) y `FiltrosConsulta.Eliminados`. Se desactivan por separado: `.IgnoreQueryFilters([FiltrosConsulta.Eliminados])` |
+| Interceptor | `AuditoriaInterceptor` | Asigna `EmpresaId` al insertar si viene en 0; lanza si se escribe sobre otra empresa o se cambia la empresa; completa auditoría; convierte `Remove` en eliminación lógica |
+| Nombres | `UseSnakeCaseNamingConvention()` | Tablas y columnas en snake_case, tablas en singular, **un esquema por módulo** (`Persistence/Esquemas.cs`) |
+| Historial de migraciones | `public.__ef_migraciones` | |
+| Fechas | `DateTime` UTC → `timestamp with time zone` | Reloj inyectado como `TimeProvider` |
+| Enums | Guardados como texto | p. ej. `TipoPlan` |
+| Errores de negocio | `Result` / `Result<T>` con `Error(Codigo, Mensaje, TipoError)` | Las fábricas de dominio no lanzan excepciones por validación |
+| Configuración EF | `Persistence/Configuraciones/<Modulo>/<Entidad>Configuracion.cs` | `IEntityTypeConfiguration<T>`, descubiertas por ensamblado |

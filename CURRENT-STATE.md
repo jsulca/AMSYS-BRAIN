@@ -16,24 +16,44 @@
 - [x] `dotnet build Amsys.slnx` → 0 errores, 3 warnings (código de ejemplo de plantillas).
 - [x] `dotnet test --solution Amsys.slnx` → 3/3 correctos (tests de ejemplo).
 
+- [x] Limpieza de plantillas, `.editorconfig`, commit inicial.
+- [x] **Dominio base** (`Amsys.Domain/Common`): `Entidad` (Id, auditoría, eliminación lógica, `Version`→`xmin`),
+      `IAuditable`, `IEliminable`, `IEntidadEmpresa`, `Result`/`Result<T>`, `Error`/`TipoError`.
+- [x] **Seguridad** (`Amsys.Domain/Seguridad`): `Empresa` (tenant, `Codigo` único para branding) y `Usuario`
+      (pertenece a empresa, `NombreUsuario` único global). Fábricas `Crear(...)` que devuelven `Result`.
+- [x] `Amsys.Application/Abstractions`: `ITenantContext`, `IUsuarioActual` (el reloj es `TimeProvider`).
+- [x] **Persistencia** (`Amsys.Infrastructure`): `AmsysDbContext` con filtros globales con nombre
+      (`FiltrosConsulta.Empresa`, `FiltrosConsulta.Eliminados`) aplicados por convención; `AuditoriaInterceptor`
+      (asigna empresa, bloquea escrituras cruzadas, auditoría, eliminación lógica); snake_case; un esquema
+      PostgreSQL por módulo; `AddInfrastructure(cadena)`; fábrica de diseño para `dotnet ef`.
+- [x] Migración `Inicial` generada (esquema `seguridad`: `empresa`, `usuario`). **No aplicada a ninguna BD.**
+- [x] `dotnet-ef` 10.0.12 como herramienta local (`dotnet-tools.json`).
+- [x] Tests: 16 de dominio + 11 de integración (`Amsys.Infrastructure.Tests`, Postgres real con Testcontainers).
+      Verificado que los tests de aislamiento **fallan** si se quita el filtro por empresa.
+- [x] Build Release 0 warnings · `dotnet test --solution Amsys.slnx` 27/27.
+
 ## Pendiente inmediato
 
-- [ ] Eliminar código de ejemplo de las plantillas: `Class1.cs` (libs), `UnitTest1.cs` (tests),
-      `WeatherForecast` en `Amsys.Api/Program.cs`, `Worker.cs` de ejemplo. Son los que generan los
-      3 warnings (CA1852, CA1848, CA1727) que **romperán el build en Release/CI**.
-- [ ] `.editorconfig` en la raíz.
-- [ ] Primer commit (el repo aún no tiene ninguno).
+- [ ] Quitar `--ignore-exit-code 8` de `Amsys.Application.Tests` y `Amsys.Api.IntegrationTests` cuando tengan tests.
 - [ ] Revisar carpeta `k8s/` (existe, vacía).
+- [ ] Confirmar con el propietario `D-MC-05` (eliminación lógica para todo; ya implementada así).
 
-## Siguiente paso (NP-0)
+## Siguiente paso (NP-0, paso 3: autenticación en la API)
 
-1. `Amsys.Domain/Common`: `EntidadBase`, `IEntidadEmpresa` (`EmpresaId`), eliminación lógica, `Result`.
-2. `Amsys.Application/Abstractions`: `ITenantContext`, `IUsuarioActual`, `IReloj`.
-3. `Amsys.Infrastructure/Persistence`: `AmsysDbContext` con query filters por `EmpresaId` y `Eliminado`,
-   Npgsql.
-4. `Amsys.Api`: JWT + refresh token, `/api/v1`, OpenAPI + Scalar.
-5. Test de integración "un tenant no ve datos de otro" (Testcontainers).
-6. CI en GitHub Actions (build + test).
+1. `Amsys.Api`: implementaciones de `ITenantContext`/`IUsuarioActual` leyendo claims del JWT; `AddInfrastructure`.
+2. Hash de contraseñas (`IHasherClave` en Application, implementación con `PasswordHasher<T>` de ASP.NET Core Identity).
+3. `POST /api/v1/auth/login` + refresh token (tabla `seguridad.refresh_token`) + `POST /api/v1/auth/refresh`.
+4. `MapGroup("/api/v1")` con `RequireAuthorization()` por defecto; ProblemDetails desde `Result`/`Error`.
+5. OpenAPI + Scalar en Development.
+6. Tests en `Amsys.Api.IntegrationTests` (WebApplicationFactory + Testcontainers): login válido/inválido, usuario inactivo, token de empresa A no accede a datos de B.
+7. Semilla de desarrollo (empresa + usuario admin) vía `Amsys.Migrator` o comando aparte.
+
+## Cómo trabajar
+
+- Compilar: `dotnet build Amsys.slnx` (Release = warnings como errores).
+- Tests: `dotnet test --solution Amsys.slnx` — **requiere Docker Desktop encendido** para `Amsys.Infrastructure.Tests`.
+- Nueva migración: `dotnet ef migrations add <Nombre> -p src/Amsys.Infrastructure -s src/Amsys.Infrastructure -o Persistence/Migrations`
+- Ver SQL: `dotnet ef migrations script -p src/Amsys.Infrastructure -s src/Amsys.Infrastructure`
 
 ## Bitácora
 
@@ -45,3 +65,5 @@
 | 2026-10-02 | Creados los 12 proyectos restantes; Blazor aplanado de `src/Amsys.Web/Amsys.Web*` a `src/`; tests migrados de xunit v2 a xunit.v3; runner MTP activado en `global.json` |
 | 2026-10-02 | Creada esta carpeta `ai/` |
 | 2026-10-02 | Decisiones D-NP-01 (Blazor **Server**), D-NP-02 (repo `amsys`), D-NP-03 (Minimal APIs), D-NP-04 (nueva app móvil). `Amsys.Web` regenerado como Blazor Server, `Amsys.Web.Client` eliminado, paquetes WebAssembly quitados de CPM. Build OK |
+| 2026-10-02 | Paso 1: limpieza de plantillas, `.editorconfig`, commit inicial |
+| 2026-10-02 | Paso 2: dominio base (Entidad, Result, Empresa, Usuario), `AmsysDbContext` con filtros por empresa y eliminados, `AuditoriaInterceptor`, migración `Inicial`, 27 tests verdes (incluye aislamiento entre empresas con Postgres real) |
