@@ -1,6 +1,6 @@
 # Estado actual
 
-**Etapa**: `NP-2 Activos` — en curso (2.1 organizaciones, ubicaciones y equipos ✅ · 2.2 clases de equipo ✅) · NP-0 y NP-1 completas (falta prueba manual en navegador) · NP-0 completa (falta prueba manual en navegador)
+**Etapa**: `NP-2 Activos` — en curso (2.1 ✅ · 2.2 ✅ · 2.3 contadores y puntos de medida ✅; falta el alcance por organización, pendiente de decisión) · NP-0 y NP-1 completas (falta prueba manual en navegador) · NP-0 completa (falta prueba manual en navegador)
 **Última actualización**: 2026-10-02
 
 ## Hecho
@@ -176,18 +176,23 @@
   falla), ficha de equipo con clase, tipo y pestaña de datos técnicos (confirma antes de cambiar de clase).
 - `Result<T>.Entonces(...)`. Migración `ClasesEquipo`. Tests: **179/179**.
 
+### 2.3 Contadores y puntos de medida ✅
+- `UnidadMedidaServicio` (Calendario con periodo / Contador / PuntoMedida): en uso no cambia de tipo ni periodo (AD-12).
+- `Contador` por equipo (uno activo por equipo y unidad, índice único parcial): alimentación acumulada (no baja) o
+  parcial (suma); lecturas no futuras ni anteriores a la última; promedio diario manual o calculado. `LecturaContador`
+  (historial con diferencia y origen).
+- `PuntoMedida` con límites de control (advertencia) y alarma (orden validado); `MedicionPuntoMedida` clasificada
+  Normal/Advertencia/Alarma; una medición atrasada queda en el historial sin cambiar el valor actual.
+- Concurrencia: dos lecturas simultáneas → `Medicion.Simultanea` (409) gracias al `xmin` del contador/punto.
+- Permiso nuevo `activos.lecturas.registrar` (técnicos registran sin editar el equipo).
+- API `/administracion/unidades-servicio`, `/activos/equipos/{id}/contadores|puntos-medida`, `/activos/contadores/{id}/lecturas`,
+  `/activos/puntos-medida/{id}/mediciones`. Web: Administración → Unidades de servicio; pestañas Contadores y Puntos
+  de medida en la ficha del equipo (registro, historial, nivel con color). Migración `ContadoresPuntosMedida`.
+- Tests: **198/198**.
+- **Pendiente para NP-3**: crear un aviso automático al medir en alarma (`Configuracion.CrearAvisoPorPuntoMedida`).
+  **Pendiente para NP-4**: la UMS también "en uso" por planes; proyección de contadores con el horario de operación.
+
 ### Pendiente de NP-2
-- **2.3** Unidad de medida de servicio (tipo, calendario) + contadores e historial + puntos de medida y alertas.
-  **Investigado en el legacy (sin código aún):**
-  - `UnidadMedidaServicio`: Tipo (`CALENDARIO`, `CONTADOR`, `PUNTO_MEDIDA`), TipoCalendario (`DIA`, `SEMANA`, `MES`,
-    `ANIO`) sólo para calendario, Abreviatura, Nombre, Activo. Decide cómo se programan los planes (AD-12).
-  - `Contador` (por equipo): UMS, Inicio, ValorInicial, ValorActual/Actualizacion, TiempoOperacion,
-    TipoAlimentacion (`ACUMULADO` / `PARCIAL`), PromedioPorDiaManual, Activo, Expuesto (app móvil).
-    `ContadorHistorial`: Muestra (fecha de la lectura), Valor, Diferencia, Origen (`OrigenNotificacion`).
-  - `PuntoMedida` (por equipo): UMS, Nombre, límites inferior/superior y de control, ValorActual, Activo, Expuesto.
-    `PuntoMedidaHistorial` y `AlertaPuntoMedida` (Nivel `BAJA`/`MEDIA`/`ALTA`) al salir de rango;
-    `Configuracion.CrearAvisoPorPuntoMedida` crea un aviso.
-  - Reglas a respetar: `BR-PM-008`, `BR-AS-005`, `BR-GE-003/004/006/010` en `BUSINESS-RULES.md` del legacy.
 - **Alcance por organización** (`UsuarioOrganizacion` del legacy): qué parte de la planta ve cada usuario. Filtro
   transversal: diseñar como el filtro de empresa (decisión pendiente `D-NP-32`).
 - Avisar al desactivar o desmontar un equipo con planes (cuando existan los planes, NP-4).
@@ -234,3 +239,4 @@
 | 2026-10-03 | NP-1.3 catálogos simples: 14 catálogos con un solo patrón (TPC, registro, servicio/endpoints/página genéricos), advertencia por código repetido (D-03). **NP-1 completa**. 144 tests verdes |
 | 2026-10-03 | NP-2.1 organizaciones, ubicaciones y equipos: árboles sin ciclos, montaje con historial, campos personalizados en jsonb (se conservan los de campos desactivados), listas paginadas con búsqueda, árbol de activos, permisos de activos. 167 tests verdes |
 | 2026-10-03 | NP-2.2 clases de equipo: agregado con tipos, datos técnicos y modos de falla; equipo clasificado con valores técnicos; corrige AD-03 (mover hijos ajenos) y el borrado silencioso al cambiar de clase. 179 tests verdes |
+| 2026-10-03 | NP-2.3 unidades de servicio, contadores (lecturas acumuladas/parciales, promedio diario) y puntos de medida (niveles de alarma), permiso para registrar lecturas, control de concurrencia. 198 tests verdes. NP-2 completa salvo el alcance por organización (D-NP-32) |

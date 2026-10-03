@@ -39,6 +39,9 @@
 | `D-NP-35` | 2026-10-03 | El árbol muestra inactivos (atenuados); los equipos sin montar no aparecen en el árbol (sí en la lista) | DE-02 del legacy |
 | `D-NP-36` | 2026-10-03 | Datos técnicos (por clase de equipo) y campos personalizados (por empresa y entidad) son mecanismos distintos y conviven | Los técnicos dependen de la clase del equipo; los personalizados, del cliente |
 | `D-NP-37` | 2026-10-03 | Un tipo de equipo en uso no se quita (se desactiva); un dato técnico con valores no se quita | No perder datos ni dejar equipos con referencias rotas |
+| `D-NP-38` | 2026-10-03 | Un solo contador **activo** por equipo y unidad de servicio | Los planes por contador no deben tener ambigüedad sobre qué contador leer |
+| `D-NP-39` | 2026-10-03 | Lecturas de contador: no futuras, no anteriores a la última; acumuladas no bajan. Mediciones atrasadas sí se aceptan (sólo historial) | Un contador alimenta la programación; un punto de medida sólo informa |
+| `D-NP-40` | 2026-10-03 | Registrar lecturas y mediciones es un permiso aparte de editar activos | Los técnicos registran en campo sin poder modificar equipos |
 | `D-NP-07` | 2026-10-02 | .NET 10, `.slnx`, Central Package Management, xunit.v3 + Microsoft.Testing.Platform | Estándar actual; versiones centralizadas |
 
 ### Heredadas del legacy (vinculantes)
