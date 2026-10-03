@@ -90,9 +90,9 @@ Para la **ola 1** sólo hace falta lo de valor alto:
 
 ## Mejora de la UI (para cuando se retome)
 
-- Skill **`frontend-design`** (plugin oficial `frontend-design`, disponible en el marketplace pero **no instalado**):
+- Skill **`frontend-design`** (plugin oficial `frontend-design@claude-plugins-official`, **instalado** el 2026-10-03, alcance usuario):
   dirección visual, tipografía, paleta y composición. Instalar con `/plugin` y pedirle una revisión de pantallas
-  concretas (inicio, ficha de OT, tablero Kanban, ficha del plan).
+  concretas (inicio, ficha de OT, tablero Kanban, ficha del plan). Disponible en sesiones nuevas de Claude Code.
 - Skill **`playwright-blazor`** (plugin `dotnet-skills`, **ya instalado**): pruebas de UI de Blazor Server con
   Playwright; sirve para la "prueba en navegador" automatizada y para capturar pantallas antes/después.
 - Sin skill: la paleta y la marca por cliente ya salen de la configuración (`ColorPrimario`, `ColorSecundario`,
