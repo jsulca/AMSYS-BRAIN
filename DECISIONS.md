@@ -81,6 +81,7 @@
 | `D-NP-75` | 2026-10-03 | Reportes: Excel con ClosedXML y PDF con QuestPDF (las librerías del legacy) detrás de `IExportadorExcel` / `IGeneradorPdfOrden`. El PDF elige plantilla por código de empresa con la general por defecto. Las exportaciones incluyen una columna por campo personalizado (MC-23) | Sin dependencia de la aplicación con las librerías; plantillas por cliente sin tocar el resto |
 | `D-NP-76` | 2026-10-03 | QuestPDF con licencia **Community**, igual que el legacy (gratuita para empresas con ingresos anuales menores a 1 M USD). **Confirmar** que aplica a Alphamanufacturas; si no, comprar licencia o cambiar de librería | Requisito legal de la librería |
 | `D-NP-77` | 2026-10-03 | Permisos de reportes dependientes de módulo: `mantenimiento.ordenes.imprimir` (REPORTE_PDF_OT) y `reportes.indicadores.ver` (INDICADORES_CONFIABILIDAD). El tablero de inicio sólo pide sesión y muestra cada bloque según el permiso de ver su área | Un cliente sin el módulo no ve la opción |
+| `D-MC-04` | 2026-10-03 | Los módulos propios de oterra (`AREAS_IMPACTO`: área, impacto en el proceso y avisos padre/hijos; `CONFORMIDAD_AVISO`; `TURNOS_PROGRAMACION`) son **exclusivos de oterra**: se implementan como módulos activables (el mecanismo ya existe) que sólo se activan para oterra, siguiendo su comportamiento sin generalizarlo para otros clientes. Se construyen en la **ola 4** (migración de oterra) | Decisión del usuario. Evita diseñar para clientes que no los usan; oterra es la última ola por ser la rama más atrasada |
 | `D-NP-07` | 2026-10-02 | .NET 10, `.slnx`, Central Package Management, xunit.v3 + Microsoft.Testing.Platform | Estándar actual; versiones centralizadas |
 
 ### Heredadas del legacy (vinculantes)
@@ -99,6 +100,5 @@
 | `D-MC-01` | ¿Instancia + BD por cliente o multi-tenant único? | Por cliente al inicio (mismo artefacto); multi-tenant después |
 | `D-MC-02` | Campos personalizados en JSONB o columnas | JSONB — **validador ya implementado sobre este supuesto**; confirmar |
 | `D-MC-03` | ¿Estados renombrados de caja_arequipa equivalen a los canónicos? | Confirmar con el cliente |
-| `D-MC-04` | Módulos de oterra (Área, Impacto, Conformidad, Turnos): ¿producto o exclusivos? | Producto |
 | `D-MC-05` | Soft delete para todos | Sí — **ya implementado así en `Entidad`**; confirmar |
 | `D-MC-06` | Versión base de MTBF/MTTR/Disponibilidad | La de oterra, revisada con cada cliente |

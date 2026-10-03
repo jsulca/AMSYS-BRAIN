@@ -1,6 +1,6 @@
 # Estado actual
 
-**Etapa**: `NP-6 Reportes` — 6.1–6.4 ✅ (tablero de inicio, Excel, PDF de OT, indicadores de confiabilidad); falta 6.5 módulos propios de clientes (requiere D-MC-04) · NP-0 a NP-5 completas
+**Etapa**: `NP-6 Reportes` — ✅ para el producto (6.1–6.4); 6.5 (módulos exclusivos de oterra, D-MC-04) se hace en la ola 4 · NP-0 a NP-6 completas · siguiente recomendado: importador de la ola 1
 **Última actualización**: 2026-10-02
 
 ## Hecho
@@ -374,8 +374,9 @@ DL-01…05 del propietario).
 ## NP-6 Reportes y módulos
 
 Plan: **6.1** tablero de inicio ✅ · **6.2** Excel ✅ · **6.3** PDF de OT ✅ · **6.4** indicadores de confiabilidad ✅ ·
-**6.5** módulos propios de clientes (oterra: áreas/impacto, conformidad, turnos; solicitudes; feriados…) — pendiente de
-`D-MC-04` y de revisar cada rama.
+**6.5** módulos exclusivos de oterra (`AREAS_IMPACTO`, `CONFORMIDAD_AVISO`, `TURNOS_PROGRAMACION`) — **D-MC-04 decidida:
+exclusivos de oterra**, se construyen en la ola 4 con su migración. Otros módulos de cliente (`SOLICITUDES` de
+eulen/caja_arequipa, `FERIADOS` y calificación de OT de caja_arequipa) se hacen con la ola de su cliente.
 
 - **Tablero de inicio** (`GET /reportes/tablero`): avisos abiertos y por mes (fallas/solicitudes), fallas del mes,
   órdenes abiertas/atrasadas/cerradas en el mes y por tipo de mantenimiento, preventivo por generar, materiales por
@@ -446,3 +447,4 @@ Plan: **6.1** tablero de inicio ✅ · **6.2** Excel ✅ · **6.3** PDF de OT �
 | 2026-10-03 | D-NP-60…67 aceptadas. NP-4.3 asignaciones (calendario/contador, fija/flotante, reinicio explícito, desbloqueo manual) y NP-4.4 generación a demanda (previsualización con motivos, una posición por vez, OT con tareas agrupadas, liberación por la OT concreta). **NP-4 completa**. 284 tests verdes |
 | 2026-10-03 | NP-5 Logística: almacenes, existencias con reposición, notas de entrada (lotes) y salida (FIFO con valor exacto), traslado como documento único, anulaciones coherentes, kardex, bloqueo de inventario por empresa, costo de almacén en la OT (DL-01/02/04/05). **NP-5 completa**. 301 tests verdes |
 | 2026-10-03 | NP-6.1–6.4: tablero de inicio, exportación a Excel con campos personalizados, PDF de OT con plantilla por cliente, indicadores de confiabilidad (fórmulas de oterra corregidas, tiempo de operación por horario del equipo). ClosedXML y QuestPDF. 309 tests verdes |
+| 2026-10-03 | D-MC-04 decidida: los módulos de oterra son exclusivos de oterra; se construyen en la ola 4. NP-6 cerrada para el producto |
