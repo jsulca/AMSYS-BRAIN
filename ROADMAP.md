@@ -10,7 +10,7 @@ producción hasta el corte de cada cliente.
 | **NP-2 Activos** | Equipos, Ubicaciones, árbol jerárquico, contadores, puntos de medida, datos técnicos | Primer uso de campos personalizados | ✅ Completa |
 | **NP-3 Correctivo** | Avisos → OT, notificación, Kanban, costos | **MVP** → migrar ares, energiaycombustion, itc | ✅ Completa (falta prueba en navegador) |
 | **NP-4 Preventivo** | Hoja de ruta, secciones, planes, previsualización y generación a demanda | Portar cálculo de posiciones **con tests primero** | ✅ Completa (falta prueba en navegador) |
-| **NP-5 Logística** | Almacenes, notas, kardex, hojas de aceptación | | ⚪ |
+| **NP-5 Logística** | Almacenes, notas, kardex, hojas de aceptación | | ✅ Completa (falta prueba en navegador; hoja de aceptación pendiente) |
 | **NP-6 Reportes y módulos** | Indicadores, PDF de OT, exportaciones, módulos de cliente | Migrar el resto de clientes | ⚪ |
 
 ## Orden de migración de clientes

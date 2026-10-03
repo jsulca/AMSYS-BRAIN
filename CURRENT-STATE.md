@@ -1,6 +1,6 @@
 # Estado actual
 
-**Etapa**: `NP-4 Preventivo` — ✅ completa (hojas de ruta, secciones, planes, asignaciones y generación a demanda) · NP-0 a NP-4 completas · siguiente: prueba en navegador, importador de la ola 1 o NP-5 Logística
+**Etapa**: `NP-5 Logística` — ✅ completa (almacenes, existencias, notas de entrada y salida FIFO, traslados, anulaciones, kardex, costo en la OT) · NP-0 a NP-5 completas · siguiente: prueba en navegador, importador de la ola 1 o NP-6 Reportes
 **Última actualización**: 2026-10-02
 
 ## Hecho
@@ -114,6 +114,7 @@
       fixtures reintentan 3 veces e imprimen los logs del contenedor ("PostgreSQL no arrancó"). No se ha podido
       reproducir a voluntad. **Si vuelve a pasar: guardar la salida completa** (`dotnet test --solution Amsys.slnx > tests.log 2>&1`)
       y buscar "no arrancó" / "Exception". Repetir la ejecución pasa siempre.
+- [ ] Probar en navegador logística: compra → existencias → salida a una OT (ver el costo en la OT) → traslado → anular.
 - [ ] Probar en navegador el preventivo: sección → plan (matriz) → asignar equipos → Generar órdenes → cerrar la OT
       flotante y ver que se libera.
 - [ ] Probar en navegador avisos y órdenes (aviso → aprobar → generar OT → tareas → ejecución → cierre técnico).
@@ -344,6 +345,30 @@ propietario D-02/D-03/D-05). Plan: **4.1** hojas de ruta y secciones ✅ · **4.
   logística, NP-5), servicios de sección, excel de previsualización/planificación anual (NP-6), ajuste del contador
   del plan con el valor real al cerrar la OT (BR-GE-010 del legacy), aviso cuando un equipo con planes se desmonta.
 
+## NP-5 Logística ✅
+
+Fuente: entidades y lógicas `AMSYS.Logicas/Logistica` del legacy y su `ai/PLAN-UX-LOGISTICA.md` (LG-01…17, decisiones
+DL-01…05 del propietario).
+- Dominio `Logistica/`: `Almacen` (no se desactiva con existencias), `Existencia` (cantidad, valor, costo promedio,
+  punto de reposición), `Movimiento` (kardex: inicial, entrada, salida, final en cantidad y valor), `NotaEntrada`
+  (Compra/Ajuste del usuario; Traslado/AnulacionSalida del sistema; líneas = lotes con disponible y valor disponible),
+  `NotaSalida` (SalidaAlmacen con OT opcional, Ajuste, Traslado con destino; AnulacionEntrada del sistema; costo FIFO
+  por línea), `OperacionesInventario` (anular entrada/salida, entrada de traslado, anular traslado). D-NP-68…72.
+- Tests de dominio: FIFO, conservación exacta del valor al consumir por partes, kardex, tipos elegibles, anulaciones,
+  traslados.
+- Aplicación: `ServicioAlmacenes`, `ServicioExistencias`, `ServicioNotasInventario` (transacción + bloqueo + correlativo;
+  re-validación de existencias con el bloqueo y mensaje con material y almacén, LG-05), `ServicioKardex`.
+- OT: el costo total suma las salidas de almacén no anuladas (DL-01); la notificación muestra la lista y ofrece
+  "Salida de almacén para esta orden"; sólo contra OT emitidas o en cierre técnico (DL-05).
+- API `/logistica/almacenes|existencias|notas-entrada|notas-salida|kardex`. Web: Logística → Existencias (filtros,
+  punto de reposición editable, valor total), Notas de entrada/salida (lista y ficha con alta, relacionadas y anular con
+  explicación), Kardex (por almacén y material), Almacenes.
+- Migración `Logistica` (aplicada en desarrollo). Tests: **301/301** (incluye 4 salidas simultáneas sobre stock 10: sólo
+  pasan 2).
+- **Pendiente**: hoja de aceptación de servicios (requiere maestro de servicios), reservas de materiales previstos por
+  los planes, exportación del kardex a Excel (NP-6), filtros por fecha en la web, importación de stock inicial del legacy
+  (convertir `NotaEntradaMaterial.Disponible` a lotes con valor disponible).
+
 ## Entorno de desarrollo
 
 - PostgreSQL local en Docker (contenedor `amsys-postgres-dev`, volumen `amsys-postgres-dev`, puerto 5432,
@@ -394,3 +419,4 @@ propietario D-02/D-03/D-05). Plan: **4.1** hojas de ruta y secciones ✅ · **4.
 | 2026-10-03 | NP-3.4 tablero Kanban de OT (columnas por estado, cursor, destinos por permisos, arrastrar para cambiar de estado). **NP-3 completa**. 251 tests verdes |
 | 2026-10-03 | NP-4.1 hojas de ruta y secciones; NP-4.2 planes con cálculo de posiciones portado con tests primero (equivalencia con el legacy en 500 casos aleatorios), vista previa de la matriz en el servidor, módulo PLANIFICACION. Decisiones D-NP-55…59 tomadas y D-NP-60…67 propuestas para 4.3/4.4. 271 tests verdes |
 | 2026-10-03 | D-NP-60…67 aceptadas. NP-4.3 asignaciones (calendario/contador, fija/flotante, reinicio explícito, desbloqueo manual) y NP-4.4 generación a demanda (previsualización con motivos, una posición por vez, OT con tareas agrupadas, liberación por la OT concreta). **NP-4 completa**. 284 tests verdes |
+| 2026-10-03 | NP-5 Logística: almacenes, existencias con reposición, notas de entrada (lotes) y salida (FIFO con valor exacto), traslado como documento único, anulaciones coherentes, kardex, bloqueo de inventario por empresa, costo de almacén en la OT (DL-01/02/04/05). **NP-5 completa**. 301 tests verdes |
