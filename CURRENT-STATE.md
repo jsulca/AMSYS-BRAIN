@@ -178,6 +178,16 @@
 
 ### Pendiente de NP-2
 - **2.3** Unidad de medida de servicio (tipo, calendario) + contadores e historial + puntos de medida y alertas.
+  **Investigado en el legacy (sin código aún):**
+  - `UnidadMedidaServicio`: Tipo (`CALENDARIO`, `CONTADOR`, `PUNTO_MEDIDA`), TipoCalendario (`DIA`, `SEMANA`, `MES`,
+    `ANIO`) sólo para calendario, Abreviatura, Nombre, Activo. Decide cómo se programan los planes (AD-12).
+  - `Contador` (por equipo): UMS, Inicio, ValorInicial, ValorActual/Actualizacion, TiempoOperacion,
+    TipoAlimentacion (`ACUMULADO` / `PARCIAL`), PromedioPorDiaManual, Activo, Expuesto (app móvil).
+    `ContadorHistorial`: Muestra (fecha de la lectura), Valor, Diferencia, Origen (`OrigenNotificacion`).
+  - `PuntoMedida` (por equipo): UMS, Nombre, límites inferior/superior y de control, ValorActual, Activo, Expuesto.
+    `PuntoMedidaHistorial` y `AlertaPuntoMedida` (Nivel `BAJA`/`MEDIA`/`ALTA`) al salir de rango;
+    `Configuracion.CrearAvisoPorPuntoMedida` crea un aviso.
+  - Reglas a respetar: `BR-PM-008`, `BR-AS-005`, `BR-GE-003/004/006/010` en `BUSINESS-RULES.md` del legacy.
 - **Alcance por organización** (`UsuarioOrganizacion` del legacy): qué parte de la planta ve cada usuario. Filtro
   transversal: diseñar como el filtro de empresa (decisión pendiente `D-NP-32`).
 - Avisar al desactivar o desmontar un equipo con planes (cuando existan los planes, NP-4).
