@@ -57,6 +57,7 @@
 | `D-NP-51` | 2026-10-03 | La mano de obra guarda el **costo por hora vigente al registrarla**; editar la línea lo conserva (salvo que cambie el empleado) | El legacy multiplicaba por el costo actual del empleado: un aumento cambiaba el costo de OT pasadas |
 | `D-NP-52` | 2026-10-03 | Se notifica con la OT emitida o en cierre técnico; el **cierre total congela** notificación y costos. Permiso propio `mantenimiento.ordenes.notificar` | Separa "trabajo terminado" (cierre técnico) de "costos cerrados" (cierre total), como el flujo del legacy |
 | `D-NP-53` | 2026-10-03 | Empleados, socios de negocio y materiales son maestros de Administración (permiso de catálogos para editar; listas con sólo sesión, como D-NP-41). Material guarda un precio de referencia; Logística (NP-5) le agregará stock | Necesarios para notificar sin esperar a NP-5 |
+| `D-NP-54` | 2026-10-03 | Tablero Kanban de OT: una columna por estado, más recientes primero, paginación por **cursor** (registro + Id) y total por columna; mover una tarjeta usa el mismo `POST /{id}/estado` (mismas validaciones, permisos y efecto sobre el aviso). El servidor informa por columna a qué estados puede mover el usuario | Como el Kanban del legacy; el cursor no repite ni salta tarjetas si entran órdenes nuevas mientras se navega |
 | `D-NP-07` | 2026-10-02 | .NET 10, `.slnx`, Central Package Management, xunit.v3 + Microsoft.Testing.Platform | Estándar actual; versiones centralizadas |
 
 ### Heredadas del legacy (vinculantes)

@@ -1,6 +1,6 @@
 # Estado actual
 
-**Etapa**: `NP-3 Correctivo` — en curso (3.1 avisos ✅ · 3.2 OT ✅ · 3.3 notificación y costos ✅; sigue 3.4 Kanban) · NP-0, NP-1 y NP-2 completas (falta prueba manual en navegador)
+**Etapa**: `NP-3 Correctivo` — ✅ completa (avisos, OT, notificación y costos, tablero) · siguiente: prueba en navegador e importador de clientes de la ola 1, o NP-4 Preventivo · NP-0, NP-1 y NP-2 completas
 **Última actualización**: 2026-10-02
 
 ## Hecho
@@ -277,6 +277,18 @@ OT · 3.5 Costos de OT.
   (`ProgramacionEmpleado`), turnos, comentarios y adjuntos de OT, selector de materiales con búsqueda en servidor
   (hoy carga hasta 500).
 
+### 3.4 Tablero de órdenes ✅
+- `ServicioTableroOrdenes`: `GET /mantenimiento/ordenes/tablero` (4 columnas con total, primera página, cursor y
+  destinos permitidos para el usuario) y `GET .../tablero/columna?estado&cursor` ("ver más"). Filtros: búsqueda,
+  organización, tipo de mantenimiento, prioridad. Tarjeta: código, descripción, objeto técnico, aviso, prioridad,
+  tipo, programación, avance de tareas, en ejecución, atrasada (D-NP-54).
+- Web: Mantenimiento → Tablero de órdenes (`MudDropContainer`): arrastrar entre columnas, sólo hacia destinos válidos,
+  con el diálogo de confirmación/motivo y las advertencias del cambio de estado.
+- Sin migración. Tests: **251/251**.
+
+**NP-3 completa.** Pendientes acumulados de NP-3 (ver cada sección): adjuntos y comentarios, PDF de OT, exportar a
+Excel, aviso automático por alarma, lecturas vinculadas a la OT, programación de personal.
+
 ## Entorno de desarrollo
 
 - PostgreSQL local en Docker (contenedor `amsys-postgres-dev`, volumen `amsys-postgres-dev`, puerto 5432,
@@ -324,3 +336,4 @@ OT · 3.5 Costos de OT.
 | 2026-10-03 | NP-3.1 avisos: dominio con máquina de estados e historial, correlativo sin carreras, falla/parada/análisis, campos personalizados, alcance por organización, permisos ver/crear/gestionar, API y web (lista, ficha, cambio de estado, crear desde equipo o punto en alarma). Lectura de catálogos con sólo sesión (D-NP-41). Fixture de Postgres: el reintento ya no se rompe si el contenedor no llegó a crearse. 226 tests verdes |
 | 2026-10-03 | D-NP-23 decidido (sin PROGRAMADO ni PARADA). NP-3.2 órdenes de trabajo: dominio con tareas e historial, estados con permisos ver/editar/cerrar, aviso atendido/finalizado/reabierto en la misma transacción (varias OT por aviso), API y web (lista, ficha con tareas, generar desde aviso). 240 tests verdes |
 | 2026-10-03 | NP-3.3 notificación: maestros de empleados, socios de negocio y materiales; mano de obra (costo/hora congelado), materiales y servicios (del maestro o externos) con costos por OT; cierre total congela. Web: páginas de maestros y notificación en la ficha de la OT. 248 tests verdes |
+| 2026-10-03 | NP-3.4 tablero Kanban de OT (columnas por estado, cursor, destinos por permisos, arrastrar para cambiar de estado). **NP-3 completa**. 251 tests verdes |
