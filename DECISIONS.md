@@ -23,6 +23,9 @@
 | `D-NP-17` | 2026-10-02 | Web: los tokens de la API **no** llegan al navegador; viven en el servidor web y la cookie sólo lleva un id de sesión | Un XSS no puede robar tokens; Blazor Server ya mantiene estado en servidor |
 | `D-NP-18` | 2026-10-02 | Web: `InteractiveServer` **sin prerender** | Evita doble ejecución de páginas y llamadas a la API, y redirecciones durante el prerender |
 | `D-NP-19` | 2026-10-02 | Usuario con cambio de clave pendiente sólo puede usar `auth/yo` y `auth/cambiar-clave` (API) y la página de cambio de clave (web) | Forzar el cambio de la clave inicial o restablecida |
+| `D-NP-20` | 2026-10-03 | La configuración de cada cliente es un **archivo versionado** (`tools/clientes/<codigo>/configuracion.json`) aplicado con el Migrator; la pantalla de administración llega con los permisos (NP-1) | Reproducible, revisable en git, sirve para migrar cada cliente del legacy |
+| `D-NP-21` | 2026-10-03 | Módulos definidos en código; el núcleo (Seguridad, Administración, Activos, Mantenimiento correctivo) siempre activo | Un módulo es funcionalidad programada; activar es configuración |
+| `D-NP-22` | 2026-10-03 | Estados canónicos tomados del legacy `main`: Aviso (Emitido, Aprobado, Atendido, Finalizado, Rechazado), OT (Emitido, CierreTecnico, CierreTotal, Anulado), TipoAviso (SolicitudTrabajo, Falla) | Un solo modelo; cada cliente cambia nombres y colores con etiquetas |
 | `D-NP-07` | 2026-10-02 | .NET 10, `.slnx`, Central Package Management, xunit.v3 + Microsoft.Testing.Platform | Estándar actual; versiones centralizadas |
 
 ### Heredadas del legacy (vinculantes)
@@ -39,7 +42,8 @@
 |----|----------|---------------|
 | `D-NP-05` | ¿Qué se sigue haciendo en el legacy? | Sólo hotfix y seguridad crítica |
 | `D-MC-01` | ¿Instancia + BD por cliente o multi-tenant único? | Por cliente al inicio (mismo artefacto); multi-tenant después |
-| `D-MC-02` | Campos personalizados en JSONB o columnas | JSONB |
+| `D-MC-02` | Campos personalizados en JSONB o columnas | JSONB — **validador ya implementado sobre este supuesto**; confirmar |
+| `D-NP-23` | ¿Se reincorporan `PROGRAMADO` (estado de OT) y `PARADA` (tipo de aviso)? Están comentados en el legacy | Decidir antes de NP-3 |
 | `D-MC-03` | ¿Estados renombrados de caja_arequipa equivalen a los canónicos? | Confirmar con el cliente |
 | `D-MC-04` | Módulos de oterra (Área, Impacto, Conformidad, Turnos): ¿producto o exclusivos? | Producto |
 | `D-MC-05` | Soft delete para todos | Sí — **ya implementado así en `Entidad`**; confirmar |

@@ -106,3 +106,19 @@ Dentro de Domain / Application / Infrastructure / Api / Web se usan las mismas c
 | Validación de formularios | `Api/ValidacionFormulario.cs` | Validadores de `Contracts` campo a campo (MudTextField `Validation`) |
 | Menú | `Navegacion/MenuAmsys.cs` | Opciones con `Grupo`, `Modulo`, `Permiso`; `Visibles()` = punto de extensión |
 | Nueva página | `Components/Pages/<Modulo>/<Pagina>.razor` | Agregar la opción a `MenuAmsys.Opciones` y el método a `ClienteApi` |
+
+## Configuración multicliente (implementado)
+
+| Pieza | Dónde | Detalle |
+|-------|-------|---------|
+| Catálogo de módulos | `Domain/Configuracion/Modulos.cs` | En código (cada módulo es funcionalidad programada). Activación por empresa: `configuracion.empresa_modulo` |
+| Campos personalizados | `Domain/Configuracion/CampoPersonalizado.cs` | Definición por empresa y entidad. Clave y tipo inmutables; retirar = desactivar (los datos quedan) |
+| Valores de campos | `ValidadorCamposPersonalizados` | Recibe `Dictionary<string, JsonElement>`, valida contra los campos activos y normaliza (string, decimal, bool, fecha `yyyy-MM-dd`). Se guardarán en `datos_adicionales jsonb` de cada entidad (NP-2/NP-3) |
+| Estados canónicos | `Domain/Mantenimiento/Estados.cs` | Un único enum por catálogo para todos los clientes |
+| Etiquetas | `EtiquetaEstado` + `CatalogosEstado.EtiquetasPorDefecto` | Nombre, color y habilitado por empresa; sin etiqueta → nombre por defecto |
+| Marca | `Empresa.NombreComercial/ColorPrimario/ColorSecundario` + `wwwroot/clientes/<codigo>/logo.(svg\|png)` | Respaldo: tema y logo de AMSYS |
+| Fuente de verdad | `tools/clientes/<codigo>/configuracion.json` | Aplicada con `Migrator --configurar`; idempotente y transaccional. Ver `tools/clientes/README.md` |
+| Lectura | `GET /api/v1/configuracion` (política `sesion-iniciada`) | Catálogo de módulos con `activo`, todas las etiquetas resueltas, campos activos, marca |
+| Web | `Configuracion/ConfiguracionCliente.cs` | Una carga por circuito; `MainLayout` la pasa en cascada (`[CascadingParameter] ConfiguracionResponse?`) |
+| Componentes | `Components/Shared/EstadoChip.razor`, `CamposPersonalizados.razor` | Usar en todas las pantallas de Aviso/OT/Equipo/Ubicación |
+| Tests | `AssemblyFixture` | Un contenedor Postgres por proyecto de tests; los tests usan códigos únicos |

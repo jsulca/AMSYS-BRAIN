@@ -1,6 +1,6 @@
 # Estado actual
 
-**Etapa**: `NP-0 Fundaciones` — en curso
+**Etapa**: `NP-0 Fundaciones` — **completa** (falta la prueba manual en navegador) · siguiente: `NP-1 Maestros`
 **Última actualización**: 2026-10-02
 
 ## Hecho
@@ -84,29 +84,51 @@
 - [ ] **Sin probar en navegador**: la parte visual (MudBlazor, menú, formularios) no se verificó con un
       navegador en esta sesión. Prueba manual pendiente del propietario.
 
+- [x] **Configuración multicliente (paso 5)**:
+      - Domain/Configuracion: catálogo de módulos en código (`Modulos`, 11 activables; el núcleo no se
+        desactiva) + `EmpresaModulo`; `CampoPersonalizado` (Equipo, Ubicacion, OrdenTrabajo, Aviso; tipos Texto,
+        TextoLargo, Numero, Fecha, SiNo, Lista; clave y tipo inmutables) + `ValidadorCamposPersonalizados`
+        (valida y normaliza el JSON que llegará a `datos_adicionales`); `EtiquetaEstado` + `CatalogosEstado`
+        (nombres por defecto en el dominio). Marca en `Empresa` (nombre comercial, colores).
+      - Domain/Mantenimiento: enums canónicos `EstadoAviso`, `EstadoOrdenTrabajo`, `TipoAviso` (del legacy main).
+      - Application: `ServicioConfiguracion` (configuración de la empresa actual: catálogo completo de módulos
+        con activo/inactivo, todas las etiquetas resueltas, campos activos) y `ServicioConfiguracionEmpresa`
+        (aplica un archivo de cliente; idempotente; **todo o nada** con transacción).
+      - Migración `ConfiguracionMulticliente` (esquema `configuracion`). `GET /api/v1/configuracion`.
+      - `Migrator --configurar <archivo>`; `tools/clientes/{README.md, _plantilla, demo}`.
+      - Web: `ConfiguracionCliente` (una carga por circuito, en cascada desde `MainLayout`), tema y logo por
+        cliente (`TemaAmsys.Crear`, `RecursosMarca` con respaldo), menú filtrado por módulo, `EstadoChip`,
+        editor `CamposPersonalizados`, página Administración → Configuración (con vista previa de campos).
+- [x] Tests: **106/106**. Un solo contenedor de PostgreSQL por proyecto de tests (`AssemblyFixture`):
+      evita fallos intermitentes de Docker y baja el tiempo de ~30 s a ~12 s.
+- [x] Probado contra la BD local: `--configurar` de demo (2ª vez "sin cambios"), archivo inválido rechazado
+      sin cambios, `GET /configuracion` con la API real.
+- [ ] **Sin probar en navegador**: pasos 4 y 5 (login, cambio de clave, menú, tema/logo, página de configuración).
+
 ## Pendiente inmediato
 
-- [ ] Prueba manual en navegador del flujo completo (ver *Entorno de desarrollo*).
+- [ ] Prueba manual en navegador (ver *Entorno de desarrollo*). La BD local ya tiene aplicada la configuración `demo`.
+- [ ] Decidir `D-NP-23` (estados `PROGRAMADO` / tipo `PARADA`) antes de NP-3.
 - [ ] Quitar `--ignore-exit-code 8` de `Amsys.Application.Tests` cuando tenga tests.
-- [ ] **Permisos por rol** en `seguridad/usuarios`: hoy basta con estar autenticado (temporal, ver `D-NP-16`).
+- [ ] **Permisos por rol** en `seguridad/usuarios` y en la página de configuración (temporal, ver `D-NP-16`).
 - [ ] Bloqueo de usuario tras N intentos fallidos (el legacy tiene `ControlIntentos`); hoy sólo hay límite por IP.
 - [ ] Migración de usuarios del legacy: revisar cómo guarda claves `AMSYS.Utilitarios/Criptografia`.
-- [ ] Producción con varias réplicas de la web: caché distribuido (Redis) para `AlmacenSesiones`, claves de
-      Data Protection persistidas y compartidas, afinidad de sesión (Blazor Server).
-- [ ] Zona horaria: las fechas se muestran con la hora del servidor (`ToLocalTime`); definir zona por empresa.
-- [ ] `Amsys.Migrator` imprime todo el SQL de EF: bajar el log de EF a Warning.
-- [ ] Confirmar `D-MC-05` (eliminación lógica para todo; ya implementada así).
+- [ ] Producción con varias réplicas de la web: Redis para `AlmacenSesiones`, claves de Data Protection
+      compartidas, afinidad de sesión (Blazor Server).
+- [ ] Zona horaria por empresa (hoy se usa la del servidor).
+- [ ] Confirmar `D-MC-02` (JSONB para campos personalizados; validador ya implementado) y `D-MC-05`.
 - [ ] Revisar carpeta `k8s/` (existe, vacía).
 
-## Siguiente paso (NP-0, paso 5: configuración multicliente)
+## Siguiente paso: NP-1 Maestros
 
-1. Domain/Configuracion: `EmpresaModulo` (módulos activables), `CampoPersonalizado` + `datos_adicionales jsonb`
-   (Equipo, Ubicacion, OrdenTrabajo, Aviso — se crean en sus etapas; aquí la infraestructura),
-   `EtiquetaEstado`, branding (`Codigo` ya existe; color primario, nombre comercial, logo).
-2. API: `GET /api/v1/configuracion` (módulos activos, etiquetas, branding de la empresa actual).
-3. Web: cargar la configuración al iniciar el circuito; `MenuAmsys.Visibles()` filtra por módulo;
-   tema y logo por cliente (`wwwroot/clientes/<codigo>/` con fallback).
-4. Administración básica de módulos por empresa (superadministrador).
+1. **Roles y permisos** (Seguridad): `Rol`, `Permiso` (catálogo en código, por módulo/acción), `RolPermiso`,
+   rol del usuario; claim/consulta de permisos; políticas por permiso en API (`RequireAuthorization("permiso")`)
+   y en web (`OpcionMenu.Permiso`, `[Authorize(Policy)]`). Rol administrador por defecto por empresa.
+2. Gestión de usuarios: crear, editar, activar/desactivar, restablecer clave (vuelve a `DebeCambiarClave`).
+3. Bloqueo por usuario tras N intentos fallidos.
+4. **CRUD genérico** de catálogos de Administración (Prioridad, Especialidad, TipoMantenimiento,
+   TallerResponsable, CentroCosto, …): un patrón reutilizable en Domain/Application/API/Web, código no único
+   con alerta (`D-03`). Revisar `PLAN-UX-ADMINISTRACION.md` del legacy para la lista y reglas.
 
 ## Entorno de desarrollo
 
@@ -119,6 +141,7 @@
 - Web: `dotnet run --project src/Amsys.Web --launch-profile http` → `http://localhost:5296` (necesita la API corriendo;
   `Api:UrlBase` en `src/Amsys.Web/appsettings.Development.json`)
 - Usuario de desarrollo: `admin` (empresa `demo`); la clave es la pasada en `Semilla:ClaveAdmin`.
+- Configuración de desarrollo: `dotnet run --project src/Amsys.Migrator -- --configurar tools/clientes/demo/configuracion.json "--ConnectionStrings:Amsys=..."`
 - En otros entornos `Jwt:Clave` y la cadena van por variables de entorno (`Jwt__Clave`, `ConnectionStrings__Amsys`).
 
 ## Cómo trabajar
@@ -143,3 +166,4 @@
 | 2026-10-02 | Paso 2: dominio base (Entidad, Result, Empresa, Usuario), `AmsysDbContext` con filtros por empresa y eliminados, `AuditoriaInterceptor`, migración `Inicial`, 27 tests verdes (incluye aislamiento entre empresas con Postgres real) |
 | 2026-10-02 | Paso 3: autenticación JWT + refresh token rotado con detección de reuso, Minimal APIs `/api/v1`, ProblemDetails, validación, límite de intentos, OpenAPI/Scalar, Migrator con semilla, 41 tests verdes, prueba manual de punta a punta con Postgres local en Docker |
 | 2026-10-02 | Paso 4: `auth/cambiar-clave` + política "sin cambio de clave pendiente" en API y web; web Blazor Server con MudBlazor, sesión con tokens en servidor, renovación con candado por sesión, login, cambio de clave, inicio, usuarios; nuevo `Amsys.Web.Tests`; 65 tests verdes. Bug de bucle de redirección en `cambiar-clave` detectado por test y corregido. Falta prueba manual en navegador |
+| 2026-10-03 | Paso 5: configuración multicliente (módulos, campos personalizados con validador, etiquetas de estado, marca), archivo por cliente aplicado con el Migrator (idempotente, transaccional), `GET /configuracion`, web con tema/logo/menú por cliente y página de configuración; un contenedor Postgres por proyecto de tests; 106 tests verdes. **NP-0 completa** salvo prueba manual en navegador |
