@@ -115,6 +115,8 @@ Dentro de Domain / Application / Infrastructure / Api / Web se usan las mismas c
 | Campos personalizados | `Domain/Configuracion/CampoPersonalizado.cs` | Definición por empresa y entidad. Clave y tipo inmutables; retirar = desactivar (los datos quedan) |
 | Valores de campos | `ValidadorCamposPersonalizados` | Recibe `Dictionary<string, JsonElement>`, valida contra los campos activos y normaliza (string, decimal, bool, fecha `yyyy-MM-dd`). Se guardarán en `datos_adicionales jsonb` de cada entidad (NP-2/NP-3) |
 | Estados canónicos | `Domain/Mantenimiento/Estados.cs` | Un único enum por catálogo para todos los clientes |
+| Códigos correlativos | `ICorrelativos` (Application) → `Infrastructure/Persistence/Correlativos.cs` | Pedir el número **dentro** de la transacción que guarda el documento (lanza si no hay transacción). Tabla `mantenimiento.correlativo` (empresa, serie, año) |
+| Historial de estados | Colección owned (p. ej. `Aviso.Historial` → `aviso_historial`) | Se carga con el dueño; cada cambio de estado agrega un paso desde el dominio |
 | Etiquetas | `EtiquetaEstado` + `CatalogosEstado.EtiquetasPorDefecto` | Nombre, color y habilitado por empresa; sin etiqueta → nombre por defecto |
 | Marca | `Empresa.NombreComercial/ColorPrimario/ColorSecundario` + `wwwroot/clientes/<codigo>/logo.(svg\|png)` | Respaldo: tema y logo de AMSYS |
 | Fuente de verdad | `tools/clientes/<codigo>/configuracion.json` | Aplicada con `Migrator --configurar`; idempotente y transaccional. Ver `tools/clientes/README.md` |

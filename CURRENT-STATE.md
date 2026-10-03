@@ -1,6 +1,6 @@
 # Estado actual
 
-**Etapa**: `NP-3 Correctivo` — siguiente · NP-2 completa (incluye alcance por organización, D-NP-32) · NP-0 y NP-1 completas (falta prueba manual en navegador)
+**Etapa**: `NP-3 Correctivo` — en curso (3.1 avisos ✅; siguen 3.2 OT, 3.3 notificación, 3.4 Kanban, 3.5 costos) · NP-0, NP-1 y NP-2 completas (falta prueba manual en navegador)
 **Última actualización**: 2026-10-02
 
 ## Hecho
@@ -114,7 +114,8 @@
       fixtures reintentan 3 veces e imprimen los logs del contenedor ("PostgreSQL no arrancó"). No se ha podido
       reproducir a voluntad. **Si vuelve a pasar: guardar la salida completa** (`dotnet test --solution Amsys.slnx > tests.log 2>&1`)
       y buscar "no arrancó" / "Exception". Repetir la ejecución pasa siempre.
-- [ ] Decidir `D-NP-23` (estados `PROGRAMADO` / tipo `PARADA`) antes de NP-3.
+- [ ] Decidir `D-NP-23` (estados `PROGRAMADO` / tipo `PARADA`) antes de NP-3.2 (OT).
+- [ ] Probar en navegador la pantalla de avisos (alta, estados, rechazo con motivo, parada).
 - [ ] Probar en navegador el alcance por organización (asignar organizaciones a un usuario no administrador).
 - [ ] Migración de usuarios del legacy: las claves son HMAC-SHA256 con clave fija en el código y sin sal
       (`CriptografiaUtilitario.ToSHA526`). En el ETL: verificar con ese algoritmo en el primer ingreso y re-hashear
@@ -213,6 +214,32 @@
 ### Pendiente de NP-2
 - Avisar al desactivar o desmontar un equipo con planes (cuando existan los planes, NP-4).
 
+## NP-3 Correctivo
+
+Plan: **3.1 Avisos** ✅ · 3.2 OT desde aviso (tareas, estados, el aviso pasa a Atendido/Finalizado/Aprobado según la
+OT, en la misma transacción) · 3.3 Notificación (horas de personal, materiales, lecturas al cerrar) · 3.4 Kanban de
+OT · 3.5 Costos de OT.
+
+### 3.1 Avisos ✅
+- Dominio `Mantenimiento/Aviso` (D-NP-43/45): tipo fijo, estados con historial (`aviso_historial`, owned), datos de
+  falla (método de detección, parada con inicio/fin y horas), análisis de falla (modo, causa, mecanismo, impacto) sólo
+  en fallas aprobadas/atendidas, campos personalizados (`datos_adicionales`), `IEntidadOrganizacion` (alcance D-NP-32),
+  `PuntoMedidaId` de origen.
+- Código correlativo `AV-AAAA-NNNNN` sin carreras (D-NP-42): `ICorrelativos` + `mantenimiento.correlativo`; test con 10
+  altas simultáneas.
+- Permisos `mantenimiento.avisos.ver|crear|gestionar` (D-NP-44); estados/tipos deshabilitados por la empresa no se asignan.
+- API `/mantenimiento/avisos` (lista paginada con filtros por estado, tipo, organización, equipo, ubicación y fechas;
+  ficha; alta; edición; `POST /{id}/estado`). La respuesta trae `EstadosSiguientes` y `PuedeEditar…` según permisos.
+- Web: Mantenimiento → Avisos (lista con filtros y columnas personalizadas), ficha con acciones de estado (diálogo con
+  motivo), historial; "Crear aviso" desde la ficha del equipo y desde un punto de medida en alarma (prellenado).
+- `GET /administracion/catalogos/{clave}` sólo pide sesión (D-NP-41).
+- Fechas: se editan en hora local y se guardan en UTC (zona por empresa sigue pendiente).
+- Migración `Avisos` (aplicada en la BD de desarrollo). Tests: **226/226**.
+- **Pendiente de avisos**: adjuntos (falta almacenamiento de archivos), foto de contadores/puntos al reportar una falla
+  (`AvisoContador`/`AvisoPuntoMedida`, para indicadores, NP-6), aviso automático al medir en alarma
+  (`Configuracion.CrearAvisoPorPuntoMedida` del legacy; hoy se ofrece crearlo con un clic), exportar a Excel,
+  conformidad del solicitante (módulo `CONFORMIDAD_AVISO`), campos de Solicitudes (módulo `SOLICITUDES`).
+
 ## Entorno de desarrollo
 
 - PostgreSQL local en Docker (contenedor `amsys-postgres-dev`, volumen `amsys-postgres-dev`, puerto 5432,
@@ -257,3 +284,4 @@
 | 2026-10-03 | NP-2.2 clases de equipo: agregado con tipos, datos técnicos y modos de falla; equipo clasificado con valores técnicos; corrige AD-03 (mover hijos ajenos) y el borrado silencioso al cambiar de clase. 179 tests verdes |
 | 2026-10-03 | NP-2.3 unidades de servicio, contadores (lecturas acumuladas/parciales, promedio diario) y puntos de medida (niveles de alarma), permiso para registrar lecturas, control de concurrencia. 198 tests verdes. NP-2 completa salvo el alcance por organización (D-NP-32) |
 | 2026-10-03 | D-NP-32 alcance por organización: usuarios con organizaciones asignadas ven esas y sus descendientes (filtro global + respaldo en el interceptor), validación al crear/editar activos y usuarios, `EnAlcance` en organizaciones, selector múltiple en usuarios. Migración `AlcanceOrganizacion`. 206 tests verdes. **NP-2 completa** |
+| 2026-10-03 | NP-3.1 avisos: dominio con máquina de estados e historial, correlativo sin carreras, falla/parada/análisis, campos personalizados, alcance por organización, permisos ver/crear/gestionar, API y web (lista, ficha, cambio de estado, crear desde equipo o punto en alarma). Lectura de catálogos con sólo sesión (D-NP-41). Fixture de Postgres: el reintento ya no se rompe si el contenedor no llegó a crearse. 226 tests verdes |

@@ -43,6 +43,11 @@
 | `D-NP-39` | 2026-10-03 | Lecturas de contador: no futuras, no anteriores a la última; acumuladas no bajan. Mediciones atrasadas sí se aceptan (sólo historial) | Un contador alimenta la programación; un punto de medida sólo informa |
 | `D-NP-40` | 2026-10-03 | Registrar lecturas y mediciones es un permiso aparte de editar activos | Los técnicos registran en campo sin poder modificar equipos |
 | `D-NP-32` | 2026-10-03 | Alcance por organización: cada usuario ve las organizaciones asignadas **y sus descendientes**; sin asignación o con rol administrador ve todas. Filtro global con nombre (`FiltrosConsulta.Organizacion`) sobre las entidades `IEntidadOrganizacion`, más respaldo en el interceptor al guardar. El árbol de organizaciones se ve completo (marca `EnAlcance`) | Como `UsuarioOrganizacion` del legacy, pero sin depender de que cada consulta lo recuerde. Un usuario restringido sólo asigna organizaciones de su alcance y no puede crear usuarios sin restricción |
+| `D-NP-41` | 2026-10-03 | Los **valores** de los catálogos (`GET /administracion/catalogos/{clave}`) se leen con sólo tener sesión; la administración de catálogos sigue pidiendo permiso | Los selectores de equipos, avisos, etc. los necesitan; un técnico sin `catalogos.ver` no podía llenar formularios (bug latente desde NP-2) |
+| `D-NP-42` | 2026-10-03 | Códigos correlativos por empresa, serie y año (`AV-2026-00001`, mismo formato del legacy) con tabla `mantenimiento.correlativo` e `INSERT … ON CONFLICT … RETURNING` dentro de la transacción del documento | El legacy contaba filas: códigos repetidos con registros simultáneos o borrados. Sin huecos si se descarta la transacción |
+| `D-NP-43` | 2026-10-03 | Un aviso se registra sobre un **equipo o una ubicación**; con equipo, la ubicación es la de su montaje al reportar. La organización se toma del objeto técnico. Una ubicación no mantenible no admite avisos | Legacy: `UbicacionId` obligatorio y `EquipoId` opcional, con organización derivada igual |
+| `D-NP-44` | 2026-10-03 | Permisos de avisos: `ver`, `crear` (y editar los propios mientras están emitidos) y `gestionar` (aprobar, rechazar, editar, cerrar). Reemplaza `RolEstadoAviso` del legacy; los estados deshabilitados por la empresa (etiquetas) no se pueden asignar | Más simple de configurar; la granularidad por estado se puede añadir si un cliente la usa |
+| `D-NP-45` | 2026-10-03 | Máquina de estados del aviso tal como el legacy: Emitido → Aprobado/Rechazado → Atendido → Finalizado; rechazar exige motivo; finalizar con parada exige fin de parada; el objeto técnico sólo cambia en Emitido; Finalizado/Rechazado no se editan | Paridad con el legacy, ahora validada en el dominio (el legacy la validaba sólo en una ruta) |
 | `D-NP-07` | 2026-10-02 | .NET 10, `.slnx`, Central Package Management, xunit.v3 + Microsoft.Testing.Platform | Estándar actual; versiones centralizadas |
 
 ### Heredadas del legacy (vinculantes)
@@ -60,7 +65,7 @@
 | `D-NP-05` | ¿Qué se sigue haciendo en el legacy? | Sólo hotfix y seguridad crítica |
 | `D-MC-01` | ¿Instancia + BD por cliente o multi-tenant único? | Por cliente al inicio (mismo artefacto); multi-tenant después |
 | `D-MC-02` | Campos personalizados en JSONB o columnas | JSONB — **validador ya implementado sobre este supuesto**; confirmar |
-| `D-NP-23` | ¿Se reincorporan `PROGRAMADO` (estado de OT) y `PARADA` (tipo de aviso)? Están comentados en el legacy | Decidir antes de NP-3 |
+| `D-NP-23` | ¿Se reincorporan `PROGRAMADO` (estado de OT) y `PARADA` (tipo de aviso)? Están comentados en el legacy | NP-3.1 se hizo **sin ellos** (como el legacy en producción). Agregarlos después no rompe datos (los estados se guardan como texto). Decidir antes de NP-3.2 (OT) |
 | `D-MC-03` | ¿Estados renombrados de caja_arequipa equivalen a los canónicos? | Confirmar con el cliente |
 | `D-MC-04` | Módulos de oterra (Área, Impacto, Conformidad, Turnos): ¿producto o exclusivos? | Producto |
 | `D-MC-05` | Soft delete para todos | Sí — **ya implementado así en `Entidad`**; confirmar |
