@@ -397,11 +397,13 @@ eulen/caja_arequipa, `FERIADOS` y calificación de OT de caja_arequipa) se hacen
 
 ## Entorno de desarrollo
 
-- PostgreSQL local en Docker (contenedor `amsys-postgres-dev`, volumen `amsys-postgres-dev`, puerto 5432,
-  usuario/clave `postgres`/`postgres`, BD `amsys_dev`). Es la cadena de `src/Amsys.Api/appsettings.Development.json`.
-  - Crear (si no existe): `docker run -d --name amsys-postgres-dev -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=amsys_dev -p 5432:5432 -v amsys-postgres-dev:/var/lib/postgresql/data postgres:17-alpine`
-  - Iniciar / detener: `docker start amsys-postgres-dev` / `docker stop amsys-postgres-dev`
-- Migrar + semilla: `dotnet run --project src/Amsys.Migrator -- --semilla-desarrollo "--ConnectionStrings:Amsys=Host=localhost;Port=5432;Database=amsys_dev;Username=postgres;Password=postgres" "--Semilla:ClaveAdmin=<clave>"`
+- PostgreSQL de desarrollo: **servidor del usuario** en Docker (contenedor `bdpostgresql`, imagen `jsulca/postgresql:v1`,
+  PostgreSQL 14.1, puerto 5432, usuario/clave `postgres`/`123`, BD `amsys_dev`). Es la cadena de
+  `src/Amsys.Api/appsettings.Development.json` (desde 2026-10-03). Ese servidor también tiene las bases del legacy
+  (`amsys`, `amsys_v3_<cliente>`): fuente para el importador.
+  - El contenedor anterior `amsys-postgres-dev` (postgres:17, clave `postgres`) quedó detenido; ocupan el mismo puerto,
+    no deben correr a la vez. Los tests usan su propio Postgres 17 con Testcontainers.
+- Migrar + semilla: `dotnet run --project src/Amsys.Migrator -- --semilla-desarrollo "--ConnectionStrings:Amsys=Host=localhost;Port=5432;Database=amsys_dev;Username=postgres;Password=123" "--Semilla:ClaveAdmin=<clave>"`
 - API: `dotnet run --project src/Amsys.Api --launch-profile http` → Scalar en `http://localhost:5276/scalar/v1`
 - Web: `dotnet run --project src/Amsys.Web --launch-profile http` → `http://localhost:5296` (necesita la API corriendo;
   `Api:UrlBase` en `src/Amsys.Web/appsettings.Development.json`)
@@ -448,3 +450,4 @@ eulen/caja_arequipa, `FERIADOS` y calificación de OT de caja_arequipa) se hacen
 | 2026-10-03 | NP-5 Logística: almacenes, existencias con reposición, notas de entrada (lotes) y salida (FIFO con valor exacto), traslado como documento único, anulaciones coherentes, kardex, bloqueo de inventario por empresa, costo de almacén en la OT (DL-01/02/04/05). **NP-5 completa**. 301 tests verdes |
 | 2026-10-03 | NP-6.1–6.4: tablero de inicio, exportación a Excel con campos personalizados, PDF de OT con plantilla por cliente, indicadores de confiabilidad (fórmulas de oterra corregidas, tiempo de operación por horario del equipo). ClosedXML y QuestPDF. 309 tests verdes |
 | 2026-10-03 | D-MC-04 decidida: los módulos de oterra son exclusivos de oterra; se construyen en la ola 4. NP-6 cerrada para el producto |
+| 2026-10-03 | Base de desarrollo movida al servidor Docker del usuario (`bdpostgresql`, PG 14.1, clave `123`): 16 migraciones aplicadas, semilla (`demo` + `admin`, clave temporal `Admin-Dev-2026`) y configuración `demo`; `appsettings.Development.json` de la API actualizado |
