@@ -1,6 +1,6 @@
 # Estado actual
 
-**Etapa**: `NP-3 Correctivo` — ✅ completa (avisos, OT, notificación y costos, tablero) · siguiente: prueba en navegador e importador de clientes de la ola 1, o NP-4 Preventivo · NP-0, NP-1 y NP-2 completas
+**Etapa**: `NP-4 Preventivo` — en curso (4.1 hojas de ruta y secciones ✅ · 4.2 planes y cálculo de posiciones ✅; siguen 4.3 asignaciones y 4.4 generación, **pendientes de decisiones D-NP-60…67**) · NP-0 a NP-3 completas
 **Última actualización**: 2026-10-02
 
 ## Hecho
@@ -114,6 +114,8 @@
       fixtures reintentan 3 veces e imprimen los logs del contenedor ("PostgreSQL no arrancó"). No se ha podido
       reproducir a voluntad. **Si vuelve a pasar: guardar la salida completa** (`dotnet test --solution Amsys.slnx > tests.log 2>&1`)
       y buscar "no arrancó" / "Exception". Repetir la ejecución pasa siempre.
+- [ ] **Decidir D-NP-60…67** (preventivo: contador atrasado, desbloqueo, ubicaciones por contador, UMS, cambio de
+      posiciones, quitar asignación, orden de tareas, editar vs reiniciar ciclo) antes de 4.3/4.4.
 - [ ] Probar en navegador avisos y órdenes (aviso → aprobar → generar OT → tareas → ejecución → cierre técnico).
 - [ ] El importador del legacy deberá traer empleados, socios de negocio y materiales, y convertir las 7 tablas de
       notificación a las 3 nuevas (D-NP-50), fijando el costo/hora con el actual del empleado.
@@ -289,6 +291,36 @@ OT · 3.5 Costos de OT.
 **NP-3 completa.** Pendientes acumulados de NP-3 (ver cada sección): adjuntos y comentarios, PDF de OT, exportar a
 Excel, aviso automático por alarma, lecturas vinculadas a la OT, programación de personal.
 
+## NP-4 Preventivo
+
+Fuente: `ai/BUSINESS-RULES.md` del legacy (reglas BR-HR/SE/TA/PM/AS/GE con nivel de confianza y decisiones del
+propietario D-02/D-03/D-05). Plan: **4.1** hojas de ruta y secciones ✅ · **4.2** planes y cálculo de posiciones ✅ ·
+**4.3** asignaciones a equipos/ubicaciones · **4.4** previsualización y generación a demanda (sin automatizar, D-05).
+
+### 4.1 Hojas de ruta y secciones ✅
+- Dominio `Planificacion/HojaRuta`, `Seccion` (hoja opcional; tareas owned `seccion_tarea` con orden, tipo,
+  especialidad, personas, horas y texto ampliado; materiales owned `seccion_material`), duplicar (BR-SE-006).
+  Esquema `planificacion`.
+- API `/planificacion/hojas-ruta`, `/planificacion/secciones` (`paraElegir`: activas de hojas activas o sin hoja,
+  BR-HR-003). Advertencias de código repetido (hoja: empresa; sección: misma hoja) y de sección usada por planes.
+- Web: Planificación → Hojas de ruta (hojas a la izquierda, secciones a la derecha), ficha de sección con tareas
+  ordenables y materiales.
+
+### 4.2 Planes y cálculo de posiciones ✅
+- Dominio `Planificacion/PlanMantenimiento` (D-NP-55): UMS calendario o contador, intervalo, factor de planificación
+  validado (BR-PM-009), tipo de ciclo, secciones del plan (`plan_seccion`: cada N ciclos, nivel, prioridad, tipo de
+  mantenimiento, taller, equipo detenido), `CantidadPosiciones`, `Mcm`, `Comportamiento()`, `SeccionesEn(posición
+  absoluta)`, `Advertencias()` (empates de nivel, posiciones vacías — D-NP-57).
+- Tests de dominio: casos documentados del legacy + **equivalencia con el algoritmo legacy en 500 casos aleatorios**.
+- API `/planificacion/planes` + `POST /vista-previa` (D-NP-58). Web: lista y ficha con matriz secciones × posiciones
+  que se recalcula en el servidor mientras se edita (debounce 400 ms).
+- Permisos `planificacion.ver|editar|generar`, sólo con el módulo `PLANIFICACION` (D-NP-59). Migración
+  `Planificacion` (aplicada en desarrollo). Tests: **271/271**.
+- Pendiente de 4.1/4.2: servicios de terceros en la sección (`SeccionServicio` del legacy; requiere un maestro de
+  servicios), adjuntos de sección, `Sistema`/`Parte` de las tareas (catálogos no migrados aún).
+
+### Siguiente: 4.3 y 4.4 — **requieren decisiones** (`D-NP-60`…`D-NP-67` en DECISIONS.md, con recomendación)
+
 ## Entorno de desarrollo
 
 - PostgreSQL local en Docker (contenedor `amsys-postgres-dev`, volumen `amsys-postgres-dev`, puerto 5432,
@@ -337,3 +369,4 @@ Excel, aviso automático por alarma, lecturas vinculadas a la OT, programación 
 | 2026-10-03 | D-NP-23 decidido (sin PROGRAMADO ni PARADA). NP-3.2 órdenes de trabajo: dominio con tareas e historial, estados con permisos ver/editar/cerrar, aviso atendido/finalizado/reabierto en la misma transacción (varias OT por aviso), API y web (lista, ficha con tareas, generar desde aviso). 240 tests verdes |
 | 2026-10-03 | NP-3.3 notificación: maestros de empleados, socios de negocio y materiales; mano de obra (costo/hora congelado), materiales y servicios (del maestro o externos) con costos por OT; cierre total congela. Web: páginas de maestros y notificación en la ficha de la OT. 248 tests verdes |
 | 2026-10-03 | NP-3.4 tablero Kanban de OT (columnas por estado, cursor, destinos por permisos, arrastrar para cambiar de estado). **NP-3 completa**. 251 tests verdes |
+| 2026-10-03 | NP-4.1 hojas de ruta y secciones; NP-4.2 planes con cálculo de posiciones portado con tests primero (equivalencia con el legacy en 500 casos aleatorios), vista previa de la matriz en el servidor, módulo PLANIFICACION. Decisiones D-NP-55…59 tomadas y D-NP-60…67 propuestas para 4.3/4.4. 271 tests verdes |

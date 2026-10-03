@@ -58,6 +58,11 @@
 | `D-NP-52` | 2026-10-03 | Se notifica con la OT emitida o en cierre técnico; el **cierre total congela** notificación y costos. Permiso propio `mantenimiento.ordenes.notificar` | Separa "trabajo terminado" (cierre técnico) de "costos cerrados" (cierre total), como el flujo del legacy |
 | `D-NP-53` | 2026-10-03 | Empleados, socios de negocio y materiales son maestros de Administración (permiso de catálogos para editar; listas con sólo sesión, como D-NP-41). Material guarda un precio de referencia; Logística (NP-5) le agregará stock | Necesarios para notificar sin esperar a NP-5 |
 | `D-NP-54` | 2026-10-03 | Tablero Kanban de OT: una columna por estado, más recientes primero, paginación por **cursor** (registro + Id) y total por columna; mover una tarjeta usa el mismo `POST /{id}/estado` (mismas validaciones, permisos y efecto sobre el aviso). El servidor informa por columna a qué estados puede mover el usuario | Como el Kanban del legacy; el cursor no repite ni salta tarjetas si entran órdenes nuevas mientras se navega |
+| `D-NP-55` | 2026-10-03 | Cálculo de posiciones portado del legacy (BR-PM-003/005) **con tests primero**, incluido uno que compara contra una copia literal del algoritmo legacy en 500 configuraciones aleatorias. "Rutina" se llama **tipo de ciclo: Estático / Dinámico** (D-16 del legacy); "cada N ciclos" es entero ≥ 1; máximo 1000 posiciones; un plan necesita al menos una sección | Núcleo crítico; un solo término visible; evita planes inutilizables (MNT-012) y ciclos gigantes por MCM |
+| `D-NP-56` | 2026-10-03 | Secciones: tareas y materiales conservan su Id al editar (el legacy los borraba y recreaba, BR-SE-003). Tipo de tarea y especialidad obligatorios (BR-TA-003). Códigos de hoja de ruta, sección y plan **no únicos, con advertencia** (D-03 del legacy) | Ids estables para trazar órdenes generadas; decisión del propietario sobre códigos |
+| `D-NP-57` | 2026-10-03 | Empate de nivel en una posición: se ejecutan todas las secciones empatadas (como el legacy) y se **advierte** al guardar y en la vista previa; también se advierten las posiciones sin secciones (D-11 y BR-UNK-003 del legacy, propuesta) | No prohíbe configuraciones legítimas pero las hace visibles |
+| `D-NP-58` | 2026-10-03 | La matriz de comportamiento se calcula sólo en el servidor (`POST /planificacion/planes/vista-previa`, no persiste) y la web la pide mientras se edita | Una sola implementación del algoritmo (PM-05 del legacy) |
+| `D-NP-59` | 2026-10-03 | Planificación es el primer **módulo activable** en uso: sus permisos y menú sólo existen si la empresa tiene `PLANIFICACION` | Clientes sin preventivo no lo ven |
 | `D-NP-07` | 2026-10-02 | .NET 10, `.slnx`, Central Package Management, xunit.v3 + Microsoft.Testing.Platform | Estándar actual; versiones centralizadas |
 
 ### Heredadas del legacy (vinculantes)
@@ -72,6 +77,14 @@
 
 | ID | Pregunta | Recomendación |
 |----|----------|---------------|
+| `D-NP-60` | **Planes por contador atrasados** (D-05b del legacy): el legacy salta a la posición final y descarta las intermedias; el calendario avanza una por generación. ¿Cómo debe ser? | Avanzar **una posición por generación** también por contador (coherente con D-05: a demanda, sin perder trabajo); la previsualización muestra cuántas posiciones van atrasadas |
+| `D-NP-61` | **Desbloqueo de programación flotante** (D-04): ¿por la orden concreta que bloqueó o por cualquier orden del par plan–objeto? | Por la **orden concreta** (la OT guarda su asignación) + acción manual "Desbloquear" con motivo (MNT-005: hoy una asignación puede quedar bloqueada para siempre) |
+| `D-NP-62` | **Planes por contador en ubicaciones** (D-06): el legacy los acepta pero nunca generan. | **Prohibir** asignar planes por contador a ubicaciones (no hay contadores de ubicación) |
+| `D-NP-63` | **Unidad de servicio del plan** (D-07): ¿inmutable siempre? | Editable mientras el plan **no tenga asignaciones**; después, inmutable |
+| `D-NP-64` | **Cambio de cantidad de posiciones con asignaciones vivas** (D-08) | Permitirlo: la posición actual se reinterpreta dentro del nuevo ciclo (módulo) y se **advierte** al guardar |
+| `D-NP-65` | **Quitar una asignación con órdenes abiertas** (D-09) | **Bloquear** con mensaje que indique las OT abiertas (se pueden cerrar o anular) |
+| `D-NP-66` | **Tareas de varias secciones en una OT** (D-10): mezcla por orden global (legacy) o agrupadas | **Agrupadas por sección** (sección de mayor ciclo primero) y en su orden |
+| `D-NP-67` | **Editar una asignación reinicia el ciclo** sin avisar (BR-AS-007, D-06 del legacy UX) | Separar **editar** (programación fija/flotante) de **reiniciar ciclo** (acción explícita con confirmación) |
 | `D-NP-05` | ¿Qué se sigue haciendo en el legacy? | Sólo hotfix y seguridad crítica |
 | `D-MC-01` | ¿Instancia + BD por cliente o multi-tenant único? | Por cliente al inicio (mismo artefacto); multi-tenant después |
 | `D-MC-02` | Campos personalizados en JSONB o columnas | JSONB — **validador ya implementado sobre este supuesto**; confirmar |
