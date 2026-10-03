@@ -122,3 +122,25 @@ Dentro de Domain / Application / Infrastructure / Api / Web se usan las mismas c
 | Web | `Configuracion/ConfiguracionCliente.cs` | Una carga por circuito; `MainLayout` la pasa en cascada (`[CascadingParameter] ConfiguracionResponse?`) |
 | Componentes | `Components/Shared/EstadoChip.razor`, `CamposPersonalizados.razor` | Usar en todas las pantallas de Aviso/OT/Equipo/Ubicación |
 | Tests | `AssemblyFixture` | Un contenedor Postgres por proyecto de tests; los tests usan códigos únicos |
+
+## Seguridad: permisos (implementado)
+
+| Pieza | Dónde | Detalle |
+|-------|-------|---------|
+| Catálogo de permisos | `Domain/Seguridad/Permisos.cs` | `modulo.recurso.accion`; cada permiso puede depender de un módulo activable |
+| Rol | `Domain/Seguridad/Rol.cs` | Por empresa, permisos en `text[]`, perfil de licencia; `EsAdministrador` = todos los disponibles |
+| Permisos efectivos | `Application/Seguridad/ServicioPermisos.cs` | Rol ∩ módulos activos; usuario inactivo o sin rol = ninguno; caché 1 min invalidada con `VersionPermisos` |
+| API | `Api/Seguridad/AutorizacionPermisos.cs` | `.RequierePermiso(Permisos.X)` incluye la política base (`ExigirSesionConClaveVigente`) |
+| Web | `PermisosWeb` (copia verificada por test), `ConPermiso`, `OpcionMenu.Permiso` | Sólo oculta: la API es la que exige |
+| Nueva funcionalidad protegida | — | 1) permiso en `Permisos.Todos` (+ `PermisosWeb`), 2) `.RequierePermiso` en el endpoint, 3) `Permiso` en `MenuAmsys`, 4) `ConPermiso` en la página |
+
+## Catálogos simples (implementado)
+
+| Pieza | Dónde |
+|-------|-------|
+| Base y clases | `Domain/Administracion/ElementoCatalogo.cs`, `CatalogosSimples.cs` (clases + registro) |
+| Persistencia | `Infrastructure/Persistence/Configuraciones/Administracion/CatalogosConfiguracion.cs`: TPC, una tabla por catálogo en `administracion`, secuencia compartida para los ids |
+| Servicio | `Application/Administracion/ServicioCatalogos.cs`: genérico por clave (`AccesoCatalogoTipado<T>`) |
+| API | `GET/POST /api/v1/administracion/catalogos/{clave}`, `PUT /{clave}/{id}`, `POST /{clave}/{id}/activar|desactivar` |
+| Web | `Pages/Administracion/Catalogos.razor` (índice), `Catalogo.razor` (genérica), `ElementoCatalogoDialogo.razor` |
+| **Agregar un catálogo simple** | Una clase `sealed class X : ElementoCatalogo;` + una línea en `CatalogosSimples.Todos` + `dotnet ef migrations add` |

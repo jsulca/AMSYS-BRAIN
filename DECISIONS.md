@@ -32,6 +32,8 @@
 | `D-NP-27` | 2026-10-03 | Al crear un usuario o restablecer su clave, el servidor genera una **contraseña temporal** (12 caracteres) que se muestra una sola vez; el usuario debe cambiarla | Nadie elige claves por otro; se fuerza el cambio |
 | `D-NP-28` | 2026-10-03 | Bloqueo tras 5 intentos fallidos seguidos durante 15 min; durante el bloqueo no se comprueba la clave; el administrador puede desbloquear | Fuerza bruta por usuario (complementa el límite por IP) |
 | `D-NP-29` | 2026-10-03 | Nadie puede desactivarse ni cambiarse el rol a sí mismo; sólo se asignan roles cuyos permisos tiene quien asigna | Evita quedarse sin acceso y la escalada de privilegios |
+| `D-NP-30` | 2026-10-03 | Catálogos simples: una clase y una tabla por catálogo (herencia TPC) con un único código genérico, en vez de una tabla común | Cada FK futura apunta a su catálogo (integridad), sin repetir código 14 veces |
+| `D-NP-31` | 2026-10-03 | Los catálogos no se eliminan: se desactivan (dejan de ofrecerse para elegir, los datos que los usan se conservan) | Igual que el legacy; evita referencias rotas |
 | `D-NP-07` | 2026-10-02 | .NET 10, `.slnx`, Central Package Management, xunit.v3 + Microsoft.Testing.Platform | Estándar actual; versiones centralizadas |
 
 ### Heredadas del legacy (vinculantes)
