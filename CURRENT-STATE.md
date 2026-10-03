@@ -1,6 +1,6 @@
 # Estado actual
 
-**Etapa**: `NP-1 Maestros` — en curso (1/3: roles y permisos ✅) · NP-0 completa (falta prueba manual en navegador)
+**Etapa**: `NP-1 Maestros` — en curso (1/3 roles y permisos ✅ · 2/3 gestión de usuarios ✅) · NP-0 completa (falta prueba manual en navegador)
 **Última actualización**: 2026-10-02
 
 ## Hecho
@@ -109,9 +109,7 @@
 
 - [ ] Prueba manual en navegador (ver *Entorno de desarrollo*). La BD local ya tiene aplicada la configuración `demo`.
 - [ ] Decidir `D-NP-23` (estados `PROGRAMADO` / tipo `PARADA`) antes de NP-3.
-- [ ] Quitar `--ignore-exit-code 8` de `Amsys.Application.Tests` cuando tenga tests.
 - [ ] **Permisos por rol** en `seguridad/usuarios` y en la página de configuración (temporal, ver `D-NP-16`).
-- [ ] Bloqueo de usuario tras N intentos fallidos (el legacy tiene `ControlIntentos`); hoy sólo hay límite por IP.
 - [ ] Migración de usuarios del legacy: revisar cómo guarda claves `AMSYS.Utilitarios/Criptografia`.
 - [ ] Producción con varias réplicas de la web: Redis para `AlmacenSesiones`, claves de Data Protection
       compartidas, afinidad de sesión (Blazor Server).
@@ -168,3 +166,4 @@
 | 2026-10-02 | Paso 4: `auth/cambiar-clave` + política "sin cambio de clave pendiente" en API y web; web Blazor Server con MudBlazor, sesión con tokens en servidor, renovación con candado por sesión, login, cambio de clave, inicio, usuarios; nuevo `Amsys.Web.Tests`; 65 tests verdes. Bug de bucle de redirección en `cambiar-clave` detectado por test y corregido. Falta prueba manual en navegador |
 | 2026-10-03 | Paso 5: configuración multicliente (módulos, campos personalizados con validador, etiquetas de estado, marca), archivo por cliente aplicado con el Migrator (idempotente, transaccional), `GET /configuracion`, web con tema/logo/menú por cliente y página de configuración; un contenedor Postgres por proyecto de tests; 100 tests verdes. **NP-0 completa** salvo prueba manual en navegador |
 | 2026-10-03 | NP-1.1 roles y permisos: catálogo de permisos en código (por módulo), `Rol` por empresa (Administrador automático), permisos evaluados en cada petición con caché de 1 min e invalidación al editar roles, sin escalada de privilegios, `RequierePermiso` en la API, `GET /auth/permisos`, CRUD de roles, web con menú por permiso, `ConPermiso` y pantalla de roles. **Hueco detectado por test y corregido**: una política propia en un endpoint anulaba la política por defecto (usuario con clave pendiente accedía). 115 tests verdes |
+| 2026-10-03 | NP-1.2 gestión de usuarios: alta con contraseña temporal generada (se muestra una vez), edición, activar/desactivar (cierra sesiones), restablecer clave, desbloquear, roles asignables sin escalada, nadie se desactiva ni se cambia el rol a sí mismo; bloqueo tras 5 intentos fallidos durante 15 min; web con acciones por usuario. Fixtures de Postgres con reintento y logs (fallo intermitente de arranque tras compilar). `Amsys.Application.Tests` ya tiene tests. 127 tests verdes |

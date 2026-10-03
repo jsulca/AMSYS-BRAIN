@@ -29,6 +29,9 @@
 | `D-NP-24` | 2026-10-03 | Permisos: catálogo en código (`Domain/Seguridad/Permisos.cs`, `modulo.recurso.accion`), un rol por usuario, rol Administrador por empresa con todo; **se evalúan en cada petición** (caché 1 min, invalidado al editar roles) en vez de copiarse al iniciar sesión | En el legacy quitar un permiso no surtía efecto hasta volver a entrar |
 | `D-NP-25` | 2026-10-03 | Nadie puede asignar a un rol permisos que él mismo no tiene | Evita la escalada de privilegios |
 | `D-NP-26` | 2026-10-03 | Toda política de endpoint parte de `ExigirSesionConClaveVigente`; `RequierePermiso` la incluye | Al declarar una política propia, ASP.NET deja de aplicar la del grupo |
+| `D-NP-27` | 2026-10-03 | Al crear un usuario o restablecer su clave, el servidor genera una **contraseña temporal** (12 caracteres) que se muestra una sola vez; el usuario debe cambiarla | Nadie elige claves por otro; se fuerza el cambio |
+| `D-NP-28` | 2026-10-03 | Bloqueo tras 5 intentos fallidos seguidos durante 15 min; durante el bloqueo no se comprueba la clave; el administrador puede desbloquear | Fuerza bruta por usuario (complementa el límite por IP) |
+| `D-NP-29` | 2026-10-03 | Nadie puede desactivarse ni cambiarse el rol a sí mismo; sólo se asignan roles cuyos permisos tiene quien asigna | Evita quedarse sin acceso y la escalada de privilegios |
 | `D-NP-07` | 2026-10-02 | .NET 10, `.slnx`, Central Package Management, xunit.v3 + Microsoft.Testing.Platform | Estándar actual; versiones centralizadas |
 
 ### Heredadas del legacy (vinculantes)
