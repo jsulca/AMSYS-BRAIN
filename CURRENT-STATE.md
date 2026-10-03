@@ -1,6 +1,6 @@
 # Estado actual
 
-**Etapa**: `NP-4 Preventivo` — en curso (4.1 hojas de ruta y secciones ✅ · 4.2 planes y cálculo de posiciones ✅; siguen 4.3 asignaciones y 4.4 generación, **pendientes de decisiones D-NP-60…67**) · NP-0 a NP-3 completas
+**Etapa**: `NP-4 Preventivo` — ✅ completa (hojas de ruta, secciones, planes, asignaciones y generación a demanda) · NP-0 a NP-4 completas · siguiente: prueba en navegador, importador de la ola 1 o NP-5 Logística
 **Última actualización**: 2026-10-02
 
 ## Hecho
@@ -114,8 +114,8 @@
       fixtures reintentan 3 veces e imprimen los logs del contenedor ("PostgreSQL no arrancó"). No se ha podido
       reproducir a voluntad. **Si vuelve a pasar: guardar la salida completa** (`dotnet test --solution Amsys.slnx > tests.log 2>&1`)
       y buscar "no arrancó" / "Exception". Repetir la ejecución pasa siempre.
-- [ ] **Decidir D-NP-60…67** (preventivo: contador atrasado, desbloqueo, ubicaciones por contador, UMS, cambio de
-      posiciones, quitar asignación, orden de tareas, editar vs reiniciar ciclo) antes de 4.3/4.4.
+- [ ] Probar en navegador el preventivo: sección → plan (matriz) → asignar equipos → Generar órdenes → cerrar la OT
+      flotante y ver que se libera.
 - [ ] Probar en navegador avisos y órdenes (aviso → aprobar → generar OT → tareas → ejecución → cierre técnico).
 - [ ] El importador del legacy deberá traer empleados, socios de negocio y materiales, y convertir las 7 tablas de
       notificación a las 3 nuevas (D-NP-50), fijando el costo/hora con el actual del empleado.
@@ -319,7 +319,30 @@ propietario D-02/D-03/D-05). Plan: **4.1** hojas de ruta y secciones ✅ · **4.
 - Pendiente de 4.1/4.2: servicios de terceros en la sección (`SeccionServicio` del legacy; requiere un maestro de
   servicios), adjuntos de sección, `Sistema`/`Parte` de las tareas (catálogos no migrados aún).
 
-### Siguiente: 4.3 y 4.4 — **requieren decisiones** (`D-NP-60`…`D-NP-67` en DECISIONS.md, con recomendación)
+### 4.3 Asignaciones ✅ y 4.4 Generación a demanda ✅ (decisiones D-NP-60…67 aceptadas)
+- Dominio `Planificacion/PlanAsignacion` (`plan_asignacion`, alcance por organización): equipo o ubicación (índices
+  únicos por plan, también para ubicaciones), fija/flotante, posición inicial y **posición absoluta** que se lee
+  dentro del ciclo (D-NP-64). Calendario: próxima fecha (inicio hoy o futuro, BR-AS-006). Contador (sólo equipos,
+  D-NP-62): contador del equipo + lectura base; contador del plan = inicio + (lectura − base), rango BR-AS-005.
+  `Evaluar` (vence, posición, atrasadas), `Avanzar` (una posición, D-NP-60), `CambiarProgramacion` (no reinicia),
+  `ReiniciarCiclo` (explícito, D-NP-67), `Desbloquear(motivo)` y `LiberarPorOrden` (sólo la OT que bloqueó, D-NP-61).
+- `OrdenTrabajo.PlanId/PlanAsignacionId/PosicionPlan` (`VincularPlan`); al cierre técnico/total o anulación de esa OT
+  se libera la asignación flotante.
+- Plan con asignaciones: no cambia de unidad (D-NP-63); si cambia el número de posiciones, advertencia (D-NP-64).
+- API: `GET|POST /planificacion/planes/{id}/asignaciones` (asignación masiva de equipos), `PUT
+  /planificacion/asignaciones/{id}/programacion`, `POST …/reiniciar`, `POST …/desbloquear`, `DELETE` (bloqueado con OT
+  emitidas, D-NP-65); `GET /planificacion/generacion` (previsualización con motivo de lo no generable: bloqueada,
+  equipo inactivo o sin montar, contador cambiado…) y `POST /planificacion/generacion` (permiso `generar`).
+- Generación (BR-PM-006/007, BR-GE-012, D-NP-66): cabecera de la sección de mayor ciclo, descripción "plan · secciones",
+  tareas de todas las secciones agrupadas por sección y en su orden, centro de costo y organización del objeto
+  técnico, inicio programado = fecha de la posición; transacción única con correlativo; concurrencia por `xmin`.
+- Web: asignaciones en la ficha del plan (asignar varios equipos, cambiar programación, reiniciar con confirmación,
+  desbloquear con motivo, quitar), Planificación → Generar órdenes (selección, resultado con enlaces y omitidas), y la
+  ficha de la OT indica el plan y la posición de origen.
+- Migración `AsignacionesPlanes` (aplicada en desarrollo). Tests: **284/284**.
+- **Pendiente de NP-4**: materiales previstos de la sección → materiales planificados en la OT (necesita reservas de
+  logística, NP-5), servicios de sección, excel de previsualización/planificación anual (NP-6), ajuste del contador
+  del plan con el valor real al cerrar la OT (BR-GE-010 del legacy), aviso cuando un equipo con planes se desmonta.
 
 ## Entorno de desarrollo
 
@@ -370,3 +393,4 @@ propietario D-02/D-03/D-05). Plan: **4.1** hojas de ruta y secciones ✅ · **4.
 | 2026-10-03 | NP-3.3 notificación: maestros de empleados, socios de negocio y materiales; mano de obra (costo/hora congelado), materiales y servicios (del maestro o externos) con costos por OT; cierre total congela. Web: páginas de maestros y notificación en la ficha de la OT. 248 tests verdes |
 | 2026-10-03 | NP-3.4 tablero Kanban de OT (columnas por estado, cursor, destinos por permisos, arrastrar para cambiar de estado). **NP-3 completa**. 251 tests verdes |
 | 2026-10-03 | NP-4.1 hojas de ruta y secciones; NP-4.2 planes con cálculo de posiciones portado con tests primero (equivalencia con el legacy en 500 casos aleatorios), vista previa de la matriz en el servidor, módulo PLANIFICACION. Decisiones D-NP-55…59 tomadas y D-NP-60…67 propuestas para 4.3/4.4. 271 tests verdes |
+| 2026-10-03 | D-NP-60…67 aceptadas. NP-4.3 asignaciones (calendario/contador, fija/flotante, reinicio explícito, desbloqueo manual) y NP-4.4 generación a demanda (previsualización con motivos, una posición por vez, OT con tareas agrupadas, liberación por la OT concreta). **NP-4 completa**. 284 tests verdes |
