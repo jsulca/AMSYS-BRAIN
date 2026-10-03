@@ -19,13 +19,16 @@
 | `D-NP-13` | 2026-10-02 | JWT de 15 min + token de refresco de 7 días, rotado en cada uso, guardado como hash, con detección de reuso | Sesiones largas sin tokens de acceso largos; un token robado se invalida al reutilizarse |
 | `D-NP-14` | 2026-10-02 | Límite de 10 intentos/min por IP en login y refresco | Fuerza bruta. Pendiente: bloqueo por usuario |
 | `D-NP-15` | 2026-10-02 | Errores de API como ProblemDetails con un `codigo` estable (`Auth.CredencialesInvalidas`, …) | El front y la app móvil deciden por código, no por texto |
-| `D-NP-16` | 2026-10-02 | **Temporal**: `seguridad/usuarios` sólo exige estar autenticado (lista usuarios de la propia empresa) | Los permisos por rol llegan en NP-1 |
+| `D-NP-16` | 2026-10-02 | ~~Temporal: `seguridad/usuarios` sólo exige estar autenticado~~ → **resuelto 2026-10-03**: exige `seguridad.usuarios.ver` | — |
 | `D-NP-17` | 2026-10-02 | Web: los tokens de la API **no** llegan al navegador; viven en el servidor web y la cookie sólo lleva un id de sesión | Un XSS no puede robar tokens; Blazor Server ya mantiene estado en servidor |
 | `D-NP-18` | 2026-10-02 | Web: `InteractiveServer` **sin prerender** | Evita doble ejecución de páginas y llamadas a la API, y redirecciones durante el prerender |
 | `D-NP-19` | 2026-10-02 | Usuario con cambio de clave pendiente sólo puede usar `auth/yo` y `auth/cambiar-clave` (API) y la página de cambio de clave (web) | Forzar el cambio de la clave inicial o restablecida |
 | `D-NP-20` | 2026-10-03 | La configuración de cada cliente es un **archivo versionado** (`tools/clientes/<codigo>/configuracion.json`) aplicado con el Migrator; la pantalla de administración llega con los permisos (NP-1) | Reproducible, revisable en git, sirve para migrar cada cliente del legacy |
 | `D-NP-21` | 2026-10-03 | Módulos definidos en código; el núcleo (Seguridad, Administración, Activos, Mantenimiento correctivo) siempre activo | Un módulo es funcionalidad programada; activar es configuración |
 | `D-NP-22` | 2026-10-03 | Estados canónicos tomados del legacy `main`: Aviso (Emitido, Aprobado, Atendido, Finalizado, Rechazado), OT (Emitido, CierreTecnico, CierreTotal, Anulado), TipoAviso (SolicitudTrabajo, Falla) | Un solo modelo; cada cliente cambia nombres y colores con etiquetas |
+| `D-NP-24` | 2026-10-03 | Permisos: catálogo en código (`Domain/Seguridad/Permisos.cs`, `modulo.recurso.accion`), un rol por usuario, rol Administrador por empresa con todo; **se evalúan en cada petición** (caché 1 min, invalidado al editar roles) en vez de copiarse al iniciar sesión | En el legacy quitar un permiso no surtía efecto hasta volver a entrar |
+| `D-NP-25` | 2026-10-03 | Nadie puede asignar a un rol permisos que él mismo no tiene | Evita la escalada de privilegios |
+| `D-NP-26` | 2026-10-03 | Toda política de endpoint parte de `ExigirSesionConClaveVigente`; `RequierePermiso` la incluye | Al declarar una política propia, ASP.NET deja de aplicar la del grupo |
 | `D-NP-07` | 2026-10-02 | .NET 10, `.slnx`, Central Package Management, xunit.v3 + Microsoft.Testing.Platform | Estándar actual; versiones centralizadas |
 
 ### Heredadas del legacy (vinculantes)
