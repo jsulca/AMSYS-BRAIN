@@ -1,6 +1,6 @@
 # Estado actual
 
-**Etapa**: `NP-1 Maestros` — **completa** · siguiente: `NP-2 Activos` · NP-0 completa (falta prueba manual en navegador) · NP-0 completa (falta prueba manual en navegador)
+**Etapa**: `NP-2 Activos` — en curso (2.1 organizaciones, ubicaciones y equipos ✅) · NP-0 y NP-1 completas (falta prueba manual en navegador) · NP-0 completa (falta prueba manual en navegador)
 **Última actualización**: 2026-10-02
 
 ## Hecho
@@ -145,15 +145,32 @@
 - Columna "En uso" y aviso al desactivar un elemento usado (cuando existan las entidades que los referencian).
 - Límites de usuarios por perfil (`Limitacion` del legacy).
 
-## Siguiente paso: NP-2 Activos
+## NP-2 Activos
 
-1. `Equipo` y `Ubicacion` (jerarquía: equipo padre, equipo montado en ubicación), con `datos_adicionales jsonb`
-   validado por `ValidadorCamposPersonalizados` y FK a Criticidad y Centro de costo.
-2. Árbol jerárquico (consulta recursiva) y búsqueda.
-3. `ClaseEquipo` con tipos y datos técnicos; `Contador` + historial; `PuntoMedida`.
-4. Web: listado con columnas de campos personalizados `VisibleEnListado`, ficha con `CamposPersonalizados`, árbol.
-5. Revisar en el legacy `ai/DOMAIN-MODEL.md`, `PLAN-UX-EQUIPO-UBICACION.md` y las ramas de cliente (campos extra de
-   Equipo en agchavin, rentanor, oterra) para definir qué es columna y qué es campo personalizado.
+### 2.1 Organizaciones, ubicaciones y equipos ✅
+- Domain: `Organizacion` (árbol, Seguridad), `Ubicacion` (árbol, mantenible, orden), `Equipo` (datos generales,
+  horario de operación con `DiasSemana`, montaje exclusivo en ubicación **o** equipo padre), `MovimientoEquipo`
+  (historial; quién = `CreadoPor`), `Jerarquia.CreaCiclo` (también corta datos ya corruptos), `IConDatosAdicionales`
+  (campos personalizados en jsonb; los valores de campos desactivados se conservan al editar).
+- Application: `ConsultasTexto.Buscar` (búsqueda sin mayúsculas reutilizable → `lower() LIKE`) y `Paginar`;
+  `ValidacionActivos` (referencias activas salvo que no cambien, campos personalizados, aviso de código repetido);
+  servicios de organizaciones, ubicaciones y equipos (montar/desmontar/movimientos/árbol). Crear un equipo ya
+  montado es transaccional.
+- API: `/organizaciones`, `/activos/ubicaciones`, `/activos/equipos` (paginados, filtros), `/montar`, `/desmontar`,
+  `/movimientos`, `/activos/arbol`. Permisos nuevos: `activos.ver`, `activos.editar`, `seguridad.organizaciones.editar`;
+  `RequiereAlgunPermiso`.
+- Web: selectores reutilizables (`SelectorOrganizacion`, `SelectorCatalogo`, `BuscadorActivo`), `ValoresCampos`
+  (JSON ↔ editor), páginas Organizaciones, Ubicaciones (diálogo), Equipos (lista paginada en servidor con columnas de
+  campos personalizados) y ficha de equipo (pestañas, montaje, historial), Árbol de activos (inactivos atenuados).
+- Migración `ActivosUbicacionesEquipos`. Tests: **167/167**.
+
+### Pendiente de NP-2
+- **2.2** Clase de equipo + tipos + datos técnicos por clase (catálogo con campos propios; en el legacy cambiar la
+  clase borraba los datos técnicos sin aviso).
+- **2.3** Unidad de medida de servicio (tipo, calendario) + contadores e historial + puntos de medida y alertas.
+- **Alcance por organización** (`UsuarioOrganizacion` del legacy): qué parte de la planta ve cada usuario. Filtro
+  transversal: diseñar como el filtro de empresa (decisión pendiente `D-NP-32`).
+- Avisar al desactivar o desmontar un equipo con planes (cuando existan los planes, NP-4).
 
 ## Entorno de desarrollo
 
@@ -195,3 +212,4 @@
 | 2026-10-03 | NP-1.1 roles y permisos: catálogo de permisos en código (por módulo), `Rol` por empresa (Administrador automático), permisos evaluados en cada petición con caché de 1 min e invalidación al editar roles, sin escalada de privilegios, `RequierePermiso` en la API, `GET /auth/permisos`, CRUD de roles, web con menú por permiso, `ConPermiso` y pantalla de roles. **Hueco detectado por test y corregido**: una política propia en un endpoint anulaba la política por defecto (usuario con clave pendiente accedía). 115 tests verdes |
 | 2026-10-03 | NP-1.2 gestión de usuarios: alta con contraseña temporal generada (se muestra una vez), edición, activar/desactivar (cierra sesiones), restablecer clave, desbloquear, roles asignables sin escalada, nadie se desactiva ni se cambia el rol a sí mismo; bloqueo tras 5 intentos fallidos durante 15 min; web con acciones por usuario. Fixtures de Postgres con reintento y logs (fallo intermitente de arranque tras compilar). `Amsys.Application.Tests` ya tiene tests. 127 tests verdes |
 | 2026-10-03 | NP-1.3 catálogos simples: 14 catálogos con un solo patrón (TPC, registro, servicio/endpoints/página genéricos), advertencia por código repetido (D-03). **NP-1 completa**. 144 tests verdes |
+| 2026-10-03 | NP-2.1 organizaciones, ubicaciones y equipos: árboles sin ciclos, montaje con historial, campos personalizados en jsonb (se conservan los de campos desactivados), listas paginadas con búsqueda, árbol de activos, permisos de activos. 167 tests verdes |

@@ -144,3 +144,15 @@ Dentro de Domain / Application / Infrastructure / Api / Web se usan las mismas c
 | API | `GET/POST /api/v1/administracion/catalogos/{clave}`, `PUT /{clave}/{id}`, `POST /{clave}/{id}/activar|desactivar` |
 | Web | `Pages/Administracion/Catalogos.razor` (índice), `Catalogo.razor` (genérica), `ElementoCatalogoDialogo.razor` |
 | **Agregar un catálogo simple** | Una clase `sealed class X : ElementoCatalogo;` + una línea en `CatalogosSimples.Todos` + `dotnet ef migrations add` |
+
+## Activos (implementado en NP-2.1)
+
+| Pieza | Detalle |
+|-------|---------|
+| Árboles | `Organizacion.PadreId`, `Ubicacion.UbicacionPadreId`, `Equipo.EquipoPadreId`. Ciclos: `Jerarquia.CreaCiclo` con el mapa `id → padre` de la empresa (cargado en memoria) |
+| Montaje | `Equipo.Montar/Desmontar` → `MovimientoEquipo`. Ubicación **o** equipo padre, nunca ambos. El montaje no se edita con el resto de datos |
+| Campos personalizados | `IConDatosAdicionales` + `ConversionDatosAdicionales.Configurar` (campo privado `_datosAdicionales` → `datos_adicionales jsonb`). Validar con `ValidacionActivos.DatosAdicionalesAsync` y asignar con `AsignarDatosAdicionales(validados, clavesActivas)` |
+| Listas grandes | `Pagina<T>` (`Contracts/Comun`), `ConsultasTexto.Buscar(...)` + `Paginar(...)`; en la web `MudDataGrid ServerData` |
+| Guardar con avisos | `Guardado<T>(Elemento, Advertencias)`: código repetido (D-03) y consecuencias (p. ej. desactivar una ubicación con equipos montados) |
+| Referencias | Se exige que existan en la empresa y estén activas, **salvo que no cambien** (editar un registro cuya criticidad se desactivó no obliga a cambiarla) |
+| Selectores web | `SelectorOrganizacion` (jerárquico), `SelectorCatalogo` (por clave), `BuscadorActivo` (autocompletado de ubicación/equipo) |

@@ -34,6 +34,9 @@
 | `D-NP-29` | 2026-10-03 | Nadie puede desactivarse ni cambiarse el rol a sí mismo; sólo se asignan roles cuyos permisos tiene quien asigna | Evita quedarse sin acceso y la escalada de privilegios |
 | `D-NP-30` | 2026-10-03 | Catálogos simples: una clase y una tabla por catálogo (herencia TPC) con un único código genérico, en vez de una tabla común | Cada FK futura apunta a su catálogo (integridad), sin repetir código 14 veces |
 | `D-NP-31` | 2026-10-03 | Los catálogos no se eliminan: se desactivan (dejan de ofrecerse para elegir, los datos que los usan se conservan) | Igual que el legacy; evita referencias rotas |
+| `D-NP-33` | 2026-10-03 | Equipo: datos generales (fabricante, marca, modelo, serie, activo fijo, fechas y valores) y horario de operación como **columnas**; lo propio de cada cliente, como campo personalizado | Lo tienen todos los clientes en el legacy (`EquipoGeneral`) |
+| `D-NP-34` | 2026-10-03 | Un equipo se monta en una ubicación **o** en otro equipo, no en ambos; el montaje sólo cambia con montar/desmontar, que dejan historial | Regla del legacy hecha explícita; el legacy permitía ambos campos |
+| `D-NP-35` | 2026-10-03 | El árbol muestra inactivos (atenuados); los equipos sin montar no aparecen en el árbol (sí en la lista) | DE-02 del legacy |
 | `D-NP-07` | 2026-10-02 | .NET 10, `.slnx`, Central Package Management, xunit.v3 + Microsoft.Testing.Platform | Estándar actual; versiones centralizadas |
 
 ### Heredadas del legacy (vinculantes)
@@ -51,6 +54,7 @@
 | `D-NP-05` | ¿Qué se sigue haciendo en el legacy? | Sólo hotfix y seguridad crítica |
 | `D-MC-01` | ¿Instancia + BD por cliente o multi-tenant único? | Por cliente al inicio (mismo artefacto); multi-tenant después |
 | `D-MC-02` | Campos personalizados en JSONB o columnas | JSONB — **validador ya implementado sobre este supuesto**; confirmar |
+| `D-NP-32` | ¿Se limita lo que ve cada usuario por organización (como `UsuarioOrganizacion` del legacy)? ¿Ver la organización y sus descendientes? | Sí, como filtro global adicional al de empresa |
 | `D-NP-23` | ¿Se reincorporan `PROGRAMADO` (estado de OT) y `PARADA` (tipo de aviso)? Están comentados en el legacy | Decidir antes de NP-3 |
 | `D-MC-03` | ¿Estados renombrados de caja_arequipa equivalen a los canónicos? | Confirmar con el cliente |
 | `D-MC-04` | Módulos de oterra (Área, Impacto, Conformidad, Turnos): ¿producto o exclusivos? | Producto |
