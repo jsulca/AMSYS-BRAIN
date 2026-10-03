@@ -1,6 +1,6 @@
 # Estado actual
 
-**Etapa**: `NP-5 Logística` — ✅ completa (almacenes, existencias, notas de entrada y salida FIFO, traslados, anulaciones, kardex, costo en la OT) · NP-0 a NP-5 completas · siguiente: prueba en navegador, importador de la ola 1 o NP-6 Reportes
+**Etapa**: `NP-6 Reportes` — 6.1–6.4 ✅ (tablero de inicio, Excel, PDF de OT, indicadores de confiabilidad); falta 6.5 módulos propios de clientes (requiere D-MC-04) · NP-0 a NP-5 completas
 **Última actualización**: 2026-10-02
 
 ## Hecho
@@ -114,6 +114,8 @@
       fixtures reintentan 3 veces e imprimen los logs del contenedor ("PostgreSQL no arrancó"). No se ha podido
       reproducir a voluntad. **Si vuelve a pasar: guardar la salida completa** (`dotnet test --solution Amsys.slnx > tests.log 2>&1`)
       y buscar "no arrancó" / "Exception". Repetir la ejecución pasa siempre.
+- [ ] Confirmar la licencia de QuestPDF (D-NP-76) y revisar las fórmulas de indicadores con oterra (D-MC-06/D-NP-74).
+- [ ] Probar en navegador inicio (tablero), Excel de las listas, PDF de una OT e indicadores.
 - [ ] Probar en navegador logística: compra → existencias → salida a una OT (ver el costo en la OT) → traslado → anular.
 - [ ] Probar en navegador el preventivo: sección → plan (matriz) → asignar equipos → Generar órdenes → cerrar la OT
       flotante y ver que se libera.
@@ -369,6 +371,29 @@ DL-01…05 del propietario).
   los planes, exportación del kardex a Excel (NP-6), filtros por fecha en la web, importación de stock inicial del legacy
   (convertir `NotaEntradaMaterial.Disponible` a lotes con valor disponible).
 
+## NP-6 Reportes y módulos
+
+Plan: **6.1** tablero de inicio ✅ · **6.2** Excel ✅ · **6.3** PDF de OT ✅ · **6.4** indicadores de confiabilidad ✅ ·
+**6.5** módulos propios de clientes (oterra: áreas/impacto, conformidad, turnos; solicitudes; feriados…) — pendiente de
+`D-MC-04` y de revisar cada rama.
+
+- **Tablero de inicio** (`GET /reportes/tablero`): avisos abiertos y por mes (fallas/solicitudes), fallas del mes,
+  órdenes abiertas/atrasadas/cerradas en el mes y por tipo de mantenimiento, preventivo por generar, materiales por
+  reponer y valor del inventario. Cada bloque según permiso (y módulo). Web: tarjetas, gráficos y accesos.
+- **Excel** (`IExportadorExcel`, ClosedXML): avisos, órdenes, equipos, existencias y kardex con los mismos filtros de la
+  lista y una columna por campo personalizado. Web: botón "Excel" en cada lista (`BotonDescarga` + `wwwroot/js/descargas.js`;
+  la web descarga de la API y entrega el archivo al navegador sin exponer tokens).
+- **PDF de la orden** (`IGeneradorPdfOrden`, QuestPDF; módulo REPORTE_PDF_OT, permiso `ordenes.imprimir`): marca de
+  la empresa, datos, campos personalizados, tareas con casillas, ejecución y costos, observaciones, firmas. Plantilla por
+  cliente con la general por defecto. (Glifo ☑ no disponible en las fuentes: la casilla se dibuja.)
+- **Indicadores** (`Confiabilidad` en el dominio + `ServicioIndicadores`; módulo INDICADORES_CONFIABILIDAD): MTBF, MTTR,
+  disponibilidad por equipo, total y por mes, filtrable por equipos u organización. D-NP-73/74. Web: Reportes →
+  Indicadores de confiabilidad.
+- Sin migración. `demo` con REPORTE_PDF_OT activado. Tests: **309/309**.
+- **Pendiente**: confirmar licencia de QuestPDF (D-NP-76); revisar las fórmulas con cada cliente (D-MC-06); fuentes en el
+  servidor de producción (Linux/Docker) para QuestPDF; reportes del legacy no portados aún: proyección de
+  mantenimiento (Excel de planificación anual), reporte de notificación de tareas, Excel de previsualización del plan.
+
 ## Entorno de desarrollo
 
 - PostgreSQL local en Docker (contenedor `amsys-postgres-dev`, volumen `amsys-postgres-dev`, puerto 5432,
@@ -420,3 +445,4 @@ DL-01…05 del propietario).
 | 2026-10-03 | NP-4.1 hojas de ruta y secciones; NP-4.2 planes con cálculo de posiciones portado con tests primero (equivalencia con el legacy en 500 casos aleatorios), vista previa de la matriz en el servidor, módulo PLANIFICACION. Decisiones D-NP-55…59 tomadas y D-NP-60…67 propuestas para 4.3/4.4. 271 tests verdes |
 | 2026-10-03 | D-NP-60…67 aceptadas. NP-4.3 asignaciones (calendario/contador, fija/flotante, reinicio explícito, desbloqueo manual) y NP-4.4 generación a demanda (previsualización con motivos, una posición por vez, OT con tareas agrupadas, liberación por la OT concreta). **NP-4 completa**. 284 tests verdes |
 | 2026-10-03 | NP-5 Logística: almacenes, existencias con reposición, notas de entrada (lotes) y salida (FIFO con valor exacto), traslado como documento único, anulaciones coherentes, kardex, bloqueo de inventario por empresa, costo de almacén en la OT (DL-01/02/04/05). **NP-5 completa**. 301 tests verdes |
+| 2026-10-03 | NP-6.1–6.4: tablero de inicio, exportación a Excel con campos personalizados, PDF de OT con plantilla por cliente, indicadores de confiabilidad (fórmulas de oterra corregidas, tiempo de operación por horario del equipo). ClosedXML y QuestPDF. 309 tests verdes |
