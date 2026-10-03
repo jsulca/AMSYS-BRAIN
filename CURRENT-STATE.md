@@ -1,6 +1,6 @@
 # Estado actual
 
-**Etapa**: `NP-3 Correctivo` — en curso (3.1 avisos ✅ · 3.2 órdenes de trabajo ✅; siguen 3.3 notificación, 3.4 Kanban, 3.5 costos) · NP-0, NP-1 y NP-2 completas (falta prueba manual en navegador)
+**Etapa**: `NP-3 Correctivo` — en curso (3.1 avisos ✅ · 3.2 OT ✅ · 3.3 notificación y costos ✅; sigue 3.4 Kanban) · NP-0, NP-1 y NP-2 completas (falta prueba manual en navegador)
 **Última actualización**: 2026-10-02
 
 ## Hecho
@@ -115,8 +115,8 @@
       reproducir a voluntad. **Si vuelve a pasar: guardar la salida completa** (`dotnet test --solution Amsys.slnx > tests.log 2>&1`)
       y buscar "no arrancó" / "Exception". Repetir la ejecución pasa siempre.
 - [ ] Probar en navegador avisos y órdenes (aviso → aprobar → generar OT → tareas → ejecución → cierre técnico).
-- [ ] Para 3.3 (notificación) faltan maestros: **empleados** (con costo hora) y **socios de negocio**; revisar en el legacy
-      cómo se usan antes de diseñarlos.
+- [ ] El importador del legacy deberá traer empleados, socios de negocio y materiales, y convertir las 7 tablas de
+      notificación a las 3 nuevas (D-NP-50), fijando el costo/hora con el actual del empleado.
 - [ ] Probar en navegador el alcance por organización (asignar organizaciones a un usuario no administrador).
 - [ ] Migración de usuarios del legacy: las claves son HMAC-SHA256 con clave fija en el código y sin sal
       (`CriptografiaUtilitario.ToSHA526`). En el ETL: verificar con ese algoritmo en el primer ingreso y re-hashear
@@ -260,6 +260,23 @@ OT · 3.5 Costos de OT.
   (necesita maestros de empleados y socios de negocio → 3.3), adjuntos y comentarios, PDF (módulo `REPORTE_PDF_OT`),
   OT padre/hija, exportar a Excel.
 
+### 3.3 Notificación y costos ✅
+- Maestros (D-NP-53): `Empleado` (documento único, especialidad, costo/hora, horas/día, ingreso/cese, personal de
+  mantenimiento), `SocioNegocio` (RUC, nombre, correo, teléfono), `Material` (código único, descripción, unidad,
+  tipo, precio de referencia). API `/administracion/empleados|socios-negocio|materiales`; páginas en Administración.
+- OT: líneas owned `orden_trabajo_mano_obra|material|servicio` (D-NP-50) con reemplazo por Id; costo/hora congelado
+  al registrar (D-NP-51); costos por tipo y total en la respuesta y en la lista de órdenes.
+- `PUT /mantenimiento/ordenes/{id}/notificacion` (cada lista `null` = no cambia), permiso `ordenes.notificar`;
+  emitida o en cierre técnico, no tras el cierre total (D-NP-52).
+- Web: sección "Notificación" en la ficha de la OT (tres tablas editables, totales en vivo) y panel con los contadores
+  y puntos de medida del equipo para registrar lecturas.
+- Migración `NotificacionOrdenes` (aplicada en desarrollo). Tests: **248/248**.
+- Con esto **3.5 Costos queda cubierto en lo básico** (costo por OT). Lo que resta (consolidado por equipo, centro de
+  costo y periodo; módulo `COSTOS_OT_AVANZADO`) va con los reportes (NP-6).
+- **Pendiente**: lecturas vinculadas a la OT (hoy se registran con origen Manual), programación de personal
+  (`ProgramacionEmpleado`), turnos, comentarios y adjuntos de OT, selector de materiales con búsqueda en servidor
+  (hoy carga hasta 500).
+
 ## Entorno de desarrollo
 
 - PostgreSQL local en Docker (contenedor `amsys-postgres-dev`, volumen `amsys-postgres-dev`, puerto 5432,
@@ -306,3 +323,4 @@ OT · 3.5 Costos de OT.
 | 2026-10-03 | D-NP-32 alcance por organización: usuarios con organizaciones asignadas ven esas y sus descendientes (filtro global + respaldo en el interceptor), validación al crear/editar activos y usuarios, `EnAlcance` en organizaciones, selector múltiple en usuarios. Migración `AlcanceOrganizacion`. 206 tests verdes. **NP-2 completa** |
 | 2026-10-03 | NP-3.1 avisos: dominio con máquina de estados e historial, correlativo sin carreras, falla/parada/análisis, campos personalizados, alcance por organización, permisos ver/crear/gestionar, API y web (lista, ficha, cambio de estado, crear desde equipo o punto en alarma). Lectura de catálogos con sólo sesión (D-NP-41). Fixture de Postgres: el reintento ya no se rompe si el contenedor no llegó a crearse. 226 tests verdes |
 | 2026-10-03 | D-NP-23 decidido (sin PROGRAMADO ni PARADA). NP-3.2 órdenes de trabajo: dominio con tareas e historial, estados con permisos ver/editar/cerrar, aviso atendido/finalizado/reabierto en la misma transacción (varias OT por aviso), API y web (lista, ficha con tareas, generar desde aviso). 240 tests verdes |
+| 2026-10-03 | NP-3.3 notificación: maestros de empleados, socios de negocio y materiales; mano de obra (costo/hora congelado), materiales y servicios (del maestro o externos) con costos por OT; cierre total congela. Web: páginas de maestros y notificación en la ficha de la OT. 248 tests verdes |

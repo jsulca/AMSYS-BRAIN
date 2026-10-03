@@ -8,7 +8,7 @@ producción hasta el corte de cada cliente.
 | **NP-0 Fundaciones** | Solución, CI, auth JWT, tenant + query filters, configuración multicliente (módulos, campos, etiquetas, branding), layout Blazor | Login + menú filtrado por permisos y módulos | ✅ Completa (falta prueba manual en navegador) |
 | **NP-1 Maestros** | Seguridad (usuarios, roles, permisos), catálogos de Administración | CRUD genérico reutilizable | ✅ Completa (catálogos con campos propios quedan para su etapa) |
 | **NP-2 Activos** | Equipos, Ubicaciones, árbol jerárquico, contadores, puntos de medida, datos técnicos | Primer uso de campos personalizados | ✅ Completa |
-| **NP-3 Correctivo** | Avisos → OT, notificación, Kanban, costos | **MVP** → migrar ares, energiaycombustion, itc | 🟡 En curso (3.1 avisos ✅ · 3.2 OT ✅) |
+| **NP-3 Correctivo** | Avisos → OT, notificación, Kanban, costos | **MVP** → migrar ares, energiaycombustion, itc | 🟡 En curso (3.1 avisos ✅ · 3.2 OT ✅ · 3.3 notificación y costos ✅ · falta 3.4 Kanban) |
 | **NP-4 Preventivo** | Hoja de ruta, secciones, planes, previsualización y generación a demanda | Portar cálculo de posiciones **con tests primero** | ⚪ |
 | **NP-5 Logística** | Almacenes, notas, kardex, hojas de aceptación | | ⚪ |
 | **NP-6 Reportes y módulos** | Indicadores, PDF de OT, exportaciones, módulos de cliente | Migrar el resto de clientes | ⚪ |
