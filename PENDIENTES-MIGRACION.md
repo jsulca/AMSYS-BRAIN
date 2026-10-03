@@ -90,6 +90,9 @@ Para la **ola 1** sólo hace falta lo de valor alto:
 
 ## Mejora de la UI (para cuando se retome)
 
+Tarea preparada: **`ai/tareas/UI-01-tema-base-y-revision-visual.md`**.
+
+
 - Skill **`frontend-design`** (plugin oficial `frontend-design@claude-plugins-official`, **instalado** el 2026-10-03, alcance usuario):
   dirección visual, tipografía, paleta y composición. Instalar con `/plugin` y pedirle una revisión de pantallas
   concretas (inicio, ficha de OT, tablero Kanban, ficha del plan). Disponible en sesiones nuevas de Claude Code.

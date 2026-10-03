@@ -22,6 +22,7 @@ de estado, branding y plantillas de reportes.
 | `ARCHITECTURE.md` | Estructura de la solución, dependencias, stack y convenciones |
 | `DECISIONS.md` | Registro de decisiones (tomadas y pendientes) |
 | `ROADMAP.md` | Etapas NP-0 … NP-6 y orden de migración de clientes |
+| `tareas/` | Tareas preparadas para ejecutar más tarde (una por archivo, con prompt, contexto y criterios de aceptación) |
 | `PENDIENTES-MIGRACION.md` | **Qué falta migrar del legacy** (rutas de ambos proyectos, funcionalidades pendientes, orden recomendado, mejora de UI) |
 
 ## Documentación del legacy (referencia, no copiar)

@@ -108,6 +108,10 @@
 ## Pendiente inmediato
 
 > Inventario completo de lo que falta migrar del legacy, con las rutas de ambos proyectos: `ai/PENDIENTES-MIGRACION.md`.
+> Tareas listas para ejecutar: `ai/tareas/` (p. ej. `UI-01-tema-base-y-revision-visual.md`).
+
+- [ ] **UI-01** Tema base de MudBlazor y revisión visual de Inicio y Ficha de OT con la skill `frontend-design`
+      (`ai/tareas/UI-01-tema-base-y-revision-visual.md`).
 
 - [ ] Prueba manual en navegador (ver *Entorno de desarrollo*). La BD local tiene la configuración `demo`, todas las
       migraciones y `admin` con el rol Administrador (clave temporal `Admin-Dev-2026`, la pedirá cambiar).
@@ -454,3 +458,4 @@ eulen/caja_arequipa, `FERIADOS` y calificación de OT de caja_arequipa) se hacen
 | 2026-10-03 | D-MC-04 decidida: los módulos de oterra son exclusivos de oterra; se construyen en la ola 4. NP-6 cerrada para el producto |
 | 2026-10-03 | Base de desarrollo movida al servidor Docker del usuario (`bdpostgresql`, PG 14.1, clave `123`): 16 migraciones aplicadas, semilla (`demo` + `admin`, clave temporal `Admin-Dev-2026`) y configuración `demo`; `appsettings.Development.json` de la API actualizado |
 | 2026-10-03 | Inventario de pendientes de migración en `ai/PENDIENTES-MIGRACION.md` (funcionalidades del legacy faltantes, partes incompletas, módulos de clientes, salida a producción, orden recomendado, skills para la UI) |
+| 2026-10-03 | Tarea UI-01 (tema base de MudBlazor + revisión de Inicio y Ficha de OT con `frontend-design`) creada en `ai/tareas/` |
