@@ -1,6 +1,6 @@
 # Estado actual
 
-**Etapa**: `NP-2 Activos` — en curso (2.1 organizaciones, ubicaciones y equipos ✅) · NP-0 y NP-1 completas (falta prueba manual en navegador) · NP-0 completa (falta prueba manual en navegador)
+**Etapa**: `NP-2 Activos` — en curso (2.1 organizaciones, ubicaciones y equipos ✅ · 2.2 clases de equipo ✅) · NP-0 y NP-1 completas (falta prueba manual en navegador) · NP-0 completa (falta prueba manual en navegador)
 **Última actualización**: 2026-10-02
 
 ## Hecho
@@ -164,9 +164,19 @@
   campos personalizados) y ficha de equipo (pestañas, montaje, historial), Árbol de activos (inactivos atenuados).
 - Migración `ActivosUbicacionesEquipos`. Tests: **167/167**.
 
+### 2.2 Clases de equipo ✅
+- `ClaseEquipo` (agregado) con `TipoEquipo`, `DatoTecnico` (definiciones) y modos de falla (owned, FK al catálogo).
+  Sincronización por lista: con `Id` actualiza (debe ser de la clase: corrige AD-03 del legacy), sin `Id` crea, lo que
+  falta se quita salvo tipos usados por equipos (desactivar) o datos técnicos con valores (bloqueado).
+- `Equipo.Clasificar(clase, tipo, valores)`: tipo de la clase, valores sólo de datos de la clase; al cambiar de clase
+  quita los que no aplican y la API **avisa** cuántos (el legacy los borraba sin aviso). Valores en
+  `activos.equipo_dato_tecnico` (owned).
+- API `/activos/clases` (lectura con `catalogos.ver` o `activos.ver`, edición con `catalogos.editar`).
+- Web: Administración → Clases de equipo (tabla editable de tipos y datos técnicos con contadores de uso, modos de
+  falla), ficha de equipo con clase, tipo y pestaña de datos técnicos (confirma antes de cambiar de clase).
+- `Result<T>.Entonces(...)`. Migración `ClasesEquipo`. Tests: **179/179**.
+
 ### Pendiente de NP-2
-- **2.2** Clase de equipo + tipos + datos técnicos por clase (catálogo con campos propios; en el legacy cambiar la
-  clase borraba los datos técnicos sin aviso).
 - **2.3** Unidad de medida de servicio (tipo, calendario) + contadores e historial + puntos de medida y alertas.
 - **Alcance por organización** (`UsuarioOrganizacion` del legacy): qué parte de la planta ve cada usuario. Filtro
   transversal: diseñar como el filtro de empresa (decisión pendiente `D-NP-32`).
@@ -213,3 +223,4 @@
 | 2026-10-03 | NP-1.2 gestión de usuarios: alta con contraseña temporal generada (se muestra una vez), edición, activar/desactivar (cierra sesiones), restablecer clave, desbloquear, roles asignables sin escalada, nadie se desactiva ni se cambia el rol a sí mismo; bloqueo tras 5 intentos fallidos durante 15 min; web con acciones por usuario. Fixtures de Postgres con reintento y logs (fallo intermitente de arranque tras compilar). `Amsys.Application.Tests` ya tiene tests. 127 tests verdes |
 | 2026-10-03 | NP-1.3 catálogos simples: 14 catálogos con un solo patrón (TPC, registro, servicio/endpoints/página genéricos), advertencia por código repetido (D-03). **NP-1 completa**. 144 tests verdes |
 | 2026-10-03 | NP-2.1 organizaciones, ubicaciones y equipos: árboles sin ciclos, montaje con historial, campos personalizados en jsonb (se conservan los de campos desactivados), listas paginadas con búsqueda, árbol de activos, permisos de activos. 167 tests verdes |
+| 2026-10-03 | NP-2.2 clases de equipo: agregado con tipos, datos técnicos y modos de falla; equipo clasificado con valores técnicos; corrige AD-03 (mover hijos ajenos) y el borrado silencioso al cambiar de clase. 179 tests verdes |

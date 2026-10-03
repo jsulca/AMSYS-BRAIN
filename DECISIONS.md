@@ -37,6 +37,8 @@
 | `D-NP-33` | 2026-10-03 | Equipo: datos generales (fabricante, marca, modelo, serie, activo fijo, fechas y valores) y horario de operación como **columnas**; lo propio de cada cliente, como campo personalizado | Lo tienen todos los clientes en el legacy (`EquipoGeneral`) |
 | `D-NP-34` | 2026-10-03 | Un equipo se monta en una ubicación **o** en otro equipo, no en ambos; el montaje sólo cambia con montar/desmontar, que dejan historial | Regla del legacy hecha explícita; el legacy permitía ambos campos |
 | `D-NP-35` | 2026-10-03 | El árbol muestra inactivos (atenuados); los equipos sin montar no aparecen en el árbol (sí en la lista) | DE-02 del legacy |
+| `D-NP-36` | 2026-10-03 | Datos técnicos (por clase de equipo) y campos personalizados (por empresa y entidad) son mecanismos distintos y conviven | Los técnicos dependen de la clase del equipo; los personalizados, del cliente |
+| `D-NP-37` | 2026-10-03 | Un tipo de equipo en uso no se quita (se desactiva); un dato técnico con valores no se quita | No perder datos ni dejar equipos con referencias rotas |
 | `D-NP-07` | 2026-10-02 | .NET 10, `.slnx`, Central Package Management, xunit.v3 + Microsoft.Testing.Platform | Estándar actual; versiones centralizadas |
 
 ### Heredadas del legacy (vinculantes)
