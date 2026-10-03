@@ -42,6 +42,7 @@
 | `D-NP-38` | 2026-10-03 | Un solo contador **activo** por equipo y unidad de servicio | Los planes por contador no deben tener ambigüedad sobre qué contador leer |
 | `D-NP-39` | 2026-10-03 | Lecturas de contador: no futuras, no anteriores a la última; acumuladas no bajan. Mediciones atrasadas sí se aceptan (sólo historial) | Un contador alimenta la programación; un punto de medida sólo informa |
 | `D-NP-40` | 2026-10-03 | Registrar lecturas y mediciones es un permiso aparte de editar activos | Los técnicos registran en campo sin poder modificar equipos |
+| `D-NP-32` | 2026-10-03 | Alcance por organización: cada usuario ve las organizaciones asignadas **y sus descendientes**; sin asignación o con rol administrador ve todas. Filtro global con nombre (`FiltrosConsulta.Organizacion`) sobre las entidades `IEntidadOrganizacion`, más respaldo en el interceptor al guardar. El árbol de organizaciones se ve completo (marca `EnAlcance`) | Como `UsuarioOrganizacion` del legacy, pero sin depender de que cada consulta lo recuerde. Un usuario restringido sólo asigna organizaciones de su alcance y no puede crear usuarios sin restricción |
 | `D-NP-07` | 2026-10-02 | .NET 10, `.slnx`, Central Package Management, xunit.v3 + Microsoft.Testing.Platform | Estándar actual; versiones centralizadas |
 
 ### Heredadas del legacy (vinculantes)
@@ -59,7 +60,6 @@
 | `D-NP-05` | ¿Qué se sigue haciendo en el legacy? | Sólo hotfix y seguridad crítica |
 | `D-MC-01` | ¿Instancia + BD por cliente o multi-tenant único? | Por cliente al inicio (mismo artefacto); multi-tenant después |
 | `D-MC-02` | Campos personalizados en JSONB o columnas | JSONB — **validador ya implementado sobre este supuesto**; confirmar |
-| `D-NP-32` | ¿Se limita lo que ve cada usuario por organización (como `UsuarioOrganizacion` del legacy)? ¿Ver la organización y sus descendientes? | Sí, como filtro global adicional al de empresa |
 | `D-NP-23` | ¿Se reincorporan `PROGRAMADO` (estado de OT) y `PARADA` (tipo de aviso)? Están comentados en el legacy | Decidir antes de NP-3 |
 | `D-MC-03` | ¿Estados renombrados de caja_arequipa equivalen a los canónicos? | Confirmar con el cliente |
 | `D-MC-04` | Módulos de oterra (Área, Impacto, Conformidad, Turnos): ¿producto o exclusivos? | Producto |

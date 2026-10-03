@@ -1,6 +1,6 @@
 # Estado actual
 
-**Etapa**: `NP-2 Activos` — en curso (2.1 ✅ · 2.2 ✅ · 2.3 contadores y puntos de medida ✅; falta el alcance por organización, pendiente de decisión) · NP-0 y NP-1 completas (falta prueba manual en navegador) · NP-0 completa (falta prueba manual en navegador)
+**Etapa**: `NP-3 Correctivo` — siguiente · NP-2 completa (incluye alcance por organización, D-NP-32) · NP-0 y NP-1 completas (falta prueba manual en navegador)
 **Última actualización**: 2026-10-02
 
 ## Hecho
@@ -115,6 +115,7 @@
       reproducir a voluntad. **Si vuelve a pasar: guardar la salida completa** (`dotnet test --solution Amsys.slnx > tests.log 2>&1`)
       y buscar "no arrancó" / "Exception". Repetir la ejecución pasa siempre.
 - [ ] Decidir `D-NP-23` (estados `PROGRAMADO` / tipo `PARADA`) antes de NP-3.
+- [ ] Probar en navegador el alcance por organización (asignar organizaciones a un usuario no administrador).
 - [ ] Migración de usuarios del legacy: las claves son HMAC-SHA256 con clave fija en el código y sin sal
       (`CriptografiaUtilitario.ToSHA526`). En el ETL: verificar con ese algoritmo en el primer ingreso y re-hashear
       con PBKDF2, o forzar restablecimiento.
@@ -192,9 +193,24 @@
 - **Pendiente para NP-3**: crear un aviso automático al medir en alarma (`Configuracion.CrearAvisoPorPuntoMedida`).
   **Pendiente para NP-4**: la UMS también "en uso" por planes; proyección de contadores con el horario de operación.
 
+### 2.4 Alcance por organización (D-NP-32) ✅
+- `Usuario.Organizaciones` (tabla `seguridad.usuario_organizacion`). Alcance = asignadas + descendientes
+  (`Jerarquia.ConDescendientes`); `null` (sin restricción) si no tiene asignadas o su rol es administrador.
+- `ServicioAlcance` lo calcula por petición (caché 1 min, clave con `VersionPermisos`; se invalida al editar usuarios u
+  organizaciones). Middleware `UseAlcanceOrganizacion()` en la API, tras `UseAuthorization()`.
+- Entidades con `IEntidadOrganizacion` (hoy `Ubicacion`, `Equipo`; en NP-3 `Aviso` y `OrdenTrabajo`): filtro global
+  `FiltrosConsulta.Organizacion` + el interceptor lanza si se guarda fuera del alcance (respaldo).
+- `ValidacionActivos.OrganizacionAsync` → `Activos.OrganizacionFueraDeAlcance` (403). `OrganizacionResponse.EnAlcance`;
+  el `SelectorOrganizacion` sólo ofrece las del alcance.
+- Usuarios: `OrganizacionIds` en alta/edición (`null` = sin cambio, vacío = todas). Un usuario restringido sólo asigna
+  organizaciones de su alcance y no puede dejar a otro sin restricción. Web: selector múltiple en el diálogo de usuario.
+- Migración `AlcanceOrganizacion` (aplicada en la BD de desarrollo). Tests: **206/206**.
+- Entidades hijas de un equipo (contadores, puntos de medida, movimientos) no llevan el filtro propio: los servicios
+  las buscan a través del equipo visible (`ContadoresVisibles`/`PuntosVisibles` en `ServicioMediciones`). Cubierto por
+  test (lectura en un contador de otra organización → 404). **Regla para NP-3**: toda entidad hija que se consulte por
+  su propio id debe pasar por su padre visible o implementar `IEntidadOrganizacion`.
+
 ### Pendiente de NP-2
-- **Alcance por organización** (`UsuarioOrganizacion` del legacy): qué parte de la planta ve cada usuario. Filtro
-  transversal: diseñar como el filtro de empresa (decisión pendiente `D-NP-32`).
 - Avisar al desactivar o desmontar un equipo con planes (cuando existan los planes, NP-4).
 
 ## Entorno de desarrollo
@@ -240,3 +256,4 @@
 | 2026-10-03 | NP-2.1 organizaciones, ubicaciones y equipos: árboles sin ciclos, montaje con historial, campos personalizados en jsonb (se conservan los de campos desactivados), listas paginadas con búsqueda, árbol de activos, permisos de activos. 167 tests verdes |
 | 2026-10-03 | NP-2.2 clases de equipo: agregado con tipos, datos técnicos y modos de falla; equipo clasificado con valores técnicos; corrige AD-03 (mover hijos ajenos) y el borrado silencioso al cambiar de clase. 179 tests verdes |
 | 2026-10-03 | NP-2.3 unidades de servicio, contadores (lecturas acumuladas/parciales, promedio diario) y puntos de medida (niveles de alarma), permiso para registrar lecturas, control de concurrencia. 198 tests verdes. NP-2 completa salvo el alcance por organización (D-NP-32) |
+| 2026-10-03 | D-NP-32 alcance por organización: usuarios con organizaciones asignadas ven esas y sus descendientes (filtro global + respaldo en el interceptor), validación al crear/editar activos y usuarios, `EnAlcance` en organizaciones, selector múltiple en usuarios. Migración `AlcanceOrganizacion`. 206 tests verdes. **NP-2 completa** |

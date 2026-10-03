@@ -67,7 +67,7 @@ Dentro de Domain / Application / Infrastructure / Api / Web se usan las mismas c
 |------------|-------|---------|
 | Base de entidades | `Domain/Common/Entidad.cs` | `Id int`, auditoría (`CreadoEn/Por`, `ModificadoEn/Por`), eliminación lógica (`Eliminado`, `EliminadoEn/Por`), `Version` = columna de sistema `xmin` (concurrencia optimista) |
 | Pertenencia a empresa | `IEntidadEmpresa` | Toda entidad operativa la implementa. FK a `seguridad.empresa` e índice por `empresa_id` se crean solos |
-| Filtros globales con nombre | `AmsysDbContext` | `FiltrosConsulta.Empresa` (empresa actual; sin empresa → no devuelve nada) y `FiltrosConsulta.Eliminados`. Se desactivan por separado: `.IgnoreQueryFilters([FiltrosConsulta.Eliminados])` |
+| Filtros globales con nombre | `AmsysDbContext` | `FiltrosConsulta.Empresa` (empresa actual; sin empresa → no devuelve nada), `FiltrosConsulta.Eliminados` y `FiltrosConsulta.Organizacion` (entidades `IEntidadOrganizacion`; alcance del usuario, D-NP-32). Se desactivan por separado: `.IgnoreQueryFilters([FiltrosConsulta.Eliminados])` |
 | Interceptor | `AuditoriaInterceptor` | Asigna `EmpresaId` al insertar si viene en 0; lanza si se escribe sobre otra empresa o se cambia la empresa; completa auditoría; convierte `Remove` en eliminación lógica |
 | Nombres | `UseSnakeCaseNamingConvention()` | Tablas y columnas en snake_case, tablas en singular, **un esquema por módulo** (`Persistence/Esquemas.cs`) |
 | Historial de migraciones | `public.__ef_migraciones` | |
