@@ -48,6 +48,11 @@
 | `D-NP-43` | 2026-10-03 | Un aviso se registra sobre un **equipo o una ubicación**; con equipo, la ubicación es la de su montaje al reportar. La organización se toma del objeto técnico. Una ubicación no mantenible no admite avisos | Legacy: `UbicacionId` obligatorio y `EquipoId` opcional, con organización derivada igual |
 | `D-NP-44` | 2026-10-03 | Permisos de avisos: `ver`, `crear` (y editar los propios mientras están emitidos) y `gestionar` (aprobar, rechazar, editar, cerrar). Reemplaza `RolEstadoAviso` del legacy; los estados deshabilitados por la empresa (etiquetas) no se pueden asignar | Más simple de configurar; la granularidad por estado se puede añadir si un cliente la usa |
 | `D-NP-45` | 2026-10-03 | Máquina de estados del aviso tal como el legacy: Emitido → Aprobado/Rechazado → Atendido → Finalizado; rechazar exige motivo; finalizar con parada exige fin de parada; el objeto técnico sólo cambia en Emitido; Finalizado/Rechazado no se editan | Paridad con el legacy, ahora validada en el dominio (el legacy la validaba sólo en una ruta) |
+| `D-NP-23` | 2026-10-03 | **Sin** `PROGRAMADO` (estado de OT) ni `PARADA` (tipo de aviso), como el legacy en producción. La parada es un dato del aviso de falla | Decisión del usuario. Agregarlos después no rompe datos (los estados se guardan como texto) |
+| `D-NP-46` | 2026-10-03 | Estados de OT: Emitido → Cierre técnico | Anulado; Cierre técnico → Cierre total | Anulado (como el Kanban del legacy). Sólo se edita emitida. Cierre técnico exige inicio y fin de ejecución (fin no futuro); anular exige motivo | Paridad con el legacy, validada en el dominio |
+| `D-NP-47` | 2026-10-03 | Aviso ↔ OT en la **misma transacción**: generar una OT atiende el aviso (debe estar aprobado o atendido); el cierre técnico de su **última** OT emitida lo finaliza; anular su **única** OT vigente lo devuelve a aprobado. Si el aviso no puede finalizar (falta fin de parada) la OT se cierra igual y se devuelve una advertencia | El legacy lo hacía en el controlador, fuera de la transacción, y sin considerar varias OT por aviso |
+| `D-NP-48` | 2026-10-03 | Permisos de OT: `ver`, `editar` (emitir, editar, tareas, ejecución y cierre técnico) y `cerrar` (cierre total y anulación). Reemplaza `RolEstadoOrdenTrabajo` | Separa al planificador/técnico del supervisor que cierra |
+| `D-NP-49` | 2026-10-03 | Una OT generada desde un aviso usa el equipo/ubicación del aviso (no se cambia); una OT directa se crea sobre equipo o ubicación mantenible como el aviso | Coherencia aviso–OT para indicadores |
 | `D-NP-07` | 2026-10-02 | .NET 10, `.slnx`, Central Package Management, xunit.v3 + Microsoft.Testing.Platform | Estándar actual; versiones centralizadas |
 
 ### Heredadas del legacy (vinculantes)
@@ -65,7 +70,6 @@
 | `D-NP-05` | ¿Qué se sigue haciendo en el legacy? | Sólo hotfix y seguridad crítica |
 | `D-MC-01` | ¿Instancia + BD por cliente o multi-tenant único? | Por cliente al inicio (mismo artefacto); multi-tenant después |
 | `D-MC-02` | Campos personalizados en JSONB o columnas | JSONB — **validador ya implementado sobre este supuesto**; confirmar |
-| `D-NP-23` | ¿Se reincorporan `PROGRAMADO` (estado de OT) y `PARADA` (tipo de aviso)? Están comentados en el legacy | NP-3.1 se hizo **sin ellos** (como el legacy en producción). Agregarlos después no rompe datos (los estados se guardan como texto). Decidir antes de NP-3.2 (OT) |
 | `D-MC-03` | ¿Estados renombrados de caja_arequipa equivalen a los canónicos? | Confirmar con el cliente |
 | `D-MC-04` | Módulos de oterra (Área, Impacto, Conformidad, Turnos): ¿producto o exclusivos? | Producto |
 | `D-MC-05` | Soft delete para todos | Sí — **ya implementado así en `Entidad`**; confirmar |

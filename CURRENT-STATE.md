@@ -1,6 +1,6 @@
 # Estado actual
 
-**Etapa**: `NP-3 Correctivo` — en curso (3.1 avisos ✅; siguen 3.2 OT, 3.3 notificación, 3.4 Kanban, 3.5 costos) · NP-0, NP-1 y NP-2 completas (falta prueba manual en navegador)
+**Etapa**: `NP-3 Correctivo` — en curso (3.1 avisos ✅ · 3.2 órdenes de trabajo ✅; siguen 3.3 notificación, 3.4 Kanban, 3.5 costos) · NP-0, NP-1 y NP-2 completas (falta prueba manual en navegador)
 **Última actualización**: 2026-10-02
 
 ## Hecho
@@ -114,8 +114,9 @@
       fixtures reintentan 3 veces e imprimen los logs del contenedor ("PostgreSQL no arrancó"). No se ha podido
       reproducir a voluntad. **Si vuelve a pasar: guardar la salida completa** (`dotnet test --solution Amsys.slnx > tests.log 2>&1`)
       y buscar "no arrancó" / "Exception". Repetir la ejecución pasa siempre.
-- [ ] Decidir `D-NP-23` (estados `PROGRAMADO` / tipo `PARADA`) antes de NP-3.2 (OT).
-- [ ] Probar en navegador la pantalla de avisos (alta, estados, rechazo con motivo, parada).
+- [ ] Probar en navegador avisos y órdenes (aviso → aprobar → generar OT → tareas → ejecución → cierre técnico).
+- [ ] Para 3.3 (notificación) faltan maestros: **empleados** (con costo hora) y **socios de negocio**; revisar en el legacy
+      cómo se usan antes de diseñarlos.
 - [ ] Probar en navegador el alcance por organización (asignar organizaciones a un usuario no administrador).
 - [ ] Migración de usuarios del legacy: las claves son HMAC-SHA256 con clave fija en el código y sin sal
       (`CriptografiaUtilitario.ToSHA526`). En el ETL: verificar con ese algoritmo en el primer ingreso y re-hashear
@@ -240,6 +241,25 @@ OT · 3.5 Costos de OT.
   (`Configuracion.CrearAvisoPorPuntoMedida` del legacy; hoy se ofrece crearlo con un clic), exportar a Excel,
   conformidad del solicitante (módulo `CONFORMIDAD_AVISO`), campos de Solicitudes (módulo `SOLICITUDES`).
 
+### 3.2 Órdenes de trabajo ✅
+- Dominio `Mantenimiento/OrdenTrabajo` (D-NP-46): código `OT-AAAA-NNNNN` (mismo correlativo), objeto técnico y
+  organización (alcance), aviso de origen, tipo de mantenimiento, taller, prioridad, centro de costo, cuenta contable,
+  programación e inicio/fin de ejecución, equipo detenido, comentario, observación, motivo de anulación, campos
+  personalizados, tareas (owned `orden_trabajo_tarea`: descripción, tipo, especialidad, personas, horas, hecha;
+  reemplazo por Id) e historial (`orden_trabajo_historial`).
+- Aviso ↔ OT en la misma transacción (D-NP-47): `Aviso.AtenderPorOrden`, `FinalizarPorOrden`, `ReabrirPorAnulacion`;
+  el aviso muestra sus órdenes y si se puede generar una.
+- `ObjetosTecnicos` (Application/Mantenimiento): resolución equipo/ubicación → organización, nombres, estados
+  deshabilitados y utilidades, compartidos por avisos y órdenes.
+- Permisos `mantenimiento.ordenes.ver|editar|cerrar` (D-NP-48). API `/mantenimiento/ordenes` (lista con filtros por
+  estado, abiertas, organización, equipo y aviso; ficha; alta; edición; `POST /{id}/estado` → `Guardado` con advertencias).
+- Web: Mantenimiento → Órdenes de trabajo (lista con avance de tareas), ficha con tareas editables, programación y
+  ejecución, acciones de estado (diálogo genérico `CambiarEstadoDialogo`), historial; "Generar orden" desde el aviso.
+- Migración `OrdenesTrabajo` (aplicada en la BD de desarrollo). Tests: **240/240**.
+- **Pendiente de OT**: materiales (necesita el maestro de materiales, NP-5), personal y proveedores programados
+  (necesita maestros de empleados y socios de negocio → 3.3), adjuntos y comentarios, PDF (módulo `REPORTE_PDF_OT`),
+  OT padre/hija, exportar a Excel.
+
 ## Entorno de desarrollo
 
 - PostgreSQL local en Docker (contenedor `amsys-postgres-dev`, volumen `amsys-postgres-dev`, puerto 5432,
@@ -285,3 +305,4 @@ OT · 3.5 Costos de OT.
 | 2026-10-03 | NP-2.3 unidades de servicio, contadores (lecturas acumuladas/parciales, promedio diario) y puntos de medida (niveles de alarma), permiso para registrar lecturas, control de concurrencia. 198 tests verdes. NP-2 completa salvo el alcance por organización (D-NP-32) |
 | 2026-10-03 | D-NP-32 alcance por organización: usuarios con organizaciones asignadas ven esas y sus descendientes (filtro global + respaldo en el interceptor), validación al crear/editar activos y usuarios, `EnAlcance` en organizaciones, selector múltiple en usuarios. Migración `AlcanceOrganizacion`. 206 tests verdes. **NP-2 completa** |
 | 2026-10-03 | NP-3.1 avisos: dominio con máquina de estados e historial, correlativo sin carreras, falla/parada/análisis, campos personalizados, alcance por organización, permisos ver/crear/gestionar, API y web (lista, ficha, cambio de estado, crear desde equipo o punto en alarma). Lectura de catálogos con sólo sesión (D-NP-41). Fixture de Postgres: el reintento ya no se rompe si el contenedor no llegó a crearse. 226 tests verdes |
+| 2026-10-03 | D-NP-23 decidido (sin PROGRAMADO ni PARADA). NP-3.2 órdenes de trabajo: dominio con tareas e historial, estados con permisos ver/editar/cerrar, aviso atendido/finalizado/reabierto en la misma transacción (varias OT por aviso), API y web (lista, ficha con tareas, generar desde aviso). 240 tests verdes |
