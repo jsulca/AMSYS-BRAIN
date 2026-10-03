@@ -109,8 +109,11 @@
 
 - [ ] Prueba manual en navegador (ver *Entorno de desarrollo*). La BD local tiene la configuración `demo`, todas las
       migraciones y `admin` con el rol Administrador (clave temporal `Admin-Dev-2026`, la pedirá cambiar).
-- [ ] Fallo intermitente de Testcontainers (contenedor sale con código 1 justo tras compilar): mitigado con
-      reintentos que imprimen los logs. Si reaparece, revisar esos logs.
+- [ ] **Fallo intermitente de los tests de integración** (4 veces hasta 2026-10-03): siempre en la primera ejecución
+      tras compilar, decenas de tests fallan a la vez (fixture). Una vez se vio "contenedor exited with code 1". Los
+      fixtures reintentan 3 veces e imprimen los logs del contenedor ("PostgreSQL no arrancó"). No se ha podido
+      reproducir a voluntad. **Si vuelve a pasar: guardar la salida completa** (`dotnet test --solution Amsys.slnx > tests.log 2>&1`)
+      y buscar "no arrancó" / "Exception". Repetir la ejecución pasa siempre.
 - [ ] Decidir `D-NP-23` (estados `PROGRAMADO` / tipo `PARADA`) antes de NP-3.
 - [ ] Migración de usuarios del legacy: las claves son HMAC-SHA256 con clave fija en el código y sin sal
       (`CriptografiaUtilitario.ToSHA526`). En el ETL: verificar con ese algoritmo en el primer ingreso y re-hashear
@@ -133,7 +136,7 @@
       una tabla por catálogo (TPC, secuencia compartida `administracion.elemento_catalogo_id_seq`); servicio y
       endpoints genéricos `/administracion/catalogos/{clave}`; código repetido = advertencia (D-03); web genérica
       (índice por grupos + página por catálogo + diálogo).
-- [x] Tests: **142/142**.
+- [x] Tests: **144/144**.
 
 **Pendiente de NP-1 (no bloquea NP-2):**
 - Catálogos con campos propios: `Calificacion` (valor), `Aspecto` (tipo + opciones), `ClaseEquipo` (tipos, datos
@@ -191,4 +194,4 @@
 | 2026-10-03 | Paso 5: configuración multicliente (módulos, campos personalizados con validador, etiquetas de estado, marca), archivo por cliente aplicado con el Migrator (idempotente, transaccional), `GET /configuracion`, web con tema/logo/menú por cliente y página de configuración; un contenedor Postgres por proyecto de tests; 100 tests verdes. **NP-0 completa** salvo prueba manual en navegador |
 | 2026-10-03 | NP-1.1 roles y permisos: catálogo de permisos en código (por módulo), `Rol` por empresa (Administrador automático), permisos evaluados en cada petición con caché de 1 min e invalidación al editar roles, sin escalada de privilegios, `RequierePermiso` en la API, `GET /auth/permisos`, CRUD de roles, web con menú por permiso, `ConPermiso` y pantalla de roles. **Hueco detectado por test y corregido**: una política propia en un endpoint anulaba la política por defecto (usuario con clave pendiente accedía). 115 tests verdes |
 | 2026-10-03 | NP-1.2 gestión de usuarios: alta con contraseña temporal generada (se muestra una vez), edición, activar/desactivar (cierra sesiones), restablecer clave, desbloquear, roles asignables sin escalada, nadie se desactiva ni se cambia el rol a sí mismo; bloqueo tras 5 intentos fallidos durante 15 min; web con acciones por usuario. Fixtures de Postgres con reintento y logs (fallo intermitente de arranque tras compilar). `Amsys.Application.Tests` ya tiene tests. 127 tests verdes |
-| 2026-10-03 | NP-1.3 catálogos simples: 14 catálogos con un solo patrón (TPC, registro, servicio/endpoints/página genéricos), advertencia por código repetido (D-03). **NP-1 completa**. 142 tests verdes |
+| 2026-10-03 | NP-1.3 catálogos simples: 14 catálogos con un solo patrón (TPC, registro, servicio/endpoints/página genéricos), advertencia por código repetido (D-03). **NP-1 completa**. 144 tests verdes |
