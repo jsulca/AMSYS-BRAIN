@@ -6,13 +6,13 @@ portal de la plataforma (D-MC-01, D-PL-01) · **retomar por "Siguientes pasos"**
 
 ## Siguientes pasos (para retomar)
 
-En orden. Lo hecho el 2026-10-03 está en la *Bitácora*; las decisiones en `ai/DECISIONS.md` (D-UI-01…03, D-NT-01…06,
+En orden. Lo hecho está en la *Bitácora*; las decisiones en `ai/DECISIONS.md` (D-UI-01…04, D-NT-01…07, D-OT-01,
 D-MC-01, D-PL-01).
 
 1. **Poner al día `amsys_dev`** (hoy sólo se aplicó en la BD de prueba `amsys_ui`):
    ```bash
    CS="Host=localhost;Port=5432;Database=amsys_dev;Username=postgres;Password=123"
-   dotnet run --project src/Amsys.Migrator -- "--ConnectionStrings:Amsys=$CS"                     # migraciones NotificacionTecnico y TareaOrdenSeccion
+   dotnet run --project src/Amsys.Migrator -- "--ConnectionStrings:Amsys=$CS"                     # migraciones NotificacionTecnico, TareaOrdenSeccion y Aspectos
    dotnet run --project src/Amsys.Migrator -- --configurar tools/clientes/amsys/configuracion.json "--ConnectionStrings:Amsys=$CS"
    dotnet run --project src/Amsys.Migrator -- --crear-admin amsys --Admin:Usuario=plataforma "--Admin:Nombre=Operador de la plataforma" "--ConnectionStrings:Amsys=$CS"
    ```
@@ -22,8 +22,8 @@ D-MC-01, D-PL-01).
    técnico en el celular (Mis órdenes → play/pausa → materiales → ejecución → cierre técnico), Mis avisos, fechas.
 3. **NT-01b**: lecturas de contadores y puntos de medida vinculadas a la OT (origen `OrdenTrabajo`) en el paso
    "Parámetros" del técnico; comentarios de la OT. Ver `ai/tareas/NT-01-notificacion-tecnico.md`.
-4. **NT-01c**: aspectos (catálogo abierto/cerrado, por equipo y ubicación, historial) y valor de ejecución / fecha de cierre
-   del plan al cerrar la OT (BR-GE-010).
+4. **NT-01c (resto)**: valor de ejecución / fecha de cierre del plan al cerrar la OT (BR-GE-010). Los aspectos ya están
+   (D-NT-07); falta llevarlos al importador del legacy (`Aspecto`, `EquipoAspecto*`, `UbicacionAspecto*`).
 5. **NT-01d**: monitoreo de técnicos (quién trabaja ahora, tramos abiertos de ayer) y reporte de horas por empleado.
 6. **Portal (D-PL-01), mejoras**: campos personalizados y etiquetas desde el portal (hoy por archivo), subida de logo
    (requiere almacenamiento de archivos), decidir si la empresa de la plataforma ve sólo el menú "Plataforma",
@@ -148,7 +148,9 @@ D-MC-01, D-PL-01).
       `--configurar tools/clientes/amsys/configuracion.json` y `--crear-admin amsys` (ver `tools/clientes/README.md`).
 - [x] **Tareas de la OT por sección (D-OT-01)**: referencia a sección/hoja de ruta, "Desde sección" en la ficha y grupos
       en la ficha y en la vista del técnico. Migración `TareaOrdenSeccion` (aplicada sólo en `amsys_ui`).
-- [ ] Aplicar en `amsys_dev` las migraciones `NotificacionTecnico` y `TareaOrdenSeccion` y la puesta en marcha de la plataforma (ver *Siguientes pasos* 1).
+- [x] **Aspectos (D-NT-07)**: catálogo, aspectos de equipos y ubicaciones con historial, inspección desde la OT y el
+      paso "Parámetros" del técnico. Migración `Aspectos` (aplicada sólo en `amsys_ui`).
+- [ ] Aplicar en `amsys_dev` las migraciones `NotificacionTecnico`, `TareaOrdenSeccion` y `Aspectos` y la puesta en marcha de la plataforma (ver *Siguientes pasos* 1).
 - [ ] NT-01b/c/d y revisión visual pendiente (ver *Siguientes pasos* 3–7).
 - [x] UI-02 interfaz minimalista (D-UI-02): controles, barra superior y menú — capturas en `ai/tareas/capturas/UI-02/`.
 - [ ] Logos de cliente: deben verse sobre la barra pizarra (logos claros o a color; uno oscuro no se leería).
@@ -509,3 +511,4 @@ eulen/caja_arequipa, `FERIADOS` y calificación de OT de caja_arequipa) se hacen
 | 2026-10-03 | D-MC-01 decidida: base compartida. D-PL-01 portal de la plataforma: módulo interno `PLATAFORMA` y permiso `plataforma.clientes.gestionar`, `IOperacionSobreEmpresa` para operar sobre la empresa elegida sin romper el aislamiento, API `/plataforma/clientes` (listar, ver, crear, editar, módulos, suspender/reactivar, administradores), web Plataforma → Clientes con resumen de vigencia, ficha con marca y módulos, `Migrator --crear-admin`, empresa `tools/clientes/amsys`. 359 tests verdes, Release sin advertencias |
 | 2026-10-04 | **Tareas de la OT por sección (D-OT-01)**: `TareaOrden.SeccionId` (FK a `planificacion.seccion`, migración `TareaOrdenSeccion`), llenado al generar desde planes; `TareaOrdenRequest/Response` con `SeccionId` y `Seccion`/`HojaRuta` resueltos al leer; validación de sección activa al agregarla. Web: botón "Desde sección" en la ficha de la OT (copia las tareas de la sección, editables) y encabezados por sección en la ficha y en "Mis órdenes" del técnico. Test de integración nuevo; 360/360. Probado con Playwright en `amsys_ui` (OT-2026-00003: se le agregó la sección 1000 y el técnico `lquispe`) |
 | 2026-10-04 | Seleccionables con "SELECCIONE" (obligatorio) / "NINGUNO" (opcional) en lugar de "0" (D-UI-04): componente `OpcionVacia` en 28 seleccionables de formularios, `SelectorCatalogo`, `SelectorOrganizacion` (`TextoVacio`) y campos personalizados tipo lista. 360/360; probado con Playwright (OT, sección, nuevo usuario). La API de desarrollo apunta a `amsys_ui` (cambio local, no commitear) |
+| 2026-10-04 | **Aspectos (D-NT-07)**: dominio `Aspecto`/`AspectoObjeto`/`InspeccionAspecto` (migración `Aspectos`), `ServicioAspectos` y endpoints (`/administracion/aspectos`, `/activos/{equipos|ubicaciones}/{id}/aspectos`, `/activos/aspectos/{id}[/inspecciones]`, `/mantenimiento/ordenes/{id}/aspectos`). Web: Administración → Aspectos, pestaña en la ficha de equipo, botón en Ubicaciones, panel "Inspección de aspectos" en la ficha de la OT y paso "Parámetros" del técnico (los cerrados se responden con un toque). Corregido además el XML-doc de `TareaOrdenRequest/Response` que rompía el build Release. 368/368, Release sin advertencias; probado con Playwright en `amsys_ui` (BB-12: "Estado de la faja" y "Observaciones") |

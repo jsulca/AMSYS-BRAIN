@@ -1,6 +1,6 @@
 # NT-01 · Notificación del técnico (play/pause, materiales, servicios, parámetros, ejecución)
 
-- **Estado**: **NT-01a hecha** (2026-10-03) · siguen NT-01b (parámetros vinculados, comentarios), NT-01c (aspectos, valor de ejecución), NT-01d (monitoreo)
+- **Estado**: **NT-01a hecha** (2026-10-03) · **aspectos de NT-01c hechos** (2026-10-04, D-NT-07) · siguen NT-01b (parámetros vinculados, comentarios), NT-01c (valor de ejecución), NT-01d (monitoreo)
 - **Creada**: 2026-10-03
 - **Legacy**: `D:\Documentos\Alphamanufacturas\AMSYS\AMSYS` (rama `main`)
 
@@ -41,7 +41,7 @@ Problemas del legacy a **no** copiar: el estado se cambia desde Notificar sin va
 | **Play/pause por tarea** | ❌ |
 | **Usuario ↔ empleado** | ❌ (no se sabe qué empleado es el usuario) |
 | **Asignación de técnicos a la OT** (`ProgramacionEmpleado`) | ❌ (pendiente desde NP-3.3) |
-| **Aspectos** (catálogo, aspectos por equipo/ubicación, historial) | ❌ (catálogo con campos propios pendiente de NP-1) |
+| **Aspectos** (catálogo, aspectos por equipo/ubicación, historial) | ✅ 2026-10-04 (D-NT-07) |
 | Valor de ejecución / fecha de cierre del plan (BR-GE-010) | ❌ (pendiente de NP-4) |
 | Comentarios y adjuntos de OT | ❌ (adjuntos necesitan almacenamiento de archivos) |
 | Pantalla del técnico ("mis órdenes", móvil) | ❌ |
