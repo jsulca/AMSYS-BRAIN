@@ -1,7 +1,35 @@
 # Estado actual
 
-**Etapa**: `NP-6 Reportes` — ✅ para el producto (6.1–6.4); 6.5 (módulos exclusivos de oterra, D-MC-04) se hace en la ola 4 · NP-0 a NP-6 completas · siguiente recomendado: importador de la ola 1
-**Última actualización**: 2026-10-02
+**Etapa**: NP-0 a NP-6 completas · 2026-10-03: interfaz (UI-01/02, es-PE), técnico (NT-01a), Mis avisos, base compartida y
+portal de la plataforma (D-MC-01, D-PL-01) · **retomar por "Siguientes pasos"**
+**Última actualización**: 2026-10-03
+
+## Siguientes pasos (para retomar)
+
+En orden. Lo hecho el 2026-10-03 está en la *Bitácora*; las decisiones en `ai/DECISIONS.md` (D-UI-01…03, D-NT-01…06,
+D-MC-01, D-PL-01).
+
+1. **Poner al día `amsys_dev`** (hoy sólo se aplicó en la BD de prueba `amsys_ui`):
+   ```bash
+   CS="Host=localhost;Port=5432;Database=amsys_dev;Username=postgres;Password=123"
+   dotnet run --project src/Amsys.Migrator -- "--ConnectionStrings:Amsys=$CS"                     # migración NotificacionTecnico
+   dotnet run --project src/Amsys.Migrator -- --configurar tools/clientes/amsys/configuracion.json "--ConnectionStrings:Amsys=$CS"
+   dotnet run --project src/Amsys.Migrator -- --crear-admin amsys --Admin:Usuario=plataforma "--Admin:Nombre=Operador de la plataforma" "--ConnectionStrings:Amsys=$CS"
+   ```
+   Guardar la contraseña temporal que muestra el último comando. Luego, en la web: rol "Técnico" (órdenes ver +
+   ejecutar), vincular usuarios a empleados (Administración → Empleados) y asignar técnicos en la ficha de la OT.
+2. **Prueba manual en navegador** de lo nuevo con `amsys_dev`: portal (crear cliente, módulos, administrador, suspender),
+   técnico en el celular (Mis órdenes → play/pausa → materiales → ejecución → cierre técnico), Mis avisos, fechas.
+3. **NT-01b**: lecturas de contadores y puntos de medida vinculadas a la OT (origen `OrdenTrabajo`) en el paso
+   "Parámetros" del técnico; comentarios de la OT. Ver `ai/tareas/NT-01-notificacion-tecnico.md`.
+4. **NT-01c**: aspectos (catálogo abierto/cerrado, por equipo y ubicación, historial) y valor de ejecución / fecha de cierre
+   del plan al cerrar la OT (BR-GE-010).
+5. **NT-01d**: monitoreo de técnicos (quién trabaja ahora, tramos abiertos de ayer) y reporte de horas por empleado.
+6. **Portal (D-PL-01), mejoras**: campos personalizados y etiquetas desde el portal (hoy por archivo), subida de logo
+   (requiere almacenamiento de archivos), decidir si la empresa de la plataforma ve sólo el menú "Plataforma",
+   historial de cambios del cliente.
+7. **Revisión visual pendiente** con el tema nuevo: tablero Kanban, ficha del plan (matriz), resto de listas.
+8. Después, el plan general: **importador de la ola 1** (`ai/PENDIENTES-MIGRACION.md`).
 
 ## Hecho
 
@@ -110,8 +138,18 @@
 > Inventario completo de lo que falta migrar del legacy, con las rutas de ambos proyectos: `ai/PENDIENTES-MIGRACION.md`.
 > Tareas listas para ejecutar: `ai/tareas/` (p. ej. `UI-01-tema-base-y-revision-visual.md`).
 
-- [ ] **UI-01** Tema base de MudBlazor y revisión visual de Inicio y Ficha de OT con la skill `frontend-design`
-      (`ai/tareas/UI-01-tema-base-y-revision-visual.md`).
+- [x] **UI-01** Tema base (D-UI-01) y revisión de Inicio y Ficha de OT — hecha, ver la tarea y sus capturas.
+- [x] Cultura única en la web: es-PE (D-UI-03).
+- [x] **NT-01a** Notificación del técnico: "Mis órdenes", play/pausa por tarea, materiales/servicios, ejecución y cierre
+      técnico (D-NT-01…05). Ver `ai/tareas/NT-01-notificacion-tecnico.md`.
+- [x] Mis avisos (D-NT-06) y pestañas con fondo blanco.
+- [x] Campos fecha-hora: corregido "Not a valid date time" (`ConvertidorFechaHoraLocal`).
+- [x] **Base compartida (D-MC-01) y portal de la plataforma (D-PL-01)**: Plataforma → Clientes. Falta en `amsys_dev`:
+      `--configurar tools/clientes/amsys/configuracion.json` y `--crear-admin amsys` (ver `tools/clientes/README.md`).
+- [ ] Aplicar en `amsys_dev` la migración `NotificacionTecnico` y la puesta en marcha de la plataforma (ver *Siguientes pasos* 1).
+- [ ] NT-01b/c/d y revisión visual pendiente (ver *Siguientes pasos* 3–7).
+- [x] UI-02 interfaz minimalista (D-UI-02): controles, barra superior y menú — capturas en `ai/tareas/capturas/UI-02/`.
+- [ ] Logos de cliente: deben verse sobre la barra pizarra (logos claros o a color; uno oscuro no se leería).
 
 - [ ] Prueba manual en navegador (ver *Entorno de desarrollo*). La BD local tiene la configuración `demo`, todas las
       migraciones y `admin` con el rol Administrador (clave temporal `Admin-Dev-2026`, la pedirá cambiar).
@@ -459,3 +497,11 @@ eulen/caja_arequipa, `FERIADOS` y calificación de OT de caja_arequipa) se hacen
 | 2026-10-03 | Base de desarrollo movida al servidor Docker del usuario (`bdpostgresql`, PG 14.1, clave `123`): 16 migraciones aplicadas, semilla (`demo` + `admin`, clave temporal `Admin-Dev-2026`) y configuración `demo`; `appsettings.Development.json` de la API actualizado |
 | 2026-10-03 | Inventario de pendientes de migración en `ai/PENDIENTES-MIGRACION.md` (funcionalidades del legacy faltantes, partes incompletas, módulos de clientes, salida a producción, orden recomendado, skills para la UI) |
 | 2026-10-03 | Tarea UI-01 (tema base de MudBlazor + revisión de Inicio y Ficha de OT con `frontend-design`) creada en `ai/tareas/` |
+| 2026-10-03 | UI-01: tema base (D-UI-01: neutros fríos, semánticos AA, Archivo, paneles con borde; primario del cliente oscurecido automáticamente hasta 4.5:1, barra con su color y texto por contraste). Inicio con franja de indicadores y accesos agrupados; ficha de OT con encabezado "placa", campos densos, cifras a la derecha y resumen de costos. Capturas antes/después y con 3 colores en `ai/tareas/capturas/UI-01/` (BD aparte `amsys_ui`). 322 tests verdes, Release sin advertencias |
+| 2026-10-03 | UI-02 (pedido del usuario): interfaz minimalista. Campos con etiqueta fija encima, borde de 1px y foco con anillo suave (CSS global, todas las páginas); tablas planas; barra superior pizarra con línea de marca, botón "Nuevo" (altas por permiso) y menú de usuario con iniciales; menú lateral compacto; MudBlazor en español (`LocalizadorMud`: paginadores, filtros). Corregido en el camino: menú de usuario con `ActivatorContent` debe llamar a `context.ToggleAsync` (MudBlazor 9). 328 tests verdes, Release sin advertencias |
+| 2026-10-03 | D-UI-03: formato de Perú en toda la web (cultura es-PE fija, importes `3,850.00`, campos numéricos `0.00##`, fechas `dd/MM/yyyy`) y tipografía Poppins con tamaños menores (menú más discreto). 331 tests verdes, Release sin advertencias |
+| 2026-10-03 | Análisis de la notificación del técnico del legacy (play/pause `NotificacionTarea`, parámetros, valor de ejecución) frente a la plataforma nueva; propuesta por fases en `ai/tareas/NT-01-notificacion-tecnico.md` con 6 decisiones pendientes |
+| 2026-10-03 | NT-01a: notificación del técnico. Empleado↔usuario, técnicos asignados a la OT, tramos de tiempo play/pausa (un tramo abierto por empleado con índice único parcial, motivo de pausa), consumos y ejecución por el técnico, cierre técnico de sus órdenes; permiso `ordenes.ejecutar`; API `/mantenimiento/ejecucion`; web "Mis órdenes" para celular con barra de pasos y cronómetro. Migración `NotificacionTecnico`. 349 tests verdes, Release sin advertencias |
+| 2026-10-03 | Mis avisos (D-NT-06): `GET /mantenimiento/avisos/mios` (propios, pendientes/todos), ficha de aviso accesible al autor con sólo `avisos.crear`, página en tarjetas y opción de menú. Pestañas (`MudTabs`) como panel blanco con borde en todas las vistas. 350 tests verdes, Release sin advertencias |
+| 2026-10-03 | Corregido "Not a valid date time" en todos los campos fecha-hora: Blazor entrega el valor del `datetime-local` con segundos (`2026-10-03T08:30:00`) y el `Format="yyyy-MM-ddTHH:mm"` de MudBlazor lo rechazaba (no era por la cultura es-PE: fallaba también sin ella). Nuevo `ConvertidorFechaHoraLocal` (acepta con y sin segundos) en las 10 fichas/campos; mensajes de conversión de MudBlazor en español. Probado guardando y recargando en el navegador. Tests web 73/73 |
+| 2026-10-03 | D-MC-01 decidida: base compartida. D-PL-01 portal de la plataforma: módulo interno `PLATAFORMA` y permiso `plataforma.clientes.gestionar`, `IOperacionSobreEmpresa` para operar sobre la empresa elegida sin romper el aislamiento, API `/plataforma/clientes` (listar, ver, crear, editar, módulos, suspender/reactivar, administradores), web Plataforma → Clientes con resumen de vigencia, ficha con marca y módulos, `Migrator --crear-admin`, empresa `tools/clientes/amsys`. 359 tests verdes, Release sin advertencias |

@@ -1,6 +1,6 @@
 # UI-01 · Tema base de MudBlazor y revisión visual de pantallas clave
 
-- **Estado**: pendiente
+- **Estado**: hecha (2026-10-03) — decisión `D-UI-01`, capturas en `ai/tareas/capturas/UI-01/`
 - **Creada**: 2026-10-03
 - **Proyecto**: `D:\Documentos\Amsys` (web en `src/Amsys.Web`). Legacy de referencia: `D:\Documentos\Alphamanufacturas\AMSYS\AMSYS`
 - **Skills**: `frontend-design` (plugin `frontend-design@claude-plugins-official`, instalado) y `playwright-blazor`
@@ -46,7 +46,28 @@
 
 ## Criterios de aceptación
 
-- [ ] Tema base documentado (paleta, tipografía, densidad) y aplicado en `TemaAmsys.cs`.
-- [ ] Con dos colores primarios distintos de cliente, textos y botones siguen legibles (contraste AA).
-- [ ] Inicio y Ficha de OT revisadas, con capturas antes/después.
-- [ ] Sin cambios de comportamiento; tests en verde; Release sin advertencias.
+- [x] Tema base documentado (paleta, tipografía, densidad) y aplicado en `TemaAmsys.cs`.
+- [x] Con dos colores primarios distintos de cliente, textos y botones siguen legibles (contraste AA).
+- [x] Inicio y Ficha de OT revisadas, con capturas antes/después.
+- [x] Sin cambios de comportamiento; tests en verde; Release sin advertencias.
+
+## Resultado (2026-10-03)
+
+- Tema en `TemaAmsys.cs` (paleta, tipografía Archivo, radios, colores semánticos, `Contraste` WCAG) y `wwwroot/app.css`
+  (paneles con borde, cifras tabulares, franja de indicadores, "placa" de ficha, resumen de costos). Ver `D-UI-01`.
+- **Inicio**: indicadores en una sola franja (sólo se colorea lo que pide atención: fallas, atrasadas, preventivo y
+  reposición > 0), fecha del día, gráficos más bajos, accesos agrupados como el menú (antes: muro de botones).
+- **Ficha de OT**: encabezado con código, estado, objeto técnico y origen (aviso/plan) y las acciones de estado;
+  campos densos; tareas con "N de M hechas"; cifras a la derecha; notificación con resumen de costos en lugar de chips.
+- `SelectorCatalogo` y `BuscadorActivo` aceptan `Margin` (por defecto el de antes: el resto de páginas no cambia).
+- Probado con tres primarios: `#1E5AA8` (demo), `#F2C200` (amarillo: botones pasan a un ocre legible, barra con texto
+  oscuro) y `#0F7B6C`. Tests `TemaAmsysTests` (13). 322/322 verdes, Release sin advertencias.
+- Capturas tomadas con Playwright (Chrome) sobre una BD aparte `amsys_ui` con datos de muestra (no se tocó `amsys_dev`).
+
+### Observado y no corregido (fuera del alcance: no es presentación)
+
+- **Formato de números mezclado**: `Formato.Numero` muestra `28.5` / `3,850` (punto decimal) y los `MudNumericField`
+  muestran `0,50` / `3850,0000` (coma decimal). Falta fijar una cultura única (p. ej. `es-PE`) para la web.
+- El logo de `demo` (texto blanco) no se lee si el primario es claro: cada cliente debe entregar un logo para su barra.
+- Los gráficos de MudChart usan su paleta propia y un eje fijo hasta 20; las barras quedan bajas con pocos datos.
+- Pendiente de la tarea: Kanban, ficha del plan y menú no se revisaron (punto 3, "si hay tiempo").
