@@ -2,7 +2,7 @@
 
 **Etapa**: NP-0 a NP-6 completas · 2026-10-03: interfaz (UI-01/02, es-PE), técnico (NT-01a), Mis avisos, base compartida y
 portal de la plataforma (D-MC-01, D-PL-01) · **retomar por "Siguientes pasos"**
-**Última actualización**: 2026-10-03
+**Última actualización**: 2026-10-04
 
 ## Siguientes pasos (para retomar)
 
@@ -12,7 +12,7 @@ D-MC-01, D-PL-01).
 1. **Poner al día `amsys_dev`** (hoy sólo se aplicó en la BD de prueba `amsys_ui`):
    ```bash
    CS="Host=localhost;Port=5432;Database=amsys_dev;Username=postgres;Password=123"
-   dotnet run --project src/Amsys.Migrator -- "--ConnectionStrings:Amsys=$CS"                     # migración NotificacionTecnico
+   dotnet run --project src/Amsys.Migrator -- "--ConnectionStrings:Amsys=$CS"                     # migraciones NotificacionTecnico y TareaOrdenSeccion
    dotnet run --project src/Amsys.Migrator -- --configurar tools/clientes/amsys/configuracion.json "--ConnectionStrings:Amsys=$CS"
    dotnet run --project src/Amsys.Migrator -- --crear-admin amsys --Admin:Usuario=plataforma "--Admin:Nombre=Operador de la plataforma" "--ConnectionStrings:Amsys=$CS"
    ```
@@ -146,7 +146,9 @@ D-MC-01, D-PL-01).
 - [x] Campos fecha-hora: corregido "Not a valid date time" (`ConvertidorFechaHoraLocal`).
 - [x] **Base compartida (D-MC-01) y portal de la plataforma (D-PL-01)**: Plataforma → Clientes. Falta en `amsys_dev`:
       `--configurar tools/clientes/amsys/configuracion.json` y `--crear-admin amsys` (ver `tools/clientes/README.md`).
-- [ ] Aplicar en `amsys_dev` la migración `NotificacionTecnico` y la puesta en marcha de la plataforma (ver *Siguientes pasos* 1).
+- [x] **Tareas de la OT por sección (D-OT-01)**: referencia a sección/hoja de ruta, "Desde sección" en la ficha y grupos
+      en la ficha y en la vista del técnico. Migración `TareaOrdenSeccion` (aplicada sólo en `amsys_ui`).
+- [ ] Aplicar en `amsys_dev` las migraciones `NotificacionTecnico` y `TareaOrdenSeccion` y la puesta en marcha de la plataforma (ver *Siguientes pasos* 1).
 - [ ] NT-01b/c/d y revisión visual pendiente (ver *Siguientes pasos* 3–7).
 - [x] UI-02 interfaz minimalista (D-UI-02): controles, barra superior y menú — capturas en `ai/tareas/capturas/UI-02/`.
 - [ ] Logos de cliente: deben verse sobre la barra pizarra (logos claros o a color; uno oscuro no se leería).
@@ -505,3 +507,5 @@ eulen/caja_arequipa, `FERIADOS` y calificación de OT de caja_arequipa) se hacen
 | 2026-10-03 | Mis avisos (D-NT-06): `GET /mantenimiento/avisos/mios` (propios, pendientes/todos), ficha de aviso accesible al autor con sólo `avisos.crear`, página en tarjetas y opción de menú. Pestañas (`MudTabs`) como panel blanco con borde en todas las vistas. 350 tests verdes, Release sin advertencias |
 | 2026-10-03 | Corregido "Not a valid date time" en todos los campos fecha-hora: Blazor entrega el valor del `datetime-local` con segundos (`2026-10-03T08:30:00`) y el `Format="yyyy-MM-ddTHH:mm"` de MudBlazor lo rechazaba (no era por la cultura es-PE: fallaba también sin ella). Nuevo `ConvertidorFechaHoraLocal` (acepta con y sin segundos) en las 10 fichas/campos; mensajes de conversión de MudBlazor en español. Probado guardando y recargando en el navegador. Tests web 73/73 |
 | 2026-10-03 | D-MC-01 decidida: base compartida. D-PL-01 portal de la plataforma: módulo interno `PLATAFORMA` y permiso `plataforma.clientes.gestionar`, `IOperacionSobreEmpresa` para operar sobre la empresa elegida sin romper el aislamiento, API `/plataforma/clientes` (listar, ver, crear, editar, módulos, suspender/reactivar, administradores), web Plataforma → Clientes con resumen de vigencia, ficha con marca y módulos, `Migrator --crear-admin`, empresa `tools/clientes/amsys`. 359 tests verdes, Release sin advertencias |
+| 2026-10-04 | **Tareas de la OT por sección (D-OT-01)**: `TareaOrden.SeccionId` (FK a `planificacion.seccion`, migración `TareaOrdenSeccion`), llenado al generar desde planes; `TareaOrdenRequest/Response` con `SeccionId` y `Seccion`/`HojaRuta` resueltos al leer; validación de sección activa al agregarla. Web: botón "Desde sección" en la ficha de la OT (copia las tareas de la sección, editables) y encabezados por sección en la ficha y en "Mis órdenes" del técnico. Test de integración nuevo; 360/360. Probado con Playwright en `amsys_ui` (OT-2026-00003: se le agregó la sección 1000 y el técnico `lquispe`) |
+| 2026-10-04 | Seleccionables con "SELECCIONE" (obligatorio) / "NINGUNO" (opcional) en lugar de "0" (D-UI-04): componente `OpcionVacia` en 28 seleccionables de formularios, `SelectorCatalogo`, `SelectorOrganizacion` (`TextoVacio`) y campos personalizados tipo lista. 360/360; probado con Playwright (OT, sección, nuevo usuario). La API de desarrollo apunta a `amsys_ui` (cambio local, no commitear) |
