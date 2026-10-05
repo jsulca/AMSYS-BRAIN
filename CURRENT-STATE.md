@@ -1,34 +1,33 @@
 # Estado actual
 
-**Etapa**: NP-0 a NP-6 completas · 2026-10-03: interfaz (UI-01/02, es-PE), técnico (NT-01a), Mis avisos, base compartida y
-portal de la plataforma (D-MC-01, D-PL-01) · **retomar por "Siguientes pasos"**
+**Etapa**: NP-0 a NP-6 completas · 2026-10-03/04: interfaz (UI-01/02, es-PE), **NT-01 completa** (técnico, parámetros,
+comentarios, cierre del plan, monitoreo), aspectos, Mis avisos, base compartida y portal de la plataforma (D-MC-01,
+D-PL-01) · **retomar por "Siguientes pasos"**
 **Última actualización**: 2026-10-04
 
 ## Siguientes pasos (para retomar)
 
-En orden. Lo hecho está en la *Bitácora*; las decisiones en `ai/DECISIONS.md` (D-UI-01…04, D-NT-01…07, D-OT-01,
-D-MC-01, D-PL-01).
+En orden. Lo hecho está en la *Bitácora*; las decisiones en `ai/DECISIONS.md` (D-UI-01…04, D-NT-01…10, D-OT-01,
+D-MC-01, D-PL-01, D-AR-01, D-UI-05).
 
-1. **Poner al día `amsys_dev`** (hoy sólo se aplicó en la BD de prueba `amsys_ui`):
-   ```bash
-   CS="Host=localhost;Port=5432;Database=amsys_dev;Username=postgres;Password=123"
-   dotnet run --project src/Amsys.Migrator -- "--ConnectionStrings:Amsys=$CS"                     # migraciones NotificacionTecnico, TareaOrdenSeccion y Aspectos
-   dotnet run --project src/Amsys.Migrator -- --configurar tools/clientes/amsys/configuracion.json "--ConnectionStrings:Amsys=$CS"
-   dotnet run --project src/Amsys.Migrator -- --crear-admin amsys --Admin:Usuario=plataforma "--Admin:Nombre=Operador de la plataforma" "--ConnectionStrings:Amsys=$CS"
-   ```
-   Guardar la contraseña temporal que muestra el último comando. Luego, en la web: rol "Técnico" (órdenes ver +
-   ejecutar), vincular usuarios a empleados (Administración → Empleados) y asignar técnicos en la ficha de la OT.
+1. ~~Poner al día `amsys_dev`~~ ✅ 2026-10-04 (todas las migraciones, cliente `amsys` con PLATAFORMA y usuario
+   `plataforma`). Falta en la web: rol "Técnico" (órdenes ver + ejecutar + **lecturas registrar**), vincular usuarios a
+   empleados (Administración → Empleados) y asignar técnicos en la ficha de la OT.
 2. **Prueba manual en navegador** de lo nuevo con `amsys_dev`: portal (crear cliente, módulos, administrador, suspender),
-   técnico en el celular (Mis órdenes → play/pausa → materiales → ejecución → cierre técnico), Mis avisos, fechas.
-3. **NT-01b**: lecturas de contadores y puntos de medida vinculadas a la OT (origen `OrdenTrabajo`) en el paso
-   "Parámetros" del técnico; comentarios de la OT. Ver `ai/tareas/NT-01-notificacion-tecnico.md`.
-4. **NT-01c (resto)**: valor de ejecución / fecha de cierre del plan al cerrar la OT (BR-GE-010). Los aspectos ya están
-   (D-NT-07); falta llevarlos al importador del legacy (`Aspecto`, `EquipoAspecto*`, `UbicacionAspecto*`).
-5. **NT-01d**: monitoreo de técnicos (quién trabaja ahora, tramos abiertos de ayer) y reporte de horas por empleado.
-6. **Portal (D-PL-01), mejoras**: campos personalizados y etiquetas desde el portal (hoy por archivo), subida de logo
-   (requiere almacenamiento de archivos), decidir si la empresa de la plataforma ve sólo el menú "Plataforma",
-   historial de cambios del cliente.
-7. **Revisión visual pendiente** con el tema nuevo: tablero Kanban, ficha del plan (matriz), resto de listas.
+   técnico en el celular (Mis órdenes → play/pausa → materiales → **parámetros** → ejecución → **comentarios** → cierre
+   técnico), Mis avisos, fechas. Las pantallas de NT-01b/c/d ya se revisaron con Playwright en `amsys_ui` (ficha OT-2026-00003 y -00004, técnico `lquispe` en móvil, Técnicos); falta repetirlo en `amsys_dev`.
+3. ~~NT-01b~~ ✅ 2026-10-04 (D-NT-08): lecturas y mediciones vinculadas a la OT, comentarios de la OT.
+4. ~~NT-01c~~ ✅ 2026-10-04 (D-NT-09): valor de ejecución / fecha de cierre del plan al cierre técnico (BR-GE-010).
+   Los aspectos del legacy (`Aspecto`, `EquipoAspecto*`, `UbicacionAspecto*`) pasan al importador de la ola 1 (paso 8;
+   hoy `tools/Amsys.Importador` es sólo la plantilla).
+5. ~~NT-01d~~ ✅ 2026-10-04 (D-NT-10): Mantenimiento → Técnicos (monitoreo, cierre de tramos olvidados, horas por
+   empleado con Excel).
+6. **Portal (D-PL-01), mejoras**: ~~subida de logo~~ ✅ 2026-10-04 (D-AR-01, disco local). Faltan: campos
+   personalizados y etiquetas desde el portal (hoy por archivo), decidir si la empresa de la plataforma ve sólo el menú
+   "Plataforma", historial de cambios del cliente. Al desplegar: montar un volumen persistente en `Archivos:Ruta`.
+7. **Revisión visual pendiente** con el tema nuevo: tablero Kanban, ficha del plan (matriz), resto de listas. Las tablas
+   ya tienen cabecera con color primario y acciones a la izquierda (D-UI-05); revisar las que no se capturaron
+   (logística, planificación, portal).
 8. Después, el plan general: **importador de la ola 1** (`ai/PENDIENTES-MIGRACION.md`).
 
 ## Hecho
@@ -511,4 +510,10 @@ eulen/caja_arequipa, `FERIADOS` y calificación de OT de caja_arequipa) se hacen
 | 2026-10-03 | D-MC-01 decidida: base compartida. D-PL-01 portal de la plataforma: módulo interno `PLATAFORMA` y permiso `plataforma.clientes.gestionar`, `IOperacionSobreEmpresa` para operar sobre la empresa elegida sin romper el aislamiento, API `/plataforma/clientes` (listar, ver, crear, editar, módulos, suspender/reactivar, administradores), web Plataforma → Clientes con resumen de vigencia, ficha con marca y módulos, `Migrator --crear-admin`, empresa `tools/clientes/amsys`. 359 tests verdes, Release sin advertencias |
 | 2026-10-04 | **Tareas de la OT por sección (D-OT-01)**: `TareaOrden.SeccionId` (FK a `planificacion.seccion`, migración `TareaOrdenSeccion`), llenado al generar desde planes; `TareaOrdenRequest/Response` con `SeccionId` y `Seccion`/`HojaRuta` resueltos al leer; validación de sección activa al agregarla. Web: botón "Desde sección" en la ficha de la OT (copia las tareas de la sección, editables) y encabezados por sección en la ficha y en "Mis órdenes" del técnico. Test de integración nuevo; 360/360. Probado con Playwright en `amsys_ui` (OT-2026-00003: se le agregó la sección 1000 y el técnico `lquispe`) |
 | 2026-10-04 | Seleccionables con "SELECCIONE" (obligatorio) / "NINGUNO" (opcional) en lugar de "0" (D-UI-04): componente `OpcionVacia` en 28 seleccionables de formularios, `SelectorCatalogo`, `SelectorOrganizacion` (`TextoVacio`) y campos personalizados tipo lista. 360/360; probado con Playwright (OT, sección, nuevo usuario). La API de desarrollo apunta a `amsys_ui` (cambio local, no commitear) |
+| 2026-10-04 | `amsys_dev` puesta al día: migraciones `NotificacionTecnico`, `TareaOrdenSeccion`, `Aspectos` y `ParametrosYComentariosOrden`; cliente `amsys` configurado (módulo PLATAFORMA) y administrador `plataforma` creado (clave temporal mostrada en consola, se cambia al ingresar). Docker Desktop y el contenedor `bdpostgresql` estaban apagados: se inician con `docker start bdpostgresql` |
+| 2026-10-04 | **NT-01b (D-NT-08)**: `LecturaContador` y `MedicionPuntoMedida` con `OrdenTrabajoId` (origen `OrdenTrabajo`); `RegistrarLecturaRequest.OrdenTrabajoId` valida orden emitida/en cierre técnico y que el equipo sea el de la orden o uno montado (lógica común en `ObjetosTecnicos.ObjetosDeOrdenAsync`/`OrdenParaParametrosAsync`, también usada por aspectos). Endpoints `GET /mantenimiento/ordenes/{id}/contadores` y `/puntos-medida` (permiso de órdenes, con `ValorEnOrden`/`NivelEnOrden`); historial con código de OT. **Comentarios** `ComentarioOrden` (`mantenimiento.orden_trabajo_comentario`): `GET/POST/DELETE /mantenimiento/ordenes/{id}/comentarios`. Migración `ParametrosYComentariosOrden` (aplicada en `amsys_dev` y `amsys_ui`). Web: `LecturasOrden` (paso "Parámetros" del técnico, ahora visible sin `activos.ver`, y panel de la ficha de la OT), `ComentariosOrden` (ficha de la OT y paso "Ejecución"). 374/374, Release sin advertencias |
+| 2026-10-04 | **Tablas (D-UI-05)**: cabecera con el color primario del cliente (CSS global, más específico que el de MudBlazor) y columna "Acciones" al inicio con `AccionFila`/`AccionesFila`/`TipoAccion` en ~45 tablas de 38 pantallas (`MudTable`, `MudDataGrid`, `MudSimpleTable`); los menús de tres puntos (Usuarios) pasan a íconos; las filas con navegación tienen el ojo "Ver". Tablas sin acciones (Indicadores, Kardex, historial) sólo cambian de cabecera. Web 73/73, build sin advertencias; revisado con Playwright en `amsys_ui` (usuarios, órdenes, ficha OT, roles, organizaciones) |
+| 2026-10-04 | **Archivos (D-AR-01, disco local)**: `IAlmacenArchivos` + `AlmacenArchivosLocal` (`Archivos:Ruta`, carpeta ignorada en git), `TiposArchivo` (tipo por contenido). **Logo** del cliente: `POST/DELETE /plataforma/clientes/{id}/logo`, público `GET /marca/{codigo}/logo`; web `/marca/{codigo}/logo?v=` y botones "Subir/Cambiar/Quitar logo" en la ficha del cliente del portal. **Adjuntos de la OT** (`mantenimiento.orden_trabajo_adjunto`): `GET/POST /mantenimiento/ordenes/{id}/adjuntos`, `GET/DELETE …/adjuntos/{adjuntoId}`; componente `AdjuntosOrden` en la ficha de la OT y en el paso "Ejecución" del técnico ("Fotos y archivos", cámara en el celular). Regla común `ServicioOrdenes.PuedeParticiparAsync` (comentarios y adjuntos). Migración `Archivos` (aplicada en `amsys_dev` y `amsys_ui`). 381 tests de API/dominio + 19 de infraestructura, Release sin advertencias; probado con Playwright en `amsys_ui` (logo de prueba quitado; queda `foto-prueba.png` en OT-2026-00003) |
+| 2026-10-04 | **NT-01d (D-NT-10)**: `ServicioTecnicos` y endpoints `/mantenimiento/tecnicos/monitoreo`, `/{empleadoId}/cerrar-tramo`, `/horas` y `/horas/excel`; `OrdenTrabajo.PausarTramo` acepta la hora de fin (entre el inicio y ahora). Web: Mantenimiento → **Técnicos** (pestaña "Ahora" con cronómetro y tramos de otro día resaltados, diálogo "Cerrar tramo" con hora propuesta; pestaña "Horas por empleado" con detalle por orden, total y Excel). Sin migración. 379 tests, Release sin advertencias |
+| 2026-10-04 | **NT-01c (D-NT-09)**: al cierre técnico de una OT de plan, `CambiarEstadoOrdenRequest` acepta `ValorEjecucion` (plan por contador) o `FechaCierrePlan` (calendario); se guardan en la OT (migración `CierrePlanOrden`, aplicada en `amsys_dev` y `amsys_ui`) y `PlanAsignacion.ReprogramarDesdeEjecucion` reprograma si es la última OT de la asignación (si no, advertencia). `OrdenTrabajoResponse` con `TipoPlan`, `LecturaPlan`, `ValorEjecucion`, `FechaCierrePlan`. Web: `CambiarEstadoDialogo` devuelve `CambioEstado` y pide el dato con valor propuesto (lectura actual / fin de la ejecución) en la ficha de la OT y en "Enviar a cierre técnico" del técnico. 377 tests, Release sin advertencias |
 | 2026-10-04 | **Aspectos (D-NT-07)**: dominio `Aspecto`/`AspectoObjeto`/`InspeccionAspecto` (migración `Aspectos`), `ServicioAspectos` y endpoints (`/administracion/aspectos`, `/activos/{equipos|ubicaciones}/{id}/aspectos`, `/activos/aspectos/{id}[/inspecciones]`, `/mantenimiento/ordenes/{id}/aspectos`). Web: Administración → Aspectos, pestaña en la ficha de equipo, botón en Ubicaciones, panel "Inspección de aspectos" en la ficha de la OT y paso "Parámetros" del técnico (los cerrados se responden con un toque). Corregido además el XML-doc de `TareaOrdenRequest/Response` que rompía el build Release. 368/368, Release sin advertencias; probado con Playwright en `amsys_ui` (BB-12: "Estado de la faja" y "Observaciones") |

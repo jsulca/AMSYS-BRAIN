@@ -1,6 +1,6 @@
 # NT-01 · Notificación del técnico (play/pause, materiales, servicios, parámetros, ejecución)
 
-- **Estado**: **NT-01a hecha** (2026-10-03) · **aspectos de NT-01c hechos** (2026-10-04, D-NT-07) · siguen NT-01b (parámetros vinculados, comentarios), NT-01c (valor de ejecución), NT-01d (monitoreo)
+- **Estado**: ✅ **completa** — NT-01a (2026-10-03) · NT-01b, NT-01c y NT-01d (2026-10-04, D-NT-07…10)
 - **Creada**: 2026-10-03
 - **Legacy**: `D:\Documentos\Alphamanufacturas\AMSYS\AMSYS` (rama `main`)
 
@@ -36,18 +36,18 @@ Problemas del legacy a **no** copiar: el estado se cambia desde Notificar sin va
 | Materiales y servicios (maestro o externo) | ✅ mismas pantallas |
 | Salidas de almacén contra la OT | ✅ (logística) |
 | Tareas hechas | ✅ casilla en la ficha |
-| Contadores y puntos de medida | ⚠️ se registran desde un panel de la OT pero con origen *Manual*: **no quedan vinculados a la OT** |
+| Contadores y puntos de medida | ✅ 2026-10-04: vinculados a la OT (D-NT-08) |
 | Inicio/fin de ejecución, equipo detenido, observación | ✅ en la ficha (cabecera) |
-| **Play/pause por tarea** | ❌ |
-| **Usuario ↔ empleado** | ❌ (no se sabe qué empleado es el usuario) |
-| **Asignación de técnicos a la OT** (`ProgramacionEmpleado`) | ❌ (pendiente desde NP-3.3) |
+| **Play/pause por tarea** | ✅ NT-01a |
+| **Usuario ↔ empleado** | ✅ NT-01a (`Empleado.UsuarioId`) |
+| **Asignación de técnicos a la OT** (`ProgramacionEmpleado`) | ✅ NT-01a |
 | **Aspectos** (catálogo, aspectos por equipo/ubicación, historial) | ✅ 2026-10-04 (D-NT-07) |
-| Valor de ejecución / fecha de cierre del plan (BR-GE-010) | ❌ (pendiente de NP-4) |
-| Comentarios y adjuntos de OT | ❌ (adjuntos necesitan almacenamiento de archivos) |
-| Pantalla del técnico ("mis órdenes", móvil) | ❌ |
-| Monitoreo / reporte de horas | ❌ |
+| Valor de ejecución / fecha de cierre del plan (BR-GE-010) | ✅ 2026-10-04 al cierre técnico (D-NT-09) |
+| Comentarios y adjuntos de OT | ✅ comentarios (D-NT-08) · ✅ adjuntos (D-AR-01, disco local) |
+| Pantalla del técnico ("mis órdenes", móvil) | ✅ NT-01a |
+| Monitoreo / reporte de horas | ✅ 2026-10-04 Mantenimiento → Técnicos (D-NT-10) |
 
-**Respuesta corta: no, hoy no existe el formulario del técnico.** Existe la notificación de escritorio (supervisor).
+**Al crear la tarea (2026-10-03) no existía el formulario del técnico**, sólo la notificación de escritorio (supervisor); hoy NT-01 está completa.
 
 ## 3. Propuesta
 
@@ -135,3 +135,40 @@ automático de tramos abiertos.
   técnicos asignados en la ficha de la OT, usuario del sistema en Empleados, tramos "En curso" en la notificación.
 - Tests: 14 de dominio + 5 de API (incluye dos "play" simultáneos en órdenes distintas). Capturas en
   `ai/tareas/capturas/NT-01/`.
+
+## Resultado NT-01b (2026-10-04, D-NT-08)
+
+- **Dominio**: `LecturaContador.OrdenTrabajoId` y `MedicionPuntoMedida.OrdenTrabajoId` (origen `OrdenTrabajo`);
+  `ComentarioOrden` (tabla `mantenimiento.orden_trabajo_comentario`). Migración `ParametrosYComentariosOrden`.
+- **Aplicación**: `ObjetosTecnicos.ObjetosDeOrdenAsync` (equipo + montados, o ubicación) y `OrdenParaParametrosAsync`
+  (orden emitida o en cierre técnico), compartidos por mediciones y aspectos; `ServicioMediciones.ContadoresDeOrdenAsync` /
+  `PuntosDeOrdenAsync`; `ServicioComentariosOrden`.
+- **API**: `RegistrarLecturaRequest.OrdenTrabajoId` en `POST /activos/contadores/{id}/lecturas` y
+  `/activos/puntos-medida/{id}/mediciones`; `GET /mantenimiento/ordenes/{id}/contadores|puntos-medida` (permiso de
+  órdenes); `GET|POST /mantenimiento/ordenes/{id}/comentarios`, `DELETE …/comentarios/{comentarioId}`.
+- **Web**: `LecturasOrden.razor` (filas táctiles con "En esta orden", aviso si la medición sale de rango) en el paso
+  "Parámetros" del técnico y en la ficha de la OT; `ComentariosOrden.razor` en la ficha (sección "Comentarios") y en el
+  paso "Ejecución" del técnico.
+- Tests: 3 de dominio + 2 de API (vinculación, equipo fuera de la orden, orden anulada, técnico sin `activos.ver`,
+  comentarios por permiso/asignación, sólo el autor elimina, aislamiento por empresa).
+
+## Resultado NT-01c (2026-10-04, D-NT-07 y D-NT-09)
+
+- **Aspectos**: ver D-NT-07 (catálogo, por equipo/ubicación, inspección desde la OT). Su importación desde el legacy va
+  con el importador de la ola 1.
+- **Cierre del plan**: `OrdenTrabajo.ValorEjecucion` / `FechaCierrePlan` (migración `CierrePlanOrden`) fijados con
+  `RegistrarCierrePlan` en el cambio a cierre técnico; `PlanAsignacion.ValidarDatosCierre` y
+  `ReprogramarDesdeEjecucion`; `ServicioOrdenes.ReprogramarPlanAsync` (sólo la última OT de la asignación).
+- **Web**: `CambiarEstadoDialogo` (devuelve `CambioEstado`) pide el dato del plan con valor propuesto en la ficha de la OT
+  y en el paso "Ejecución" del técnico; la ficha muestra lo fijado junto al plan de origen.
+- Tests: 1 de dominio y 2 de API (contador: valor mayor a la lectura, dato de otro tipo, reprogramación efectiva;
+  calendario: fecha futura, orden no última con advertencia, reprogramación y bloqueo tras el cierre).
+
+## Resultado NT-01d (2026-10-04, D-NT-10)
+
+- **Dominio**: `OrdenTrabajo.PausarTramo(..., finUtc)` para que el supervisor cierre con la hora real.
+- **Aplicación/API**: `ServicioTecnicos` → `GET /mantenimiento/tecnicos/monitoreo`, `POST /mantenimiento/tecnicos/{empleadoId}/cerrar-tramo`,
+  `GET /mantenimiento/tecnicos/horas?desde&hasta[&empleadoId]` y `/horas/excel`.
+- **Web**: Mantenimiento → Técnicos (`Tecnicos.razor`, `CerrarTramoDialogo.razor`).
+- Tests: 1 de dominio y 1 de API (monitoreo, tramo de otro día, hora de fin inválida, horas y costo, Excel, rango
+  inválido, aislamiento por empresa y permiso).
