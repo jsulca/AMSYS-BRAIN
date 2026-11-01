@@ -28,3 +28,4 @@ Porte de la UI de `main` hecho el 2026-10-26 (`legacy/portes/PORTE-UI-MAIN-AGCHA
 | Fecha | Qué |
 |---|---|
 | 2026-10-31 | Ficha creada (esqueleto) |
+| 2026-10-31 | Porte de Seguridad de `main` (SG-01…25) **sin commit**, migración `20261101015429_Seguridad_PortarDesdeMain` sin aplicar: `legacy/portes/PORTE-SEGURIDAD-MAIN-AGCHAVIN.md` |

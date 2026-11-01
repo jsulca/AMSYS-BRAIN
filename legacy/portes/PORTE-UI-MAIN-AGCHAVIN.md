@@ -178,13 +178,13 @@ Traído de main (commits `4d5f274`, `f88c868`, `722013a`). **No requiere migraci
 | Qué | Motivo |
 |---|---|
 | Formularios/fichas de Equipo, Ubicación, Plan, Sección, Hoja de ruta, Órdenes (Nuevo/Editar/Ver) | Contratos de backend distintos y lógica de negocio (posiciones del ciclo, asignación en bloque, adjuntos temporales). Riesgo sobre la lógica propia de agchavin (posición absoluta en contadores). |
-| Seguridad (Empresa, Rol, Usuario, Menú, Organización, Página) | Depende de licencias, perfiles, claves temporales, catálogo de elementos (migraciones de main). |
+| Seguridad (Empresa, Rol, Usuario, Menú, Organización, Página) | ~~Depende de licencias, perfiles, claves temporales, catálogo de elementos (migraciones de main).~~ **Portada el 2026-10-31** en `PORTE-SEGURIDAD-MAIN-AGCHAVIN.md`. |
 | Reportes | Sin mejora visual; agchavin tiene más funciones (indicadores globales, Preventivo, PorEstado). |
 | Kanban, Paradas, "Generar órdenes", API móvil de NotificacionTarea/NotificacionEmpleado | Son funciones nuevas, no UI. |
 | Vínculo usuario ↔ empleado en la ficha de Empleado | Necesario para Programación de empleados; pendiente. |
 | Columna "EN USO" de catálogos y avisos de uso | Requiere `IUsoCatalogoServicio` de main. |
 | `Ubicacion/_Seleccionar`, `Equipo/_SeleccionarUno` de main | Cambian la forma de los datos devueltos / el filtro de montados: rompen a sus llamadores. |
-| Permisos de Rol (`a02662f`, `Rol/_Permisos.cshtml`) | Parte de Seguridad (no portada). |
+| Permisos de Rol (`a02662f`, `Rol/_Permisos.cshtml`) | ~~Parte de Seguridad (no portada).~~ Portado el 2026-10-31 con Seguridad. |
 
 Si se retoma alguno, hacerlo módulo por módulo, comparando el controlador y el modelo de main contra los de
 agchavin antes de traer la vista.
