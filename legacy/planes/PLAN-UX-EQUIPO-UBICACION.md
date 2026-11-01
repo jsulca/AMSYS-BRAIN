@@ -1,7 +1,7 @@
 # Plan de mejora de UX – Equipos y Ubicaciones
 
-> Documento **ejecutable paso a paso**, con la misma mecánica que `PLAN-UX-PLANMANTENIMIENTO.md` y
-> `PLAN-UX-HOJARUTA-SECCION.md`: cada paso es pequeño, verificable y reversible por sí solo. Marca la
+> Documento **ejecutable paso a paso**, con la misma mecánica que `legacy/planes/PLAN-UX-PLANMANTENIMIENTO.md` y
+> `legacy/planes/PLAN-UX-HOJARUTA-SECCION.md`: cada paso es pequeño, verificable y reversible por sí solo. Marca la
 > casilla al terminarlo y anótalo en el *Registro de avance* del final.
 
 - **Alcance**: `Equipo/{Index, Nuevo, Editar, Ver, _Seleccionar, _SeleccionarUno}` y
@@ -12,7 +12,7 @@
   EU-09 y EU-10). **Única excepción**: EU-22 cambia el filtro de generación de órdenes de las
   ubicaciones, por decisión del propietario (`DE-04`).
 - **Fecha**: 2026-09-17 · **Decisiones `DE-01` … `DE-04` resueltas el 2026-09-17**
-- **Relación con `/ai`**: complementa `analysis/ux.md` y las tareas `MNT-NNN`; cada paso indica su
+- **Relación con AMSYS-BRAIN**: complementa `legacy/analisis/ux.md` y las tareas `MNT-NNN`; cada paso indica su
   tarea equivalente cuando existe.
 
 ---
@@ -161,7 +161,7 @@ mantener el nombre de los parámetros (`filtro.*`, `callBack`) y la forma del ob
 - **Archivos**: `Ubicacion.Controller.cs`, `UbicacionLogica`.
 - **Hacer**:
   - **Antes de tocar código** (`DE-03`, resuelta: hay que revisarlo): ejecutar en la base de datos una
-    consulta que detecte ciclos y guardar el resultado en `ai/analysis/`. Con un recorrido acotado
+    consulta que detecte ciclos y guardar el resultado en `legacy/analisis/`. Con un recorrido acotado
     basta, porque una consulta recursiva sobre un ciclo no termina:
 
     ```sql

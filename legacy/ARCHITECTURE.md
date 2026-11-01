@@ -56,7 +56,7 @@ El mapeo se hace a mano en `Model.Get()` / `Model.ToOrdenTrabajo()`.
   - `Aviso.Adicional.cs` → `EstadosHabilitados()`, `PuedoCrearOrdenTrabajo`, …
 
 > **HECHO**: `EstadosHabilitados()` se consume **sólo desde las vistas Razor**. Ningún POST del
-> servidor valida contra ella. Ver `analysis/workflow.md`.
+> servidor valida contra ella. Ver `negocio/flujos/workflow.md`.
 
 ### 2.2 Configuraciones (EF Core)
 
@@ -253,7 +253,7 @@ para cada posicion p en [0, CantidadPosiciones):
 - La sesión se construye en `AccountController` y se guarda en `HttpContext.Session`;
   `FiltroSession` la revalida contra `TokenWeb` en cada request.
 - **No hay Global Query Filters de EF**. El filtrado por tenant es manual, filtro por filtro,
-  en cada `Listar` / `Buscar`. Cualquier omisión es una fuga de datos (ver `analysis/permissions.md`).
+  en cada `Listar` / `Buscar`. Cualquier omisión es una fuga de datos (ver `legacy/analisis/permissions.md`).
 - `Rol` **no tiene `EmpresaId`**: los roles son globales a toda la instalación.
 
 ---

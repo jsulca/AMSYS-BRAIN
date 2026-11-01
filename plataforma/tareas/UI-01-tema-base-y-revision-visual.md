@@ -1,6 +1,6 @@
 # UI-01 · Tema base de MudBlazor y revisión visual de pantallas clave
 
-- **Estado**: hecha (2026-10-03) — decisión `D-UI-01`, capturas en `ai/tareas/capturas/UI-01/`
+- **Estado**: hecha (2026-10-03) — decisión `D-UI-01`, capturas en `plataforma/tareas/capturas/UI-01/`
 - **Creada**: 2026-10-03
 - **Proyecto**: `D:\Documentos\Amsys` (web en `src/Amsys.Web`). Legacy de referencia: `D:\Documentos\Alphamanufacturas\AMSYS\AMSYS`
 - **Skills**: `frontend-design` (plugin `frontend-design@claude-plugins-official`, instalado) y `playwright-blazor`
@@ -42,7 +42,7 @@
 3. Implementarlo en `TemaAmsys.cs` (y CSS mínimo en `wwwroot/app.css` si hace falta).
 4. Ajustar Inicio y Ficha de OT a la nueva jerarquía visual.
 5. Capturas "después", probar con dos colores de cliente distintos (p. ej. cambiar `ColorPrimario` de `demo`).
-6. Registrar la decisión de diseño en `ai/DECISIONS.md` y el avance en `ai/CURRENT-STATE.md` (bitácora).
+6. Registrar la decisión de diseño en `plataforma/DECISIONS.md` y el avance en `plataforma/CURRENT-STATE.md` (bitácora).
 
 ## Criterios de aceptación
 

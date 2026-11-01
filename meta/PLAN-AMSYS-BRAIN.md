@@ -1,6 +1,6 @@
 # Plan: crear AMSYS-BRAIN
 
-Estado: **plan, sin ejecutar** (2026-10-31).
+Estado: **ejecutado el 2026-10-31** (salvo el paso 7, remoto, pendiente de confirmar). Las rutas `ai/` de este documento son las de origen, antes de la migración.
 
 ## Objetivo
 

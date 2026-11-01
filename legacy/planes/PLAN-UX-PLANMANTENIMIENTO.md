@@ -7,7 +7,7 @@
 - **Fuera de alcance**: cambiar el algoritmo de programación, el modelo de datos, los permisos y
   cualquier pantalla de `OrdenTrabajo`, `Seccion` o `HojaRuta` (salvo enlaces de navegación).
 - **Fecha**: 2026-09-16
-- **Relación con `/ai`**: este documento **no reemplaza** `analysis/ux.md` ni `/tasks`. Es la
+- **Relación con AMSYS-BRAIN**: este documento **no reemplaza** `legacy/analisis/ux.md` ni `legacy/tareas/`. Es la
   secuencia concreta para la parte de PlanMantenimiento; cada paso indica a qué tarea `MNT-NNN`
   corresponde cuando ya existe.
 
@@ -462,7 +462,7 @@
 
 > [!CAUTION]
 > **PM-05 es el paso que más cambia la experiencia y el único con riesgo de diseño real.** Lee
-> `ai/tasks/MNT-038.md` completo antes de empezarlo: calcular en el servidor, y no en JavaScript, no
+> `legacy/tareas/MNT-038.md` completo antes de empezarlo: calcular en el servidor, y no en JavaScript, no
 > es negociable — el operador módulo con decimales no da el mismo resultado en C# y en JavaScript.
 
 ## 6. Qué **no** hace este plan

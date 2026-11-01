@@ -120,7 +120,7 @@ bajo riesgo si se prefiere observar antes de cambiar.
 
 ## Criterios de aceptación
 - [ ] Diagnóstico del mantenimiento saltado entregado y cuantificado.
-- [ ] Decisión `D-05b` registrada en `CURRENT-STATE.md`.
+- [ ] Decisión `D-05b` registrada en `legacy/CURRENT-STATE.md`.
 - [ ] El salto de posiciones es visible para el planificador antes de generar.
 - [ ] El tratamiento del atraso es coherente entre calendario y contador, o la diferencia está
       documentada como intencional.

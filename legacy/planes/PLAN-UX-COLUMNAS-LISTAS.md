@@ -1,6 +1,6 @@
 # Plan de mejora – Columnas configurables en las listas de avisos y órdenes de trabajo
 
-> Documento **ejecutable paso a paso**, con la misma mecánica que los demás `PLAN-UX-*.md`: cada paso
+> Documento **ejecutable paso a paso**, con la misma mecánica que los demás `legacy/planes/PLAN-UX-*.md`: cada paso
 > es pequeño, verificable y reversible por sí solo. Marca la casilla al terminarlo y anótalo en el
 > *Registro de avance* del final.
 

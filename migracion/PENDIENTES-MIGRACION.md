@@ -1,15 +1,15 @@
 # Pendientes de migración del legacy a la nueva plataforma
 
 > Inventario al **2026-10-03**, tras completar NP-0 … NP-6. Sirve para retomar el trabajo: qué falta migrar, en qué
-> orden y dónde está cada cosa. Mantenerlo al día junto con `CURRENT-STATE.md`.
+> orden y dónde está cada cosa. Mantenerlo al día junto con `plataforma/CURRENT-STATE.md`.
 
 ## Rutas
 
 | Proyecto | Ruta | Notas |
 |----------|------|-------|
-| **AMSYS legacy** (ASP.NET MVC, una rama por cliente) | `D:\Documentos\Alphamanufacturas\AMSYS\AMSYS` | Rama `main` = producto base; ramas `agchavin`, `ares`, `caja_arequipa`, `energiaycombustion`, `eulen`, `itc`, `oterra`, `pyme`, `rentanor`. Análisis del legacy en su carpeta `ai/` (sobre todo `ai/BUSINESS-RULES.md`, `ai/PLAN-MULTICLIENTE.md`, `ai/PLAN-NUEVA-PLATAFORMA.md`, `ai/PLAN-UX-*.md`) |
-| **AMSYS nuevo** (.NET 10, Minimal API + Blazor Server + MudBlazor, repo `amsys`) | `D:\Documentos\Amsys` | Contexto en `ai/` (`README.md`, `CURRENT-STATE.md`, `DECISIONS.md`, `ARCHITECTURE.md`, `ROADMAP.md`) y `CLAUDE.md` |
-| Base de desarrollo del nuevo | `Host=localhost;Port=5432;Database=amsys_dev;Username=postgres;Password=123` | Contenedor Docker `bdpostgresql` (PostgreSQL 14.1). Usuario `admin`, empresa `demo` |
+| **AMSYS legacy** (ASP.NET MVC, una rama por cliente) | `D:\Documentos\Alphamanufacturas\AMSYS\AMSYS` | Rama `main` = producto base; ramas `agchavin`, `ares`, `caja_arequipa`, `energiaycombustion`, `eulen`, `itc`, `oterra`, `pyme`, `rentanor`. Análisis del legacy en AMSYS-BRAIN (sobre todo `negocio/BUSINESS-RULES.md`, `legacy/planes/PLAN-MULTICLIENTE.md`, `migracion/PLAN-NUEVA-PLATAFORMA.md`, `legacy/planes/PLAN-UX-*.md`) |
+| **AMSYS nuevo** (.NET 10, Minimal API + Blazor Server + MudBlazor, repo `amsys`) | `D:\Documentos\Amsys` | Contexto en `D:DocumentosAMSYS-BRAIN` (`plataforma/README.md`, `plataforma/CURRENT-STATE.md`, `plataforma/DECISIONS.md`, `plataforma/ARCHITECTURE.md`, `plataforma/ROADMAP.md`) y `CLAUDE.md` |
+| Base de desarrollo del nuevo | `Host=localhost;Port=5432;Database=amsys_dev;Username=postgres;Password=<ver user-secrets>` | Contenedor Docker `bdpostgresql` (PostgreSQL 14.1). Usuario `admin`, empresa `demo` |
 | Bases del legacy (fuente del importador) | Mismo servidor: `amsys`, `amsys_v3_rentanor`, `amsys_v3_agchavin`, `amsys_v3_itc`, `amsys_v3_caja_arequipa`, `amsys_v3_demo`, `amsys_v3_eulen`, `amsys_v3_oterra` | Revisar si faltan ares, energiaycombustion y pyme |
 
 **Ejecutar el nuevo** (desde `D:\Documentos\Amsys`): `dotnet run --project src/Amsys.Api --launch-profile http` y
@@ -23,7 +23,7 @@ personalizados, etiquetas de estado, marca), catálogos, maestros (empleados, so
 (organizaciones, ubicaciones, equipos, clases, contadores, puntos de medida, árbol), correctivo (avisos, órdenes de
 trabajo, notificación y costos, Kanban), preventivo (hojas de ruta, secciones, planes con cálculo de posiciones,
 asignaciones, generación a demanda), logística (almacenes, existencias, notas FIFO, traslados, anulaciones, kardex) y
-reportes (tablero de inicio, Excel, PDF de OT, indicadores MTBF/MTTR/disponibilidad). Detalle en `CURRENT-STATE.md`.
+reportes (tablero de inicio, Excel, PDF de OT, indicadores MTBF/MTTR/disponibilidad). Detalle en `plataforma/CURRENT-STATE.md`.
 
 ## 1. Funcionalidades del legacy (`main`) que no existen todavía
 
@@ -77,7 +77,7 @@ reportes (tablero de inicio, Excel, PDF de OT, indicadores MTBF/MTTR/disponibili
 
 ## Orden recomendado
 
-Olas de clientes: **1** ares, energiaycombustion, itc, pyme · **2/3** según `ROADMAP.md` · **4** oterra.
+Olas de clientes: **1** ares, energiaycombustion, itc, pyme · **2/3** según `plataforma/ROADMAP.md` · **4** oterra.
 
 Para la **ola 1** sólo hace falta lo de valor alto:
 1. **Contar qué usan de verdad** los clientes de la ola 1 en sus bases `amsys_v3_*` (aspectos, paradas, adjuntos,
@@ -90,7 +90,7 @@ Para la **ola 1** sólo hace falta lo de valor alto:
 
 ## Mejora de la UI (para cuando se retome)
 
-Tarea preparada: **`ai/tareas/UI-01-tema-base-y-revision-visual.md`**.
+Tarea preparada: **`plataforma/tareas/UI-01-tema-base-y-revision-visual.md`**.
 
 
 - Skill **`frontend-design`** (plugin oficial `frontend-design@claude-plugins-official`, **instalado** el 2026-10-03, alcance usuario):

@@ -7,7 +7,7 @@ D-PL-01) · **retomar por "Siguientes pasos"**
 
 ## Siguientes pasos (para retomar)
 
-En orden. Lo hecho está en la *Bitácora*; las decisiones en `ai/DECISIONS.md` (D-UI-01…04, D-NT-01…10, D-OT-01,
+En orden. Lo hecho está en la *Bitácora*; las decisiones en `plataforma/DECISIONS.md` (D-UI-01…04, D-NT-01…10, D-OT-01,
 D-MC-01, D-PL-01, D-PL-02, D-AR-01, D-UI-05…11, D-AV-01…03, D-PL-03, D-OT-02).
 
 1. ~~Poner al día `amsys_dev`~~ ✅ 2026-10-04 (todas las migraciones, cliente `amsys` con PLATAFORMA y usuario
@@ -25,7 +25,7 @@ D-MC-01, D-PL-01, D-PL-02, D-AR-01, D-UI-05…11, D-AV-01…03, D-PL-03, D-OT-02
 6. **Portal (D-PL-01), mejoras**: ~~subida de logo~~ ✅ (D-AR-01) · ~~la empresa de la plataforma ve sólo el menú
    "Plataforma"~~ ✅ (D-PL-02). Faltan: campos personalizados y etiquetas desde el portal (hoy por archivo), historial de
    cambios del cliente. Al desplegar: montar un volumen persistente en `Archivos:Ruta`.
-7. **Rediseño (D-UI-11) aplicado** el 2026-10-14 a las 12 pantallas de `ai/claude-design/` (verificado con Playwright en
+7. **Rediseño (D-UI-11) aplicado** el 2026-10-14 a las 12 pantallas de `D:\Documentos\Amsys\docs\design\` (verificado con Playwright en
    `amsys_ui`). Falta llevar el mismo patrón (`CabeceraPagina`, `amsys-panel`, `EstadoVacio`, placa fija) al resto: fichas de
    aviso (gestión), plan, ubicaciones, logística, planificación, administración y portal; y una prueba manual del propietario.
    **Revisión visual pendiente** con el tema nuevo: tablero Kanban, ficha del plan (matriz), resto de listas. Las tablas
@@ -40,7 +40,7 @@ D-MC-01, D-PL-01, D-PL-02, D-AR-01, D-UI-05…11, D-AV-01…03, D-PL-03, D-OT-02
    b. **Contraseñas del legacy**: importar el hash (HMAC-SHA256 sin sal), verificarlo con la fórmula antigua en el primer
       ingreso y volver a guardarlo con el formato nuevo (transparente para el usuario).
    c. **Importador** (`tools/Amsys.Importador`, hoy plantilla), empezando por un cliente de la ola 1
-      (`ai/PENDIENTES-MIGRACION.md`).
+      (`migracion/PENDIENTES-MIGRACION.md`).
    d. Despliegue: servidor, HTTPS `*.amsys.com.pe`, volumen de archivos, Data Protection persistente, Redis si hay
       réplicas, `Jwt__Clave`, fuentes del PDF, proxy que conserve `Host`.
 
@@ -52,7 +52,7 @@ D-MC-01, D-PL-01, D-PL-02, D-AR-01, D-UI-05…11, D-AV-01…03, D-PL-03, D-OT-02
 - [x] `Directory.Build.props`: `net10.0`, `Nullable`, `ImplicitUsings`, `AnalysisLevel latest-recommended`,
       `EnforceCodeStyleInBuild`, nullable = error; `TreatWarningsAsErrors` en Release o con `CI=true`.
 - [x] `Directory.Packages.props`: Central Package Management con versiones verificadas en NuGet el 2026-10-02.
-- [x] Proyectos creados y referenciados (ver `ARCHITECTURE.md`). Los `.csproj` no repiten
+- [x] Proyectos creados y referenciados (ver `plataforma/ARCHITECTURE.md`). Los `.csproj` no repiten
       propiedades comunes ni declaran versiones.
 - [x] `dotnet build Amsys.slnx` → 0 errores, 3 warnings (código de ejemplo de plantillas).
 - [x] `dotnet test --solution Amsys.slnx` → 3/3 correctos (tests de ejemplo).
@@ -136,7 +136,7 @@ D-MC-01, D-PL-01, D-PL-02, D-AR-01, D-UI-05…11, D-AV-01…03, D-PL-03, D-OT-02
         con activo/inactivo, todas las etiquetas resueltas, campos activos) y `ServicioConfiguracionEmpresa`
         (aplica un archivo de cliente; idempotente; **todo o nada** con transacción).
       - Migración `ConfiguracionMulticliente` (esquema `configuracion`). `GET /api/v1/configuracion`.
-      - `Migrator --configurar <archivo>`; `tools/clientes/{README.md, _plantilla, demo}`.
+      - `Migrator --configurar <archivo>`; `tools/clientes/{plataforma/README.md, _plantilla, demo}`.
       - Web: `ConfiguracionCliente` (una carga por circuito, en cascada desde `MainLayout`), tema y logo por
         cliente (`TemaAmsys.Crear`, `RecursosMarca` con respaldo), menú filtrado por módulo, `EstadoChip`,
         editor `CamposPersonalizados`, página Administración → Configuración (con vista previa de campos).
@@ -148,13 +148,13 @@ D-MC-01, D-PL-01, D-PL-02, D-AR-01, D-UI-05…11, D-AV-01…03, D-PL-03, D-OT-02
 
 ## Pendiente inmediato
 
-> Inventario completo de lo que falta migrar del legacy, con las rutas de ambos proyectos: `ai/PENDIENTES-MIGRACION.md`.
-> Tareas listas para ejecutar: `ai/tareas/` (p. ej. `UI-01-tema-base-y-revision-visual.md`).
+> Inventario completo de lo que falta migrar del legacy, con las rutas de ambos proyectos: `migracion/PENDIENTES-MIGRACION.md`.
+> Tareas listas para ejecutar: `plataforma/tareas/` (p. ej. `UI-01-tema-base-y-revision-visual.md`).
 
 - [x] **UI-01** Tema base (D-UI-01) y revisión de Inicio y Ficha de OT — hecha, ver la tarea y sus capturas.
 - [x] Cultura única en la web: es-PE (D-UI-03).
 - [x] **NT-01a** Notificación del técnico: "Mis órdenes", play/pausa por tarea, materiales/servicios, ejecución y cierre
-      técnico (D-NT-01…05). Ver `ai/tareas/NT-01-notificacion-tecnico.md`.
+      técnico (D-NT-01…05). Ver `plataforma/tareas/NT-01-notificacion-tecnico.md`.
 - [x] Mis avisos (D-NT-06) y pestañas con fondo blanco.
 - [x] Campos fecha-hora: corregido "Not a valid date time" (`ConvertidorFechaHoraLocal`).
 - [x] **Base compartida (D-MC-01) y portal de la plataforma (D-PL-01)**: Plataforma → Clientes. Falta en `amsys_dev`:
@@ -165,7 +165,7 @@ D-MC-01, D-PL-01, D-PL-02, D-AR-01, D-UI-05…11, D-AV-01…03, D-PL-03, D-OT-02
       paso "Parámetros" del técnico. Migración `Aspectos` (aplicada sólo en `amsys_ui`).
 - [ ] Aplicar en `amsys_dev` las migraciones `NotificacionTecnico`, `TareaOrdenSeccion` y `Aspectos` y la puesta en marcha de la plataforma (ver *Siguientes pasos* 1).
 - [ ] NT-01b/c/d y revisión visual pendiente (ver *Siguientes pasos* 3–7).
-- [x] UI-02 interfaz minimalista (D-UI-02): controles, barra superior y menú — capturas en `ai/tareas/capturas/UI-02/`.
+- [x] UI-02 interfaz minimalista (D-UI-02): controles, barra superior y menú — capturas en `plataforma/tareas/capturas/UI-02/`.
 - [ ] Logos de cliente: deben verse sobre la barra pizarra (logos claros o a color; uno oscuro no se leería).
 
 - [ ] Prueba manual en navegador (ver *Entorno de desarrollo*). La BD local tiene la configuración `demo`, todas las
@@ -357,7 +357,7 @@ Excel, aviso automático por alarma, lecturas vinculadas a la OT, programación 
 
 ## NP-4 Preventivo
 
-Fuente: `ai/BUSINESS-RULES.md` del legacy (reglas BR-HR/SE/TA/PM/AS/GE con nivel de confianza y decisiones del
+Fuente: `negocio/BUSINESS-RULES.md` del legacy (reglas BR-HR/SE/TA/PM/AS/GE con nivel de confianza y decisiones del
 propietario D-02/D-03/D-05). Plan: **4.1** hojas de ruta y secciones ✅ · **4.2** planes y cálculo de posiciones ✅ ·
 **4.3** asignaciones a equipos/ubicaciones · **4.4** previsualización y generación a demanda (sin automatizar, D-05).
 
@@ -410,7 +410,7 @@ propietario D-02/D-03/D-05). Plan: **4.1** hojas de ruta y secciones ✅ · **4.
 
 ## NP-5 Logística ✅
 
-Fuente: entidades y lógicas `AMSYS.Logicas/Logistica` del legacy y su `ai/PLAN-UX-LOGISTICA.md` (LG-01…17, decisiones
+Fuente: entidades y lógicas `AMSYS.Logicas/Logistica` del legacy y su `legacy/planes/PLAN-UX-LOGISTICA.md` (LG-01…17, decisiones
 DL-01…05 del propietario).
 - Dominio `Logistica/`: `Almacen` (no se desactiva con existencias), `Existencia` (cantidad, valor, costo promedio,
   punto de reposición), `Movimiento` (kardex: inicial, entrada, salida, final en cantidad y valor), `NotaEntrada`
@@ -464,7 +464,7 @@ eulen/caja_arequipa, `FERIADOS` y calificación de OT de caja_arequipa) se hacen
   (`amsys`, `amsys_v3_<cliente>`): fuente para el importador.
   - El contenedor anterior `amsys-postgres-dev` (postgres:17, clave `postgres`) quedó detenido; ocupan el mismo puerto,
     no deben correr a la vez. Los tests usan su propio Postgres 17 con Testcontainers.
-- Migrar + semilla: `dotnet run --project src/Amsys.Migrator -- --semilla-desarrollo "--ConnectionStrings:Amsys=Host=localhost;Port=5432;Database=amsys_dev;Username=postgres;Password=123" "--Semilla:ClaveAdmin=<clave>"`
+- Migrar + semilla: `dotnet run --project src/Amsys.Migrator -- --semilla-desarrollo "--ConnectionStrings:Amsys=Host=localhost;Port=5432;Database=amsys_dev;Username=postgres;Password=<ver user-secrets>" "--Semilla:ClaveAdmin=<clave>"`
 - API: `dotnet run --project src/Amsys.Api --launch-profile http` → Scalar en `http://localhost:5276/scalar/v1`
 - Web: `dotnet run --project src/Amsys.Web --launch-profile http` → `http://localhost:5296` (necesita la API corriendo;
   `Api:UrlBase` en `src/Amsys.Web/appsettings.Development.json`)
@@ -484,8 +484,8 @@ eulen/caja_arequipa, `FERIADOS` y calificación de OT de caja_arequipa) se hacen
 
 | Fecha | Avance |
 |-------|--------|
-| 2026-10-02 | Análisis de ramas por cliente en el legacy → `PLAN-MULTICLIENTE.md` (en el repo legacy) |
-| 2026-10-02 | Propuesta de nueva plataforma (inicialmente Blazor WASM, luego cambiado a Server) + API separada → `PLAN-NUEVA-PLATAFORMA.md` (legacy) |
+| 2026-10-02 | Análisis de ramas por cliente en el legacy → `legacy/planes/PLAN-MULTICLIENTE.md` (en el repo legacy) |
+| 2026-10-02 | Propuesta de nueva plataforma (inicialmente Blazor WASM, luego cambiado a Server) + API separada → `migracion/PLAN-NUEVA-PLATAFORMA.md` (legacy) |
 | 2026-10-02 | Creados `global.json`, `Directory.Build.props`, `Directory.Packages.props` |
 | 2026-10-02 | Creados los 12 proyectos restantes; Blazor aplanado de `src/Amsys.Web/Amsys.Web*` a `src/`; tests migrados de xunit v2 a xunit.v3; runner MTP activado en `global.json` |
 | 2026-10-02 | Creada esta carpeta `ai/` |
@@ -512,12 +512,12 @@ eulen/caja_arequipa, `FERIADOS` y calificación de OT de caja_arequipa) se hacen
 | 2026-10-03 | NP-6.1–6.4: tablero de inicio, exportación a Excel con campos personalizados, PDF de OT con plantilla por cliente, indicadores de confiabilidad (fórmulas de oterra corregidas, tiempo de operación por horario del equipo). ClosedXML y QuestPDF. 309 tests verdes |
 | 2026-10-03 | D-MC-04 decidida: los módulos de oterra son exclusivos de oterra; se construyen en la ola 4. NP-6 cerrada para el producto |
 | 2026-10-03 | Base de desarrollo movida al servidor Docker del usuario (`bdpostgresql`, PG 14.1, clave `123`): 16 migraciones aplicadas, semilla (`demo` + `admin`, clave temporal `Admin-Dev-2026`) y configuración `demo`; `appsettings.Development.json` de la API actualizado |
-| 2026-10-03 | Inventario de pendientes de migración en `ai/PENDIENTES-MIGRACION.md` (funcionalidades del legacy faltantes, partes incompletas, módulos de clientes, salida a producción, orden recomendado, skills para la UI) |
-| 2026-10-03 | Tarea UI-01 (tema base de MudBlazor + revisión de Inicio y Ficha de OT con `frontend-design`) creada en `ai/tareas/` |
-| 2026-10-03 | UI-01: tema base (D-UI-01: neutros fríos, semánticos AA, Archivo, paneles con borde; primario del cliente oscurecido automáticamente hasta 4.5:1, barra con su color y texto por contraste). Inicio con franja de indicadores y accesos agrupados; ficha de OT con encabezado "placa", campos densos, cifras a la derecha y resumen de costos. Capturas antes/después y con 3 colores en `ai/tareas/capturas/UI-01/` (BD aparte `amsys_ui`). 322 tests verdes, Release sin advertencias |
+| 2026-10-03 | Inventario de pendientes de migración en `migracion/PENDIENTES-MIGRACION.md` (funcionalidades del legacy faltantes, partes incompletas, módulos de clientes, salida a producción, orden recomendado, skills para la UI) |
+| 2026-10-03 | Tarea UI-01 (tema base de MudBlazor + revisión de Inicio y Ficha de OT con `frontend-design`) creada en `plataforma/tareas/` |
+| 2026-10-03 | UI-01: tema base (D-UI-01: neutros fríos, semánticos AA, Archivo, paneles con borde; primario del cliente oscurecido automáticamente hasta 4.5:1, barra con su color y texto por contraste). Inicio con franja de indicadores y accesos agrupados; ficha de OT con encabezado "placa", campos densos, cifras a la derecha y resumen de costos. Capturas antes/después y con 3 colores en `plataforma/tareas/capturas/UI-01/` (BD aparte `amsys_ui`). 322 tests verdes, Release sin advertencias |
 | 2026-10-03 | UI-02 (pedido del usuario): interfaz minimalista. Campos con etiqueta fija encima, borde de 1px y foco con anillo suave (CSS global, todas las páginas); tablas planas; barra superior pizarra con línea de marca, botón "Nuevo" (altas por permiso) y menú de usuario con iniciales; menú lateral compacto; MudBlazor en español (`LocalizadorMud`: paginadores, filtros). Corregido en el camino: menú de usuario con `ActivatorContent` debe llamar a `context.ToggleAsync` (MudBlazor 9). 328 tests verdes, Release sin advertencias |
 | 2026-10-03 | D-UI-03: formato de Perú en toda la web (cultura es-PE fija, importes `3,850.00`, campos numéricos `0.00##`, fechas `dd/MM/yyyy`) y tipografía Poppins con tamaños menores (menú más discreto). 331 tests verdes, Release sin advertencias |
-| 2026-10-03 | Análisis de la notificación del técnico del legacy (play/pause `NotificacionTarea`, parámetros, valor de ejecución) frente a la plataforma nueva; propuesta por fases en `ai/tareas/NT-01-notificacion-tecnico.md` con 6 decisiones pendientes |
+| 2026-10-03 | Análisis de la notificación del técnico del legacy (play/pause `NotificacionTarea`, parámetros, valor de ejecución) frente a la plataforma nueva; propuesta por fases en `plataforma/tareas/NT-01-notificacion-tecnico.md` con 6 decisiones pendientes |
 | 2026-10-03 | NT-01a: notificación del técnico. Empleado↔usuario, técnicos asignados a la OT, tramos de tiempo play/pausa (un tramo abierto por empleado con índice único parcial, motivo de pausa), consumos y ejecución por el técnico, cierre técnico de sus órdenes; permiso `ordenes.ejecutar`; API `/mantenimiento/ejecucion`; web "Mis órdenes" para celular con barra de pasos y cronómetro. Migración `NotificacionTecnico`. 349 tests verdes, Release sin advertencias |
 | 2026-10-03 | Mis avisos (D-NT-06): `GET /mantenimiento/avisos/mios` (propios, pendientes/todos), ficha de aviso accesible al autor con sólo `avisos.crear`, página en tarjetas y opción de menú. Pestañas (`MudTabs`) como panel blanco con borde en todas las vistas. 350 tests verdes, Release sin advertencias |
 | 2026-10-03 | Corregido "Not a valid date time" en todos los campos fecha-hora: Blazor entrega el valor del `datetime-local` con segundos (`2026-10-03T08:30:00`) y el `Format="yyyy-MM-ddTHH:mm"` de MudBlazor lo rechazaba (no era por la cultura es-PE: fallaba también sin ella). Nuevo `ConvertidorFechaHoraLocal` (acepta con y sin segundos) en las 10 fichas/campos; mensajes de conversión de MudBlazor en español. Probado guardando y recargando en el navegador. Tests web 73/73 |
@@ -547,7 +547,7 @@ eulen/caja_arequipa, `FERIADOS` y calificación de OT de caja_arequipa) se hacen
 | 2026-10-04 | **NT-01d (D-NT-10)**: `ServicioTecnicos` y endpoints `/mantenimiento/tecnicos/monitoreo`, `/{empleadoId}/cerrar-tramo`, `/horas` y `/horas/excel`; `OrdenTrabajo.PausarTramo` acepta la hora de fin (entre el inicio y ahora). Web: Mantenimiento → **Técnicos** (pestaña "Ahora" con cronómetro y tramos de otro día resaltados, diálogo "Cerrar tramo" con hora propuesta; pestaña "Horas por empleado" con detalle por orden, total y Excel). Sin migración. 379 tests, Release sin advertencias |
 | 2026-10-04 | **NT-01c (D-NT-09)**: al cierre técnico de una OT de plan, `CambiarEstadoOrdenRequest` acepta `ValorEjecucion` (plan por contador) o `FechaCierrePlan` (calendario); se guardan en la OT (migración `CierrePlanOrden`, aplicada en `amsys_dev` y `amsys_ui`) y `PlanAsignacion.ReprogramarDesdeEjecucion` reprograma si es la última OT de la asignación (si no, advertencia). `OrdenTrabajoResponse` con `TipoPlan`, `LecturaPlan`, `ValorEjecucion`, `FechaCierrePlan`. Web: `CambiarEstadoDialogo` devuelve `CambioEstado` y pide el dato con valor propuesto (lectura actual / fin de la ejecución) en la ficha de la OT y en "Enviar a cierre técnico" del técnico. 377 tests, Release sin advertencias |
 | 2026-10-04 | **Aspectos (D-NT-07)**: dominio `Aspecto`/`AspectoObjeto`/`InspeccionAspecto` (migración `Aspectos`), `ServicioAspectos` y endpoints (`/administracion/aspectos`, `/activos/{equipos|ubicaciones}/{id}/aspectos`, `/activos/aspectos/{id}[/inspecciones]`, `/mantenimiento/ordenes/{id}/aspectos`). Web: Administración → Aspectos, pestaña en la ficha de equipo, botón en Ubicaciones, panel "Inspección de aspectos" en la ficha de la OT y paso "Parámetros" del técnico (los cerrados se responden con un toque). Corregido además el XML-doc de `TareaOrdenRequest/Response` que rompía el build Release. 368/368, Release sin advertencias; probado con Playwright en `amsys_ui` (BB-12: "Estado de la faja" y "Observaciones") |
-| 2026-10-07 | **Pantallas para Claude Design** (`ai/claude-design/`): 12 pantallas principales exportadas desde `amsys_ui` con Playwright como HTML autocontenido (CSS de MudBlazor, `app.css`, CSS aislado y tema incrustados; sin scripts) + PNG de página completa: login, inicio, órdenes (lista, ficha, tablero), avisos (lista, nuevo), equipos (lista, ficha), árbol de activos y técnico móvil (mis órdenes, ejecución). `README.md` con el prompt para claude.ai/design (rediseño intuitivo y actual **sin cambiar los controles de formulario**, sólo componentes MudBlazor, identidad D-UI-02/05/06/07/09/10) y `exportar.mjs` para regenerar. Siguiente: llevar la propuesta a `TemaAmsys.cs`, `app.css` y las páginas |
+| 2026-10-07 | **Pantallas para Claude Design** (`D:\Documentos\Amsys\docs\design\`): 12 pantallas principales exportadas desde `amsys_ui` con Playwright como HTML autocontenido (CSS de MudBlazor, `app.css`, CSS aislado y tema incrustados; sin scripts) + PNG de página completa: login, inicio, órdenes (lista, ficha, tablero), avisos (lista, nuevo), equipos (lista, ficha), árbol de activos y técnico móvil (mis órdenes, ejecución). `plataforma/README.md` con el prompt para claude.ai/design (rediseño intuitivo y actual **sin cambiar los controles de formulario**, sólo componentes MudBlazor, identidad D-UI-02/05/06/07/09/10) y `exportar.mjs` para regenerar. Siguiente: llevar la propuesta a `TemaAmsys.cs`, `app.css` y las páginas |
 | 2026-10-14 | **Rediseño de Claude Design aplicado (D-UI-11)**: tokens de la paleta en `Tema/AmsysTokens.cs` (`AmsysPaleta` → variables `--amsys-*` emitidas por `ProveedoresMud` con la marca y el secundario del cliente) y `TemaAmsys` armado desde ellos (primario `#0279C2`, marca `#019CDE`); CSS final `wwwroot/css/amsys-rediseno.css` (reemplaza el `redesign/login.css` provisional) y `-darken` → `--amsys-*-text` en `app.css`. Nuevos `CabeceraPagina`, `EstadoVacio`, `PrioridadTexto`, `VistasOrdenes`; `PanelFiltros`, `EstadoChip` (chip relleno), `Indicador` (nota y "Al día") y menú (grupo actual abierto, una sola opción activa) rediseñados. Pantallas: login, inicio, órdenes (lista, ficha con placa fija/ciclo/pestañas/carril, tablero), avisos (lista con atajos, nuevo aviso por secciones), equipos (lista, ficha con pestañas verticales y carril), árbol maestro-detalle, técnico móvil (Mis órdenes y ejecución). API: `OrdenResumenResponse` y `OrdenAsignadaResponse` con `PrioridadNombre`/`Atrasada` opcionales. Sin migración. 442 tests (nuevos: tokens y lista de órdenes), Release sin advertencias; capturas con Playwright en `amsys_ui` |
 | 2026-10-24 | Árbol de activos: tres niveles con icono y color propios (ubicación `Place` verde, equipo `PrecisionManufacturing` azul, componente = equipo con equipo padre, `Extension` morado), leyenda en la barra, conteo de componentes en la cabecera y "Nivel" en el detalle |
 | 2026-10-24 | Campos de texto, numéricos y selects dentro de tablas (filas editables y buscadores de la barra de la tabla) con el mismo diseño de los formularios: `Variant.Outlined` + `Margin.Dense` en 51 campos de 18 pantallas (FichaOrden, NotificacionOrden, FichaNota, FichaSeccion, FichaPlan, FichaClaseEquipo, Existencias, AsignacionesPlan y buscadores de listas); fuera la regla CSS del subrayado oculto en tablas, sin margen vertical en celdas. D-UI-02 actualizado |

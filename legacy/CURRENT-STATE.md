@@ -8,7 +8,7 @@
 
 ## Estado
 Análisis exhaustivo del módulo de Mantenimiento finalizado. Documentación de dominio, reglas de
-negocio, arquitectura, workflow, permisos y UX/UI completa. **49 tareas** de mejora en `/ai/tasks`,
+negocio, arquitectura, workflow, permisos y UX/UI completa. **49 tareas** de mejora en `legacy/tareas/`,
 todas en estado `PENDING`.
 
 **3 de las 16 decisiones de negocio están resueltas** (`D-02`, `D-03`, `D-05`) y aplicadas a la
@@ -23,15 +23,15 @@ documentación y a las tareas afectadas. Quedan 13 pendientes, más 2 sub-pregun
 
 | Área | Documento | Estado |
 |------|-----------|--------|
-| Contexto del sistema | `SYSTEM-CONTEXT.md` | ✅ (preexistente, revisado) |
-| Modelo de dominio | `DOMAIN-MODEL.md` | ✅ (preexistente, ampliado) |
-| Reglas de negocio | `BUSINESS-RULES.md` | ✅ 58 reglas (2 nuevas por `D-03`) |
-| Arquitectura | `ARCHITECTURE.md` | ✅ |
-| Entidades y procesos | `analysis/orders.md` | ✅ |
-| Workflow y estados | `analysis/workflow.md` | ✅ |
-| Permisos y seguridad | `analysis/permissions.md` | ✅ 11 vulnerabilidades |
-| UX / UI | `analysis/ux.md` | ✅ 18 hallazgos UX + 7 UI |
-| Tareas de mejora | `tasks/MNT-001` … `MNT-048`, más `MNT-008b` | ✅ 49 tareas |
+| Contexto del sistema | `negocio/SYSTEM-CONTEXT.md` | ✅ (preexistente, revisado) |
+| Modelo de dominio | `negocio/DOMAIN-MODEL.md` | ✅ (preexistente, ampliado) |
+| Reglas de negocio | `negocio/BUSINESS-RULES.md` | ✅ 58 reglas (2 nuevas por `D-03`) |
+| Arquitectura | `legacy/ARCHITECTURE.md` | ✅ |
+| Entidades y procesos | `negocio/flujos/orders.md` | ✅ |
+| Workflow y estados | `negocio/flujos/workflow.md` | ✅ |
+| Permisos y seguridad | `legacy/analisis/permissions.md` | ✅ 11 vulnerabilidades |
+| UX / UI | `legacy/analisis/ux.md` | ✅ 18 hallazgos UX + 7 UI |
+| Tareas de mejora | `legacy/tareas/MNT-001` … `MNT-048`, más `MNT-008b` | ✅ 49 tareas |
 
 ### Alcance verificado en código
 - 10 proyectos de la solución, 31 controladores del área `Gestion`, 55 repositorios, 35 lógicas.
@@ -109,7 +109,7 @@ Requiere **acceso a datos de producción**, no disponible en esta fase:
 Todas en `PENDING`.
 
 ## Tareas completadas
-Ninguna. `/ai/completed` está vacío.
+Ninguna. `legacy/tareas/completadas/` está vacío.
 
 ---
 
@@ -136,7 +136,7 @@ actualizadas y **no deben reabrirse** sin una nueva decisión.
 
 **Consecuencias documentadas:**
 - La generación manual (`BR-GE-001`) deja de ser un problema y pasa a ser una **regla de negocio
-  deliberada**. Reclasificada en `BUSINESS-RULES.md`.
+  deliberada**. Reclasificada en `negocio/BUSINESS-RULES.md`.
 - `BR-GE-005` (los planes por calendario avanzan **una** posición por ejecución) queda **alineada con
   la decisión**: es precisamente el mecanismo que evita la explosión de backlog. Deja de ser un
   hallazgo y pasa a ser comportamiento correcto.
@@ -210,7 +210,7 @@ Requieren respuesta del propietario del sistema antes de implementar la tarea as
 
 ### 1. Revisión de este análisis por el propietario
 Antes de escribir una sola línea de código de producción, validar:
-- que el modelo de dominio documentado en `DOMAIN-MODEL.md` corresponde a lo esperado,
+- que el modelo de dominio documentado en `negocio/DOMAIN-MODEL.md` corresponde a lo esperado,
 - que las reglas marcadas `CONFIRMED` reflejan el negocio real,
 - las **13 decisiones pendientes**, priorizando `D-05b` (salto de posiciones por contador),
   `D-03b` (código de OT duplicado por concurrencia) y `D-01` (estados por rol).
@@ -238,7 +238,7 @@ En este orden:
 
 ### 4. Diagnósticos a solicitar
 Muchas tareas empiezan con un diagnóstico sobre datos reales. Conviene ejecutarlos **todos juntos**
-en una sola sesión de consultas y volcar los resultados en `/ai/analysis/`, para no ir pidiendo
+en una sola sesión de consultas y volcar los resultados en `legacy/analisis/`, para no ir pidiendo
 accesos de uno en uno. Ver la sección *Análisis pendiente*.
 
 ---

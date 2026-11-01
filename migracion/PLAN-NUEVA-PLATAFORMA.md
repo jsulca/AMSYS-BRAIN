@@ -1,7 +1,7 @@
 # Plan Nueva Plataforma – Amsys (Blazor + API) sucesor de AMSYS legacy
 
 > **Estado**: PROPUESTA · **Fecha**: 2026-10-02
-> Complementa `PLAN-MULTICLIENTE.md` (Opción 3). Cambia el **destino** de la migración de clientes:
+> Complementa `legacy/planes/PLAN-MULTICLIENTE.md` (Opción 3). Cambia el **destino** de la migración de clientes:
 > en vez de converger las ramas en `main` de este repo, convergen en la **nueva plataforma**.
 > Este repo (`AMSYS`) pasa a **legacy**: sólo hotfix hasta que el último cliente migre.
 
@@ -218,13 +218,13 @@ principal. Se construye **por módulos**, y cada cliente migra cuando la platafo
 | **NP-1 Maestros** | Seguridad (usuarios, roles, permisos), catálogos de Administración | CRUD genérico reutilizable en Blazor |
 | **NP-2 Activos** | Equipos, Ubicaciones, árbol jerárquico, contadores, puntos de medida, datos técnicos | Primer uso real de campos personalizados |
 | **NP-3 Correctivo** | Avisos → OT, notificación, Kanban, costos | **MVP**: alcanza para migrar `ares`, `energiaycombustion`, `itc` |
-| **NP-4 Preventivo** | Hoja de ruta, secciones, planes, previsualización y generación a demanda | Portar `PlanMantenimiento.Adicional.cs` **con tests primero** (núcleo crítico, ver `BUSINESS-RULES.md`) |
+| **NP-4 Preventivo** | Hoja de ruta, secciones, planes, previsualización y generación a demanda | Portar `PlanMantenimiento.Adicional.cs` **con tests primero** (núcleo crítico, ver `negocio/BUSINESS-RULES.md`) |
 | **NP-5 Logística** | Almacenes, notas, kardex, hojas de aceptación | |
 | **NP-6 Reportes y módulos** | Indicadores, PDF de OT, exportaciones, módulos `SOLICITUDES`, `CONFORMIDAD_AVISO`, etc. | Migrar `pyme`, `eulen`, `caja_arequipa`, `agchavin`, `rentanor`, `oterra` |
 
 **Migración de cada cliente** = script ETL (`tools/clientes/<x>/`) desde su BD legacy hacia el esquema
 nuevo, ensayado sobre copia del backup, conteos y totales cuadrados, aceptación en staging, corte.
-El orden de clientes de `PLAN-MULTICLIENTE.md` §5 se mantiene.
+El orden de clientes de `legacy/planes/PLAN-MULTICLIENTE.md` §5 se mantiene.
 
 **Qué se conserva del legacy**: las reglas de negocio documentadas en `/ai` (y las decisiones
 vinculantes `D-02`, `D-03`, `D-05`), el esquema de API de `WebAdmin/Api`, las plantillas Excel.

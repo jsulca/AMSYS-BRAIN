@@ -298,7 +298,7 @@ y de las pantallas existentes.
 | Cierre | Supervisor | `Gestion/OrdenTrabajo/Editar` |
 | Análisis | Analista | `Reporte/*` |
 
-Ver `analysis/permissions.md` para el detalle de qué está realmente protegido.
+Ver `legacy/analisis/permissions.md` para el detalle de qué está realmente protegido.
 
 ---
 

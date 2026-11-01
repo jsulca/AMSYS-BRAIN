@@ -1,5 +1,8 @@
 # Reglas de Negocio – Módulo de Mantenimiento (AMSYS)
 
+> **Alcance (2026-10-31):** estas reglas describen el comportamiento del **legacy** (`main`). La nueva plataforma
+> las porta; las diferencias se registran en `plataforma/DECISIONS.md` y las de cada cliente en `clientes/`.
+
 > **Sólo reglas identificadas en el código.** No se inventan reglas.
 > Cuando una regla no puede determinarse se documenta como `UNKNOWN` con su motivo.
 
@@ -9,7 +12,7 @@
 |-------|-------------|
 | `CONFIRMED` | Verificada leyendo el código que la implementa. Se cita archivo y línea. |
 | `INFERRED` | El código sugiere la regla pero no la impone explícitamente, o hay ambigüedad. |
-| `UNKNOWN` | No se pudo determinar. Requiere decisión del propietario (ver `CURRENT-STATE.md`). |
+| `UNKNOWN` | No se pudo determinar. Requiere decisión del propietario (ver `legacy/CURRENT-STATE.md`). |
 
 > [!CAUTION]
 > Una regla `CONFIRMED` describe **lo que el sistema hace**, no necesariamente lo que *debería*
@@ -49,7 +52,7 @@
 - **Alcance**: sólo se aplica en `SeccionLogica.BuscarAsync` (API móvil). El modal
   `_Seleccionar` del WebAdmin usa `filtro.Activo = true` pero **no** `HojaRutaActivo`, así que ahí
   sí aparecen secciones de hojas de ruta inactivas.
-- **Confianza**: `CONFIRMED` — inconsistencia documentada en `analysis/orders.md`
+- **Confianza**: `CONFIRMED` — inconsistencia documentada en `negocio/flujos/orders.md`
 
 ---
 
@@ -159,7 +162,7 @@
   `AMSYS.Entidades/Gestion/Genericos/PlanMantenimientoSeccion.cs`
 - **Confianza**: `CONFIRMED`
 - **Impacto**: el modelo conceptual `Plan → Hoja de Ruta → Sección → Tarea` **no corresponde a la
-  implementación**. Ver `DOMAIN-MODEL.md`.
+  implementación**. Ver `negocio/DOMAIN-MODEL.md`.
 
 ### BR-PM-002 — Relación Plan ↔ Sección es N:M con metadata propia
 - **Comportamiento**: `PlanMantenimientoSeccion` lleva `PrioridadId`, `TipoMantenimientoId`,
@@ -187,7 +190,7 @@
   `Areas/Gestion/Views/PlanMantenimiento/Nuevo.cshtml`
 - **Confianza**: `CONFIRMED`
 - **Nota UX**: tres nombres (`Rutina`, `Estático`, `Dinámico`) para un único concepto, sin ayuda
-  contextual. Ver `analysis/ux.md`.
+  contextual. Ver `legacy/analisis/ux.md`.
 
 ### BR-PM-005 — Qué secciones se ejecutan en cada posición
 - **Comportamiento**: para la posición `p`:
@@ -286,7 +289,7 @@
 - **Evidencia**: `Validar(...)` en `PlanMantenimientoEquipo.Controller.cs`
 - **Confianza**: `CONFIRMED`
 - **Consecuencia práctica**: editar cualquier otro campo (p.ej. `TipoProgramacion`) de una
-  asignación antigua **obliga** a mover la fecha de inicio al futuro. Ver `analysis/ux.md`.
+  asignación antigua **obliga** a mover la fecha de inicio al futuro. Ver `legacy/analisis/ux.md`.
 
 ### BR-AS-007 — Editar una asignación REINICIA el ciclo de mantenimiento
 - **Comportamiento**: `ActualizarAsync` fija
@@ -365,7 +368,7 @@
 - **Conflicto detectado tras `D-05`**: mientras el calendario **conserva** el trabajo pendiente para
   que el planificador lo libere a su ritmo, el contador lo **descarta en silencio**. Los dos tipos de
   plan tratan el atraso de forma opuesta, y sólo uno es coherente con la decisión del propietario.
-- **Decisión pendiente**: `D-05b` — ver `CURRENT-STATE.md`
+- **Decisión pendiente**: `D-05b` — ver `legacy/CURRENT-STATE.md`
 - **Ver**: `MNT-008b`
 
 ### BR-GE-007 — Sólo se generan órdenes para equipos "montados"

@@ -134,7 +134,7 @@ automático de tramos abiertos.
   pasos (Tareas ▶/⏸ con diálogo de pausa · Materiales y servicios · Parámetros · Ejecución → Enviar a cierre técnico),
   técnicos asignados en la ficha de la OT, usuario del sistema en Empleados, tramos "En curso" en la notificación.
 - Tests: 14 de dominio + 5 de API (incluye dos "play" simultáneos en órdenes distintas). Capturas en
-  `ai/tareas/capturas/NT-01/`.
+  `plataforma/tareas/capturas/NT-01/`.
 
 ## Resultado NT-01b (2026-10-04, D-NT-08)
 

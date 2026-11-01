@@ -71,7 +71,7 @@ Antes de listar problemas, conviene registrar lo que **funciona bien** y debe co
 - **Propuesta**: (a) migas de pan reales en las tres pantallas; (b) desde `Seccion/Ver|Editar`,
   mostrar en qué planes participa esa sección (`Seccion.PlanesMantenimiento` ya existe como
   navegación y no se usa en ninguna vista); (c) panel de ayuda desplegable con el diagrama de
-  `DOMAIN-MODEL.md`.
+  `negocio/DOMAIN-MODEL.md`.
 - **Prioridad**: HIGH → tarea `MNT-037`
 
 ### UX-02 — HIGH — Al configurar el Plan no se ve el efecto de `Intervalo` y `Nivel`

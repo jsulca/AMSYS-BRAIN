@@ -1,7 +1,7 @@
 # Plan de mejora – Módulo de Logística
 
-> Documento **ejecutable paso a paso**, con la misma mecánica que `PLAN-UX-PLANMANTENIMIENTO.md`,
-> `PLAN-UX-HOJARUTA-SECCION.md`, `PLAN-UX-EQUIPO-UBICACION.md` y `PLAN-UX-ADMINISTRACION.md`: cada paso
+> Documento **ejecutable paso a paso**, con la misma mecánica que `legacy/planes/PLAN-UX-PLANMANTENIMIENTO.md`,
+> `legacy/planes/PLAN-UX-HOJARUTA-SECCION.md`, `legacy/planes/PLAN-UX-EQUIPO-UBICACION.md` y `legacy/planes/PLAN-UX-ADMINISTRACION.md`: cada paso
 > es pequeño, verificable y reversible por sí solo. Marca la casilla al terminarlo y anótalo en el
 > *Registro de avance* del final.
 
@@ -12,7 +12,7 @@
 - **Fuera de alcance**: el resto de Gestión (salvo el costo de la OT, LG-01), los permisos de los POST
   (misma decisión que `DA-04`), CSRF (`MNT-035`) y las plantillas Excel de exportación.
 - **Fecha**: 2026-09-19 · **Decisiones `DL-01` … `DL-05` resueltas el 2026-09-19** (sección 7)
-- **Relación con `/ai`**: reutiliza lo construido en `PLAN-UX-ADMINISTRACION.md` (`helper.catalogo`,
+- **Relación con AMSYS-BRAIN**: reutiliza lo construido en `legacy/planes/PLAN-UX-ADMINISTRACION.md` (`helper.catalogo`,
   `RespuestaValidacion`, `IUsoCatalogo`) y referencia las tareas `MNT-NNN` cuando existen.
 
 ---
@@ -353,7 +353,7 @@ Hechos verificados que condicionan el diseño:
 
 | Paso | Estado | Fecha | Commit | Notas |
 |------|--------|-------|--------|-------|
-| LG-01 | APLICADO | 2026-09-19 | | El costo suma el importe de la línea (`Sum(x => x.Precio)`), como la ficha de la OT. Informe y script de recálculo en `ai/analysis/lg-01-costo-ot.sql` (DL-03: recalcular todas). **Falta ejecutar el informe y la corrección en la base** |
+| LG-01 | APLICADO | 2026-09-19 | | El costo suma el importe de la línea (`Sum(x => x.Precio)`), como la ficha de la OT. Informe y script de recálculo en `legacy/analisis/lg-01-costo-ot.sql` (DL-03: recalcular todas). **Falta ejecutar el informe y la corrección en la base** |
 | LG-02 | APLICADO | 2026-09-19 | | Almacén, material, socio, servicio y OT se validan contra la empresa en las tres altas; `Anular` busca con empresa. DL-05: sólo se admiten OT **emitidas o en cierre técnico** (`ValidacionLogistica`). Falta probar con dos empresas |
 | LG-03 | APLICADO | 2026-09-19 | | Los formularios sólo ofrecen los tipos manuales y el servidor rechaza los de anulación y los valores fuera de rango (`Enum.IsDefined`); cada tipo explica qué hace |
 | LG-04 | APLICADO | 2026-09-19 | | No se anulan las notas generadas por una anulación; la entrada de un traslado se anula desde su salida; el motivo del rechazo llega como error de validación (`ResultadoOperacionDTO`) en lugar de una excepción; la nota contraria guarda el usuario que anuló |

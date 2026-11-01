@@ -1,8 +1,8 @@
 # Plan de mejora – Módulo de Seguridad
 
-> Documento **ejecutable paso a paso**, con la misma mecánica que `PLAN-UX-PLANMANTENIMIENTO.md`,
-> `PLAN-UX-HOJARUTA-SECCION.md`, `PLAN-UX-EQUIPO-UBICACION.md`, `PLAN-UX-ADMINISTRACION.md` y
-> `PLAN-UX-LOGISTICA.md`: cada paso es pequeño, verificable y reversible por sí solo. Marca la casilla
+> Documento **ejecutable paso a paso**, con la misma mecánica que `legacy/planes/PLAN-UX-PLANMANTENIMIENTO.md`,
+> `legacy/planes/PLAN-UX-HOJARUTA-SECCION.md`, `legacy/planes/PLAN-UX-EQUIPO-UBICACION.md`, `legacy/planes/PLAN-UX-ADMINISTRACION.md` y
+> `legacy/planes/PLAN-UX-LOGISTICA.md`: cada paso es pequeño, verificable y reversible por sí solo. Marca la casilla
 > al terminarlo y anótalo en el *Registro de avance* del final.
 
 - **Alcance**: el área `Areas/Seguridad` completa — 7 controladores: **Usuario** (usuarios de la
@@ -18,7 +18,7 @@
   (script de importación de usuarios); y las pantallas de los demás módulos, que sólo se tocan para
   registrar sus páginas y elementos.
 - **Fecha**: 2026-09-19 · **Decisiones `DS-01` … `DS-08` resueltas el 2026-09-19** (sección 7)
-- **Relación con `/ai`**: continúa `analysis/permissions.md` (matriz de protección real) y reutiliza
+- **Relación con AMSYS-BRAIN**: continúa `legacy/analisis/permissions.md` (matriz de protección real) y reutiliza
   lo construido en Administración y Logística (`helper.catalogo`, `helper.filtros`,
   `RespuestaValidacion`, `IUsoCatalogo`, `.barra-acciones`, `.tabla-apilable`).
 
@@ -133,7 +133,7 @@ Hechos verificados que condicionan el diseño:
 #### [x] SG-01 · Autorización en todas las escrituras del sistema
 
 - **Hoy**: `[FiltroAccion]` sólo está en algunos GET. Ningún POST de Seguridad, Administración,
-  Gestión o Logística comprueba permisos (`analysis/permissions.md` SEC-01, `DA-04`).
+  Gestión o Logística comprueba permisos (`legacy/analisis/permissions.md` SEC-01, `DA-04`).
 - **Archivos**: `Commons/Session/FiltroAccion.cs` y **todos** los controladores de la aplicación
   (`Seguridad`, `Administracion`, `Gestion`, `GestionActivo`, `Logistica`, `Reporte`) — `DS-01`.
 - **Hacer**:
@@ -148,7 +148,7 @@ Hechos verificados que condicionan el diseño:
   - Registrar en el catálogo de páginas las acciones que hoy no existen en él.
 - **Aceptación**:
   - [ ] Un usuario sin el permiso de una pantalla recibe 403 al enviar su POST, no un 200.
-  - [ ] Ninguna acción que escribe queda sin comprobación (inventario en `analysis/permissions.md`).
+  - [ ] Ninguna acción que escribe queda sin comprobación (inventario en `legacy/analisis/permissions.md`).
 - **Esfuerzo** L · **Riesgo** ALTO (puede dejar sin acceso a usuarios legítimos: desplegar con el
   inventario de páginas ya cargado y revisar rol por rol) · **Ref.** `DA-04`, `MNT-034`
 
@@ -484,7 +484,7 @@ Hechos verificados que condicionan el diseño:
   ciclos.
 - **Aceptación**:
   - [x] Mover un nodo persiste; desactivar uno con usuarios avisa de cuántos son.
-- **Esfuerzo** M · **Riesgo** BAJO · **Ref.** el árbol de ubicaciones de `PLAN-UX-EQUIPO-UBICACION.md`
+- **Esfuerzo** M · **Riesgo** BAJO · **Ref.** el árbol de ubicaciones de `legacy/planes/PLAN-UX-EQUIPO-UBICACION.md`
 
 #### [x] SG-21 · Empresas y licencia
 
@@ -676,7 +676,7 @@ Hechos verificados que condicionan el diseño:
   controlador habilita **todas** sus acciones auxiliares, incluidos POST sin página propia como
   `Eliminar` o `Anular`. Es mucho más estricto que hoy (donde están abiertas a cualquiera), pero no
   es control por botón: eso llega con SG-16 y los elementos.
-- **SG-01.** El `[FiltroAccion]` **comentado** del Kanban (`analysis/permissions.md` §2.6) ya no deja
+- **SG-01.** El `[FiltroAccion]` **comentado** del Kanban (`legacy/analisis/permissions.md` §2.6) ya no deja
   la acción abierta: al no declarar nada, entra en la protección por defecto.
 - **SG-01.** Las 201 acciones que ya tenían `[FiltroAccion]` se quedan como están: el filtro global
   las reconoce y no las comprueba dos veces. El atributo pasa a ser la forma de **declarar** un
@@ -779,7 +779,7 @@ Hechos verificados que condicionan el diseño:
   El coste de pasarse es una recarga de permisos de más, que es inocua.
 - **SG-13.** La pantalla existe, pero **el permiso es un dato**: con la autorización invertida de
   SG-01, `Seguridad/SeguridadLog/Index` tiene que estar en el catálogo de páginas y concedida a
-  algún rol, o no la abre nadie. El alta está en `ai/analysis/sg-13-pagina-rastro.sql`, con la
+  algún rol, o no la abre nadie. El alta está en `legacy/analisis/sg-13-pagina-rastro.sql`, con la
   entrada de menú opcional. Hoy no se nota porque `AutorizacionSoloRegistra` sigue en `true`.
 - **SG-13.** El rastro es **de la empresa**: un administrador ve el suyo, el rol reservado los ve
   todos. Un acceso fallido con un correo que no existe se anota sin empresa ni usuario, sólo con el
@@ -1019,7 +1019,7 @@ Hechos verificados que condicionan el diseño:
   token (`MNT-035`). Afecta a todos los módulos; especialmente grave aquí (un enlace basta para crear
   un usuario administrador), pero el arreglo es transversal.
 - **Autorización de la API móvil**: `FiltroToken` autentica y no autoriza nada
-  (`analysis/permissions.md` §1.2). Comparte con SG-08 el hash de la contraseña y con SG-11 el token.
+  (`legacy/analisis/permissions.md` §1.2). Comparte con SG-08 el hash de la contraseña y con SG-11 el token.
 - **`AMSYS.DemonApp`**: script de importación de usuarios; usa `ToSHA526` y habrá que adaptarlo en
   SG-08.
 - **Cabeceras de seguridad y cookies** (`HttpOnly`, `Secure`, `SameSite`, HSTS): revisión aparte de
@@ -1032,7 +1032,7 @@ Hechos verificados que condicionan el diseño:
 
 1. `dotnet build AMSYS.sln` sin nuevos avisos.
 2. **Matriz de permisos**: para cada acción del área, comprobar con dos usuarios —uno con permiso y
-   otro sin él— que el GET y el POST responden lo mismo que dice `analysis/permissions.md`
+   otro sin él— que el GET y el POST responden lo mismo que dice `legacy/analisis/permissions.md`
    actualizado. Repetir con la petición enviada directamente, sin pasar por la pantalla.
 3. **Dos empresas**: crear un usuario, un rol y una organización en cada una y comprobar que ninguna
    ve ni modifica nada de la otra, ni por lista, ni por modal, ni por POST con el id ajeno.
@@ -1050,22 +1050,22 @@ Hechos verificados que condicionan el diseño:
 
 | Paso | Estado | Fecha | Commit | Notas |
 |------|--------|-------|--------|-------|
-| SG-01 | APLICADO | 2026-09-20 | | `DS-01` a): `FiltroAutorizacion` global — toda acción nace protegida; 10 excepciones declaradas con `[SinAutorizacion]` (login, perfil, errores, tablero). Una ruta registrada exige su propia página; una auxiliar exige el `Index` de su controlador. Denegar responde 403 con una página que explica qué hacer. Inventario en `ai/analysis/sg-01-rutas.csv` (487 rutas) y consultas en `sg-01-permisos-por-rol.sql`. **Se despliega con `AutorizacionSoloRegistra: true`** (ya está así); revisar el log unos días y sólo entonces ponerlo en `false` |
+| SG-01 | APLICADO | 2026-09-20 | | `DS-01` a): `FiltroAutorizacion` global — toda acción nace protegida; 10 excepciones declaradas con `[SinAutorizacion]` (login, perfil, errores, tablero). Una ruta registrada exige su propia página; una auxiliar exige el `Index` de su controlador. Denegar responde 403 con una página que explica qué hacer. Inventario en `legacy/analisis/sg-01-rutas.csv` (487 rutas) y consultas en `sg-01-permisos-por-rol.sql`. **Se despliega con `AutorizacionSoloRegistra: true`** (ya está así); revisar el log unos días y sólo entonces ponerlo en `false` |
 | SG-02 | APLICADO | 2026-09-19 | | `DS-03` c): el rol reservado es **SUPERADMINISTRADOR**, en `AppSettings.RolInstalacion`. `FiltroInstalacion` sobre Empresa, Renovación, Página, Menú, Rol (por `DS-02`) y las cuatro acciones de instalación de Usuario; el rol no se puede renombrar, desactivar ni quedarse sin usuarios activos; la aplicación lo comprueba al arrancar; el menú oculta lo que el usuario no puede abrir. **Falta crear el rol en la base y asignárselo a alguien antes de desplegar**, y probar con los dos tipos de usuario |
 | SG-03 | APLICADO | 2026-09-19 | | Usuario y organización se buscan y actualizan dentro de su empresa, y `ActualizarAsync` devuelve si encontró el registro (antes respondía éxito sin guardar). Rol, empresa, organización superior y organizaciones asignadas se validan contra el servidor. `Usuario.Listar` **no** se filtra por empresa: tras SG-02 es la lista de la instalación (ver *Hallazgos*) |
 | SG-04 | APLICADO | 2026-09-19 | | Proyección explícita en `ListarMisUsuarios` y `Listar`; `[IgnoreDataMember]` en `Clave`, `TokenWeb` y `TokenMovil`. Sólo esas dos vistas consumen los endpoints; la API móvil y la sesión no se ven afectadas |
 | SG-05 | APLICADO | 2026-09-19 | | `RespuestaValidacion.CallBack` en los 12 puntos de los 6 controladores que lo reciben por la URL; `helper.html.escape` en las 6 listas con datos de usuario; `force_text: true` en los 5 árboles jstree del área. **Falta comprobarlo en el navegador** con un nombre que lleve marcado |
 | SG-06 | APLICADO | 2026-09-20 | | `PuedeAgregarUsuario` se retira y la sustituye `ContarLimitesUsuariosAsync`: cuenta los usuarios **activos** contra el límite del **perfil del rol que se asigna**, y la falta de `Limitacion` es límite cero con mensaje, no excepción. El cupo se comprueba en los cuatro POST (alta de empresa y de instalación, y al activar, cambiar de perfil o mover de empresa al editar). Los tres modales muestran «Administradores 3 de 5» bajo el desplegable y deshabilitan los roles sin cupo (`helper.limiteUsuarios`). **Falta ejecutar `sg-07-limites-empresa.sql` y cargar los límites contratados**: con los límites a 0, este paso bloquea todas las altas |
-| SG-07 | APLICADO | 2026-09-20 | | Los cuatro límites por perfil se piden en el alta y en la ficha, con el consumo al lado de cada uno, y ya no se pierden al guardar; `TipoPlan` se guarda; fuera el `cantidadEquipo` inexistente; el vencimiento sale del modelo de edición (lo lleva la renovación). Informe y plantilla de corrección en `ai/analysis/sg-07-limites-empresa.sql`. **Falta ejecutar el informe en la base y acordar los límites contratados antes de SG-06** |
+| SG-07 | APLICADO | 2026-09-20 | | Los cuatro límites por perfil se piden en el alta y en la ficha, con el consumo al lado de cada uno, y ya no se pierden al guardar; `TipoPlan` se guarda; fuera el `cantidadEquipo` inexistente; el vencimiento sale del modelo de edición (lo lleva la renovación). Informe y plantilla de corrección en `legacy/analisis/sg-07-limites-empresa.sql`. **Falta ejecutar el informe en la base y acordar los límites contratados antes de SG-06** |
 | SG-08 | APLICADO | 2026-09-20 | | `DS-04` a): `ClaveUtilitario.Hash` guarda `pbkdf2$sha256$<iteraciones>$<sal>$<hash>` con sal de 16 bytes por usuario y 210.000 iteraciones configurables (`IteracionesClave`); `Verificar` compara en tiempo constante y entiende los dos formatos. `LoginAsync` pasa a `AutenticarAsync`, que recibe la clave **en claro** y, si la fila era antigua, la regraba con el formato nuevo en ese mismo inicio de sesión. `ToSHA526` queda `[Obsolete]` y sin un solo uso fuera del verificador. Comprobado ejecutándolo: hashes distintos para la misma clave, ambos caminos válidos, ~70 ms por comprobación. **Sin migración de esquema**: `usuario.clave` es `text` |
 | SG-09 | APLICADO | 2026-09-20 | | `DS-04` a): `ClaveUtilitario.CumplePolitica` se comprueba en el **servidor** en los cuatro modales, el perfil y el cambio obligatorio; el formulario lleva indicador en vivo, confirmación, *mostrar* y *generar una segura* (`helper.clave.politica`). En la edición, *Cambiar contraseña* va en su propio bloque, con el campo vacío y la advertencia de que se cierran las demás sesiones; «vacío = no cambia» deja de depender del enlazador |
 | SG-10 | APLICADO | 2026-09-20 | | `DS-05` b): sin autoservicio. Acción *Restablecer contraseña* en las dos listas de usuarios, aparte de editar; genera una temporal con `RandomNumberGenerator` que cumple la política, la muestra **una sola vez** y cierra las sesiones del usuario. `usuario.clavetemporal` (migración `Usuario_AgregarClaveTemporal`) obliga a cambiarla: `FiltroSession` sólo deja `Account/CambiarClave` y salir. El login dice a quién pedirlo. Fuera `GetPassword()` y los dos modelos muertos. **Falta aplicar la migración** y comprobarlo en el navegador. **Sin rastro hasta SG-13** (dos `TODO` marcados) |
 | SG-11 | APLICADO | 2026-09-20 | | Token aleatorio de 256 bits (`TokenUtilitario`) en vez del hash de la fecha. `ValidarToken` (bool) pasa a `ValidarSesion`, que devuelve **por qué** falla —token, usuario desactivado, usuario o licencia caducados— y lo dice en la pantalla de login. Desactivar o cambiar la contraseña deja fuera las sesiones; cambiarse la propia renueva el token y cierra sólo las demás. `usuario.vencimiento` pasa a usarse. Límite de intentos por correo y origen (`ControlIntentos`, `IntentosMaximosAcceso`/`MinutosBloqueoAcceso`) |
 | SG-12 | APLICADO | 2026-09-20 | | `DS-08` a): `rol.version` (migración `Rol_AgregarVersion`) sube al guardar el rol; `FiltroSession` la compara con la de la sesión y recarga páginas, menús, elementos y estados **sin cerrar la sesión**. Cambiarle el rol a un usuario tiene el mismo efecto. Va en la misma consulta de SG-11, sin añadir otra. La ficha de rol ya dice «lo verán de inmediato» |
-| SG-13 | APLICADO | 2026-09-20 | | `seguridadlog` (migración `SeguridadLog_Crear`), patrón de `OrdenTrabajoLog`. Registra acceso correcto y fallido, alta, edición, baja, cambio de rol, restablecimiento y cambio de contraseña, y guardado de rol, con quién, sobre quién, cuándo, detalle y origen. Pantalla `Seguridad/SeguridadLog` filtrable por acción y fechas: cada empresa ve la suya, la instalación las ve todas. **Falta dar de alta la página en el catálogo**: `ai/analysis/sg-13-pagina-rastro.sql` |
+| SG-13 | APLICADO | 2026-09-20 | | `seguridadlog` (migración `SeguridadLog_Crear`), patrón de `OrdenTrabajoLog`. Registra acceso correcto y fallido, alta, edición, baja, cambio de rol, restablecimiento y cambio de contraseña, y guardado de rol, con quién, sobre quién, cuándo, detalle y origen. Pantalla `Seguridad/SeguridadLog` filtrable por acción y fechas: cada empresa ve la suya, la instalación las ve todas. **Falta dar de alta la página en el catálogo**: `legacy/analisis/sg-13-pagina-rastro.sql` |
 | SG-14 | APLICADO | 2026-09-20 | | La lista plana de rutas crudas pasa a un editor agrupado por **módulo y pantalla** (`Rol/_Permisos.cshtml`, compartida por el alta y la ficha): nombre funcional delante, ruta como detalle, buscador, contador por módulo («Logística: 12 de 24»), *marcar todo el módulo* y resumen fijo. Los **controles de SG-16 cuelgan de su pantalla** y se envían: la columna *CONTROLES* deja de estar vacía. Un control se deshabilita con su pantalla. Las páginas sin ruta real salen marcadas (SG-22). Antes de guardar se avisa de los **menús concedidos cuya página no lo está** |
-| SG-15 | APLICADO | 2026-09-20 | | `DS-07` a): la pestaña *Estados* deja de estar `hidden` en el alta y en la ficha, y el alta nace **sin nada marcado** en vez de con todo. El panel explica que marcar un estado es poder llevar la OT o el aviso hasta él, y los estados se muestran legibles (*CIERRE TÉCNICO*, no `CIERRE_TECNICO`). Informe previo en `ai/analysis/sg-15-estados-por-rol.sql`. **Falta ejecutarlo y recortar rol por rol** lo que ya está concedido |
-| SG-16 | APLICADO | 2026-09-20 | | `DS-06` b): ciclo completo. `elemento.clave` (migración `Elemento_AgregarClave`) da un identificador estable; los controles se editan en la ficha de su página; `@Html.Elemento(...)` / `@Html.OcultarSinElemento(...)` ocultan el botón y `[ExigeElemento]` lo comprueba en el servidor. **Arreglado el fallo de fondo**: los dos filtros comparaban `Elemento.Id` con `Pagina.Id`, así que la lista de controles nunca llegaba a la vista. Cuatro controles de punta a punta: anular nota de salida, de entrada, hoja de aceptación y renovar licencia. Alta en `ai/analysis/sg-16-controles.sql`. **Falta ejecutarlo y conceder los controles** |
+| SG-15 | APLICADO | 2026-09-20 | | `DS-07` a): la pestaña *Estados* deja de estar `hidden` en el alta y en la ficha, y el alta nace **sin nada marcado** en vez de con todo. El panel explica que marcar un estado es poder llevar la OT o el aviso hasta él, y los estados se muestran legibles (*CIERRE TÉCNICO*, no `CIERRE_TECNICO`). Informe previo en `legacy/analisis/sg-15-estados-por-rol.sql`. **Falta ejecutarlo y recortar rol por rol** lo que ya está concedido |
+| SG-16 | APLICADO | 2026-09-20 | | `DS-06` b): ciclo completo. `elemento.clave` (migración `Elemento_AgregarClave`) da un identificador estable; los controles se editan en la ficha de su página; `@Html.Elemento(...)` / `@Html.OcultarSinElemento(...)` ocultan el botón y `[ExigeElemento]` lo comprueba en el servidor. **Arreglado el fallo de fondo**: los dos filtros comparaban `Elemento.Id` con `Pagina.Id`, así que la lista de controles nunca llegaba a la vista. Cuatro controles de punta a punta: anular nota de salida, de entrada, hoja de aceptación y renovar licencia. Alta en `legacy/analisis/sg-16-controles.sql`. **Falta ejecutarlo y conceder los controles** |
 | SG-17 | APLICADO | 2026-09-20 | | El **perfil se puede corregir**: entra en `RolModel.Editar` y en `RolLogica.ActualizarAsync`, y el servidor rechaza el cambio si el perfil de destino no tiene cupo **en alguna de las empresas** que usan el rol. **Duplicar rol** copia páginas, menús, controles y estados. La columna *Usuarios* de la lista enlaza a esos usuarios (`Todos?rolId=`). La confirmación de guardado resume el cambio —«+3 páginas, −1 menú, perfil OPERADOR → MANTENIMIENTO»— y avisa si se está desactivando un rol con usuarios activos |
 | SG-18 | APLICADO | 2026-09-20 | | `DS-02` b): siguen globales, sin migración. La lista y la ficha de rol dicen que el rol es de toda la instalación y **cuántos usuarios y de qué empresas** lo usan (columnas *Usuarios* y *Empresas*, aviso en la ficha); la confirmación de guardado los detalla antes de aceptar. El desplegable de rol del alta de usuario muestra `Nombre · PERFIL · N empresas`. Convención de nombres sugerida en el alta de rol: `<Empresa> · <Función>`. **Falta acordarla con el propietario** y comprobar la ficha en el navegador |
 | SG-19 | APLICADO | 2026-09-20 | | El **rol se puede cambiar desde la empresa**: `UsuarioModel.Editar.RolId` deja de estar comentado, la lógica lo escribe, se valida contra el cupo (SG-06) y surte efecto en la siguiente petición del usuario (SG-12), quedando registrado (SG-13). Encabezado con estado, perfil, empleado enlazado, **última entrada** —del rastro de SG-13— y aviso de contraseña temporal. El árbol de organizaciones explica para qué sirve, cuenta lo marcado y trae *Toda la empresa*. Acciones separadas: *Restablecer contraseña* (SG-10) y *Cerrar sus sesiones* |

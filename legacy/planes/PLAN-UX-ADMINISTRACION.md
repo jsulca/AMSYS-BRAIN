@@ -1,7 +1,7 @@
 # Plan de mejora – Módulo de Administración
 
-> Documento **ejecutable paso a paso**, con la misma mecánica que `PLAN-UX-PLANMANTENIMIENTO.md`,
-> `PLAN-UX-HOJARUTA-SECCION.md` y `PLAN-UX-EQUIPO-UBICACION.md`: cada paso es pequeño, verificable y
+> Documento **ejecutable paso a paso**, con la misma mecánica que `legacy/planes/PLAN-UX-PLANMANTENIMIENTO.md`,
+> `legacy/planes/PLAN-UX-HOJARUTA-SECCION.md` y `legacy/planes/PLAN-UX-EQUIPO-UBICACION.md`: cada paso es pequeño, verificable y
 > reversible por sí solo. Marca la casilla al terminarlo y anótalo en el *Registro de avance* del final.
 
 - **Alcance**: el área `Areas/Administracion` completa — 25 controladores y sus vistas: 23 catálogos
@@ -12,7 +12,7 @@
 - **Fuera de alcance**: el modelo de datos (salvo las consultas de lectura de AD-10 y AD-17), los
   módulos Gestión, Logística y Seguridad, y el sistema de permisos (ver `DA-04`).
 - **Fecha**: 2026-09-19 · **Decisiones `DA-01` … `DA-06` resueltas el 2026-09-19** (sección 7)
-- **Relación con `/ai`**: complementa `analysis/ux.md`, `analysis/permissions.md` y las tareas
+- **Relación con AMSYS-BRAIN**: complementa `legacy/analisis/ux.md`, `legacy/analisis/permissions.md` y las tareas
   `MNT-NNN`; cada paso indica su tarea equivalente cuando existe.
 
 ---
@@ -430,7 +430,7 @@ Hechos verificados que condicionan el diseño:
 | `DA-01` | ¿Los códigos de los catálogos deben ser únicos por empresa? | a) Avisar sin bloquear, como `D-03` en Hoja de Ruta y Sección · b) Bloquear en los catálogos que son claves contables o de integración (Centro de costo, Cuenta contable) y avisar en el resto | **a)** Avisar sin bloquear en todos los catálogos. | AD-18 |
 | `DA-02` | Unidad de medida de servicio con planes asignados: ¿se permite cambiar *Tipo* y *Tipo calendario*? | a) Bloquear (recomendado: cambia la programación de todos sus planes) · b) Permitir con advertencia | **a)** Bloquear: con planes asignados no se pueden cambiar *Tipo* ni *Tipo calendario*. | AD-12 |
 | `DA-03` | ¿Se puede quitar un dato técnico de una clase? | a) Sólo si ningún equipo tiene valor en él · b) Siempre, borrando los valores de los equipos (con confirmación) · c) No, sólo renombrar | **b)** Se puede quitar siempre, **con confirmación** que indique cuántos equipos pierden su valor. | AD-14 |
-| `DA-04` | Los POST de Administración no comprueban permisos (`[FiltroAccion]` sólo está en los GET). ¿Se incluye aquí o en una tarea de permisos aparte? | a) Tarea aparte junto con `analysis/permissions.md` (recomendado: afecta a todos los módulos) · b) Incluirlo en este plan | **a)** Tarea aparte de permisos; fuera de este plan. | FASE 0 |
+| `DA-04` | Los POST de Administración no comprueban permisos (`[FiltroAccion]` sólo está en los GET). ¿Se incluye aquí o en una tarea de permisos aparte? | a) Tarea aparte junto con `legacy/analisis/permissions.md` (recomendado: afecta a todos los módulos) · b) Incluirlo en este plan | **a)** Tarea aparte de permisos; fuera de este plan. | FASE 0 |
 | `DA-05` | ¿La base común (AD-07) se implementa sólo en JavaScript (`helper.catalogo`) o también como vistas Razor genéricas por configuración? | a) Sólo JS + parcial de pie de modal (recomendado: menos cambio) · b) Vistas genéricas | **a)** Sólo JS (`helper.catalogo`) + parcial de pie de modal. | AD-07, AD-08 |
 | `DA-06` | ¿Se pueden eliminar adjuntos desde la biblioteca? | a) Sólo los que no se usan · b) Cualquiera, desvinculándolo de sus registros · c) No | **a)** Sólo se eliminan adjuntos que no se usan. | AD-17 |
 
@@ -448,7 +448,7 @@ Hechos verificados que condicionan el diseño:
 
 - Protección CSRF de los formularios (los modales llevan `asp-antiforgery` pero el AJAX no envía el
   token y no hay validación global): `MNT-035`.
-- Permisos de las acciones POST: `DA-04`, `analysis/permissions.md`.
+- Permisos de las acciones POST: `DA-04`, `legacy/analisis/permissions.md`.
 - Validación de claves foráneas en Gestión (planes, secciones): `MNT-022`.
 - Borrado de catálogos: se sigue usando *Activo*; no se añade eliminación física.
 

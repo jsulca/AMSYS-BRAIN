@@ -30,4 +30,4 @@ conteos y totales → aceptación en staging → corte.
 `SOLICITUDES` (eulen, caja) · `ELIMINACION_LOGICA` (core) · `INDICADORES_CONFIABILIDAD` (oterra, rentanor,
 agchavin) · `REPORTE_PDF_OT` · `CONFORMIDAD_AVISO` (oterra) · `CALIFICACION_OT` (caja) · `AREAS_IMPACTO`
 (oterra) · `TURNOS_PROGRAMACION` (oterra) · `FERIADOS` (caja) · `COSTOS_OT_AVANZADO` (pyme).
-Detalle en `PLAN-MULTICLIENTE.md` §4 del legacy.
+Detalle en `legacy/planes/PLAN-MULTICLIENTE.md` §4 del legacy.

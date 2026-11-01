@@ -5,7 +5,7 @@
 > **Prefijo de tareas**: `MC-NN`
 >
 > **Actualización**: el destino de la unificación es la nueva plataforma descrita en
-> `PLAN-NUEVA-PLATAFORMA.md`, no `main` de este repo. Los conceptos (módulos, campos personalizados,
+> `migracion/PLAN-NUEVA-PLATAFORMA.md`, no `main` de este repo. Los conceptos (módulos, campos personalizados,
 > etiquetas de estado, branding) se mantienen; las fases 1–3 se construyen allí y la Fase 4 pasa a ser
 > un ETL de la BD legacy de cada cliente hacia el esquema nuevo.
 
@@ -50,7 +50,7 @@ Analizando los diffs, **las diferencias caen en 6 categorías**. Casi ninguna ju
 
 ### 1.2 Costo del modelo actual
 
-- **Cada corrección se hace N veces.** Las mejoras de `/ai/tasks` (seguridad SEC-01, permisos,
+- **Cada corrección se hace N veces.** Las mejoras de `legacy/tareas/` (seguridad SEC-01, permisos,
   UX…) sólo llegan a `main`; ningún cliente las recibe. `oterra` lleva 120 commits atrasado.
 - **El mismo reporte existe en 3–4 versiones** (`_Disponibilidad.cshtml` tiene 4 hashes distintos).
 - **Las migraciones EF son incompatibles entre ramas**: 45 en `main` + 74 propias repartidas en 6
@@ -92,7 +92,7 @@ Analizando los diffs, **las diferencias caen en 6 categorías**. Casi ninguna ju
 - AMSYS **ya tiene la base**: `Empresa`, `Limitacion`, `TipoPlan`, `Configuracion`, y la API filtra
   por el claim `EmpresaId`.
 - ❌ Hoy cada cliente tiene su BD y sus datos; consolidar implica migrar datos y garantizar que
-  *todas* las consultas filtren por `EmpresaId` (`analysis/permissions.md` muestra que no es así en
+  *todas* las consultas filtren por `EmpresaId` (`legacy/analisis/permissions.md` muestra que no es así en
   todas partes).
 - **Es el destino natural de la Opción 3**, no un paso separado: si se construye la Opción 3 con
   la configuración colgando de `Empresa`, pasar a una sola instancia es después sólo un tema de despliegue.
@@ -218,7 +218,7 @@ introdujo `EmpresaMaestro.PANASERVICE = 1` — es el anti-patrón a eliminar).
 |-------|-------------|
 | **MC-00** | 🔴 **Seguridad**: rotar token SendGrid y contraseña SMTP versionados (`eulen` y revisar todas las ramas). Mover secretos a variables de entorno / `dotnet user-secrets` / `appsettings.<Cliente>.json` fuera de git |
 | **MC-01** | Etiquetar cada rama (`cliente/<x>/pre-unificacion`) y respaldo de cada BD de producción (`BackupPG`) |
-| **MC-02** | Matriz de funcionalidades: por cada rama, clasificar **cada archivo** del diff en A/B/C/D/E/F (§1.1). Entregable: `ai/analysis/clientes/<x>.md`. Sin tocar código |
+| **MC-02** | Matriz de funcionalidades: por cada rama, clasificar **cada archivo** del diff en A/B/C/D/E/F (§1.1). Entregable: `clientes/<x>.md`. Sin tocar código |
 | **MC-03** | Regla de trabajo: **toda funcionalidad nueva se hace en `main`**, nunca en la rama del cliente. Las ramas sólo reciben hotfix críticos hasta su migración |
 
 ### Fase 1 — Fundaciones en `main` (2–3 semanas)
@@ -228,7 +228,7 @@ introdujo `EmpresaMaestro.PANASERVICE = 1` — es el anti-patrón a eliminar).
 | **MC-11** | `EmpresaModulo` + `IConfiguracionCliente` + filtrado de menú y tag helper |
 | **MC-12** | Resolución de plantillas Excel por cliente (fallback) |
 | **MC-13** | `EtiquetaEstado` + helper de visualización en vistas, listados, Kanban y exportaciones |
-| **MC-14** | Proyecto de **tests** mínimo (no existe ninguno) cubriendo los flujos críticos de `analysis/orders.md` §9 — sin esto la unificación es a ciegas |
+| **MC-14** | Proyecto de **tests** mínimo (no existe ninguno) cubriendo los flujos críticos de `negocio/flujos/orders.md` §9 — sin esto la unificación es a ciegas |
 | **MC-15** | CI en GitHub Actions: build + tests en cada push a `main` |
 
 ### Fase 2 — Campos personalizados (2 semanas)
@@ -266,7 +266,7 @@ Para cada cliente:
 
 ### Fase 5 — Despliegue unificado
 - Un solo artefacto de build (CI) → N despliegues con `appsettings.<Cliente>.json` / variables de entorno.
-- Migraciones aplicadas con un paso explícito por cliente (respetando la regla actual de `/ai`:
+- Migraciones aplicadas con un paso explícito por cliente (respetando la regla actual de AMSYS-BRAIN:
   **el agente no ejecuta migraciones**).
 - Opcional a futuro: consolidar en una instancia multi-tenant (Opción 4).
 
@@ -299,11 +299,11 @@ Para cada cliente:
 
 ---
 
-## 8. Relación con el resto de `/ai`
+## 8. Relación con el resto de AMSYS-BRAIN
 
 - Las tareas `MNT-NNN` y los `PLAN-UX-*` siguen aplicando a `main`; **esta unificación es la que hace
   que esas mejoras lleguen a los clientes**.
 - Las decisiones vinculantes `D-02`, `D-03`, `D-05` aplican también a los clientes al migrar.
   Si una rama de cliente las contradice (p. ej. generación automática de OT), se documenta en
-  `ai/analysis/clientes/<x>.md` y se consulta.
-- Al completar cada tarea `MC-NN`, actualizar `CURRENT-STATE.md`.
+  `clientes/<x>.md` y se consulta.
+- Al completar cada tarea `MC-NN`, actualizar `legacy/CURRENT-STATE.md`.

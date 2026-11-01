@@ -1,6 +1,6 @@
 # Plan de mejora de UX – Hojas de Ruta y Secciones
 
-> Documento **ejecutable paso a paso**, con la misma mecánica que `PLAN-UX-PLANMANTENIMIENTO.md`:
+> Documento **ejecutable paso a paso**, con la misma mecánica que `legacy/planes/PLAN-UX-PLANMANTENIMIENTO.md`:
 > cada paso es pequeño, verificable y reversible por sí solo. Marca la casilla al terminarlo y anótalo
 > en el *Registro de avance* del final.
 
@@ -8,7 +8,7 @@
 - **Fuera de alcance**: el algoritmo de programación, la generación de órdenes, los permisos y el
   modelo de datos (salvo el endpoint mínimo que pide HS-09).
 - **Fecha**: 2026-09-16
-- **Relación con `/ai`**: complementa `analysis/ux.md` y las tareas `MNT-NNN`; cada paso indica su
+- **Relación con AMSYS-BRAIN**: complementa `legacy/analisis/ux.md` y las tareas `MNT-NNN`; cada paso indica su
   tarea equivalente cuando existe.
 
 ---
@@ -30,7 +30,7 @@ Hechos verificados que condicionan el diseño:
 | Hecho | Evidencia | Consecuencia para la UX |
 |-------|-----------|-------------------------|
 | Una sección puede no tener hoja de ruta | `BR-SE-001` (validación comentada, opción `NINGUNO`) | Las secciones «sueltas» deben verse como grupo propio, no desaparecer |
-| El plan elige **secciones**, no hojas de ruta | `DOMAIN-MODEL.md` | La hoja de ruta sólo sirve para encontrar y ordenar secciones |
+| El plan elige **secciones**, no hojas de ruta | `negocio/DOMAIN-MODEL.md` | La hoja de ruta sólo sirve para encontrar y ordenar secciones |
 | Guardar una sección borra y recrea sus tareas | `BR-SE-003` | Nunca usar el guardado completo para cambios pequeños (p. ej. mover de hoja de ruta) |
 | Una sección se reutiliza en varios planes | `PlanMantenimientoSeccion` (N:M) | Editarla afecta a todos esos planes: hay que decirlo |
 | Las órdenes ya emitidas guardan una copia de las tareas | `MNT-014` | Editar una sección **no** altera órdenes pasadas, sólo futuras |
