@@ -19,7 +19,7 @@
 
 `SOLICITUDES` (Cliente, CategoriaAviso, TipoSolicitudAviso, NotificacionAviso, correo), `ELIMINACION_LOGICA`, campos de Aviso `CorreoA, CopiaA, Solicitante, CodigoExterno, FechaPeticion`, formatos Excel propios. Cambios pedidos por UDEP (2026-10-17).
 
-**Plan de mantenimiento**: variante A — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
+**Plan de mantenimiento**: igual que `main` desde el 2026-10-31 (commit `8bb1462`, sin push). Antes: variante A — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
 
 ## Pendientes
 
@@ -30,3 +30,4 @@
 | Fecha | Qué |
 |---|---|
 | 2026-10-31 | Ficha creada (esqueleto) |
+| 2026-10-31 | Plan de mantenimiento unificado con main (`8bb1462`, sin push) |

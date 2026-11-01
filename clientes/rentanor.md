@@ -19,7 +19,7 @@
 
 `INDICADORES_CONFIABILIDAD`, `REPORTE_PDF_OT`, `ELIMINACION_LOGICA` (`BaseEntity`), Home idéntico a agchavin, campos de OT `CodigoEJB, HorasServicio, Kilometros, Liberado`, `ImagenCabecera/ImagenPie`.
 
-**Plan de mantenimiento**: variante B (`!=` en contador) — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
+**Plan de mantenimiento**: igual que `main` desde el 2026-10-31 (commit `88a48c5`, sin push). Antes: variante B (`!=` en contador) — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
 
 ## Pendientes
 
@@ -30,3 +30,4 @@
 | Fecha | Qué |
 |---|---|
 | 2026-10-31 | Ficha creada (esqueleto) |
+| 2026-10-31 | Plan de mantenimiento unificado con main (`88a48c5`, sin push) |

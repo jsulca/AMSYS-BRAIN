@@ -19,7 +19,7 @@
 
 Datos técnicos de equipo (ya portados a `main`), servicio de actualizar aviso.
 
-**Plan de mantenimiento**: variante E (D + calendario desde la fecha de generación; fallo del factor en ubicaciones) — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
+**Plan de mantenimiento**: igual que `main` desde el 2026-10-31 (commit `cf5a77b`, sin push). Antes: variante E (D + calendario desde la fecha de generación; fallo del factor en ubicaciones) — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
 
 ## Pendientes
 
@@ -30,3 +30,4 @@ Datos técnicos de equipo (ya portados a `main`), servicio de actualizar aviso.
 | Fecha | Qué |
 |---|---|
 | 2026-10-31 | Ficha creada (esqueleto) |
+| 2026-10-31 | Plan de mantenimiento unificado con main (`cf5a77b`, sin push) |

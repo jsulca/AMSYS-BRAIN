@@ -1,5 +1,26 @@
 # Comportamiento del plan de mantenimiento por cliente
 
+> **Unificado el 2026-10-31**: todas las ramas calculan como `main` (decisión del propietario: "el comportamiento de
+> main para todos"). Commits **locales, sin push**: main `8bc50b6` + `5d228c9`; agchavin `5b9825d`, akdrilling `2b4cef5`,
+> ares `2fb1ee1`, caja_arequipa `d17a18c`, energiaycombustion `ddee110`, eulen `8bb1462`, itc `cf5a77b`, oterra `70d395b`,
+> pyme `729aaa4`, rentanor `88a48c5`. Lo de abajo describe el estado **anterior** (para saber qué cambió en cada cliente).
+>
+> Mejoras sobre `main`, aplicadas a todos:
+> - La decisión por objeto vive en funciones puras (`AvanzarPorCalendario`, `AvanzarPorContador`, `SumarIntervalo`,
+>   `PuedeProgramarse`). Comprobado contra la lógica anterior de main con un arnés de ~580.000 casos aleatorios
+>   (0 diferencias; detecta la variante `!=` de rentanor si se introduce).
+> - Un plan sin intervalo/unidad/posiciones, un equipo por calendario sin inicio o uno por contador sin lecturas ya no
+>   lanzan una excepción que paraba la generación **de todos**: se salta ese objeto (~8 % de los casos aleatorios).
+> - Fallo de main corregido: al notificar o cambiar el estado de la última OT de un plan **por ubicación**, la última
+>   ejecución tomaba la fecha anterior de la OT y luego la pisaba con la notificada (o la vaciaba). Ahora, como equipos.
+> - El cierre al notificar es el de main en todas (desbloquea, ajusta contador con el valor de ejecución, toma la fecha
+>   de ejecución notificada). **Excepción itc**: no tiene `FechaEjecucion`/`FechaLanzamiento` en la OT (falta la migración
+>   `OrdenTrabajo_AgregarFechaPlan`), así que conserva la fecha programada; completar al migrar itc.
+> - Sin tocar: `ProgramarAsync` (estado PROGRAMADO) en las ramas que aún lo tienen; `ActualizarAsync` ya era igual en todas.
+>
+> Efecto en datos existentes al desplegar: ninguno inmediato (no hay migración). En las ramas C/D/E, equipos cuya posición
+> ya se adelantó con el factor no relanzan: el plan sigue cuando la lectura supera esa posición.
+
 Revisado el 2026-10-31 sobre `origin/<rama>` (sin trabajo local). Se compararon los métodos que deciden el ciclo:
 `PlanMantenimientoLogica.GenerarMantenimientoEquipos` / `GenerarMantenimientoUbicaciones` (+ `CalcularPosicion`,
 `ActualizarLanzamiento`) y el desbloqueo del ciclo en `OrdenTrabajoLogica`. La comparación es de código, no se ejecutó.

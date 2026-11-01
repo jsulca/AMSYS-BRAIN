@@ -19,7 +19,7 @@
 
 Carga masiva de datos y ajuste de permisos (commits del 2026-10-15).
 
-**Plan de mantenimiento**: variante A — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
+**Plan de mantenimiento**: igual que `main` desde el 2026-10-31 (commit `2b4cef5`, sin push). Antes: variante A — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
 
 ## Pendientes
 
@@ -30,3 +30,4 @@ No aparece en PLAN-MULTICLIENTE ni en PENDIENTES-MIGRACION (es posterior). Le fa
 | Fecha | Qué |
 |---|---|
 | 2026-10-31 | Ficha creada (esqueleto) |
+| 2026-10-31 | Plan de mantenimiento unificado con main (`2b4cef5`, sin push) |

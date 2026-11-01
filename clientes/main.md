@@ -19,7 +19,7 @@
 
 Producto base del legacy. Recibe las mejoras de UX (`legacy/planes/PLAN-UX-*.md`) y las tareas MNT.
 
-**Plan de mantenimiento**: variante A (referencia) — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
+**Plan de mantenimiento**: igual que `main` desde el 2026-10-31 (commit `8bc50b6 + 5d228c9`, sin push). Antes: variante A (referencia) — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
 
 ## Pendientes
 
@@ -30,3 +30,4 @@ Referencia para los portes a las ramas de cliente (ver `legacy/ramas.md`).
 | Fecha | Qué |
 |---|---|
 | 2026-10-31 | Ficha creada (esqueleto) |
+| 2026-10-31 | Plan de mantenimiento unificado con main (`8bc50b6 + 5d228c9`, sin push) |

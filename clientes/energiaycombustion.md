@@ -19,7 +19,7 @@
 
 Dashboard de Home propio.
 
-**Plan de mantenimiento**: variante C (factor siempre en contador, posición absoluta) — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
+**Plan de mantenimiento**: igual que `main` desde el 2026-10-31 (commit `ddee110`, sin push). Antes: variante C (factor siempre en contador, posición absoluta) — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
 
 ## Pendientes
 
@@ -30,3 +30,4 @@ Dashboard de Home propio.
 | Fecha | Qué |
 |---|---|
 | 2026-10-31 | Ficha creada (esqueleto) |
+| 2026-10-31 | Plan de mantenimiento unificado con main (`ddee110`, sin push) |

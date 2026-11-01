@@ -19,7 +19,7 @@
 
 `SOLICITUDES` (idéntico a eulen), `ELIMINACION_LOGICA`, `CALIFICACION_OT`, `FERIADOS`, campo `OT.FinProgramado`, estados renombrados (`ABIERTO/CERRADO/CANCELADO`, `CIERRE_PARCIAL`).
 
-**Plan de mantenimiento**: variante A — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
+**Plan de mantenimiento**: igual que `main` desde el 2026-10-31 (commit `d17a18c`, sin push). Antes: variante A — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
 
 ## Pendientes
 
@@ -30,3 +30,4 @@ Decisión abierta D-MC-03: confirmar si los estados renombrados equivalen a los 
 | Fecha | Qué |
 |---|---|
 | 2026-10-31 | Ficha creada (esqueleto) |
+| 2026-10-31 | Plan de mantenimiento unificado con main (`d17a18c`, sin push) |

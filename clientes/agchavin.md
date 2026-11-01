@@ -19,7 +19,7 @@
 
 `INDICADORES_CONFIABILIDAD` (incluye indicador mundial, `IndicadorGrupo`), `REPORTE_PDF_OT`, Home idéntico a rentanor, campo `Equipo.Orden`.
 
-**Plan de mantenimiento**: variante C (factor siempre en contador, posición absoluta) — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
+**Plan de mantenimiento**: igual que `main` desde el 2026-10-31 (commit `5b9825d`, sin push). Antes: variante C (factor siempre en contador, posición absoluta) — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
 
 ## Pendientes
 
@@ -30,4 +30,5 @@ Porte de la UI de `main` hecho el 2026-10-26 (`legacy/portes/PORTE-UI-MAIN-AGCHA
 | Fecha | Qué |
 |---|---|
 | 2026-10-31 | Ficha creada (esqueleto) |
+| 2026-10-31 | Plan de mantenimiento unificado con main (`5b9825d`, sin push) |
 | 2026-10-31 | Porte de Seguridad de `main` (SG-01…25), commit `d527ecd` (publicado en origin), probado en navegador, migración `20261101015429_Seguridad_PortarDesdeMain` aplicada en localhost (no en servidor); rol de instalación `SUPER ADMIN`: `legacy/portes/PORTE-SEGURIDAD-MAIN-AGCHAVIN.md` |

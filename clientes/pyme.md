@@ -19,7 +19,7 @@
 
 Cliente PanaService. `COSTOS_OT_AVANZADO`, `logoPanaService.jpg`, plantillas Excel. Tiene `if (EmpresaId == X)` en código.
 
-**Plan de mantenimiento**: variante A — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
+**Plan de mantenimiento**: igual que `main` desde el 2026-10-31 (commit `729aaa4`, sin push). Antes: variante A — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
 
 ## Pendientes
 
@@ -30,3 +30,4 @@ Cliente PanaService. `COSTOS_OT_AVANZADO`, `logoPanaService.jpg`, plantillas Exc
 | Fecha | Qué |
 |---|---|
 | 2026-10-31 | Ficha creada (esqueleto) |
+| 2026-10-31 | Plan de mantenimiento unificado con main (`729aaa4`, sin push) |

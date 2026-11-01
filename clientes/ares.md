@@ -19,7 +19,7 @@
 
 Branding (`logo_ares.png`), cambios en el reporte PDF de OT.
 
-**Plan de mantenimiento**: variante A — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
+**Plan de mantenimiento**: igual que `main` desde el 2026-10-31 (commit `2fb1ee1`, sin push). Antes: variante A — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
 
 ## Pendientes
 
@@ -30,3 +30,4 @@ Branding (`logo_ares.png`), cambios en el reporte PDF de OT.
 | Fecha | Qué |
 |---|---|
 | 2026-10-31 | Ficha creada (esqueleto) |
+| 2026-10-31 | Plan de mantenimiento unificado con main (`2fb1ee1`, sin push) |
