@@ -1,7 +1,16 @@
 # Porte del módulo de Seguridad de `main` a la rama `agchavin`
 
 Estado al 2026-10-31. **Sin commit** (convive en el árbol con el trabajo sin commit de programación de OT). Compila
-con 0 errores. **No se ha probado en el navegador. La migración no se ha aplicado en ninguna base.**
+con 0 errores. **Migración aplicada en localhost** (`amsys_v3_agchavin`, 2026-10-31); falta servidor/producción.
+**No se ha probado en el navegador.**
+
+### Localhost preparado (2026-10-31)
+
+- Migración `20261101015429_Seguridad_PortarDesdeMain` aplicada (la tabla `elemento` estaba vacía: sin claves provisionales).
+- Rol de instalación: en agchavin se llama **`SUPER ADMIN`** → `appsettings.json` lleva `"RolInstalacion": "SUPER ADMIN"`
+  (no `SUPERADMINISTRADOR` como en `main`). Comprobado al arrancar: sin error.
+- Perfiles: SUPER ADMIN y ADMINISTRADOR → ADMINISTRADOR (0); TECNICO → MANTENIMIENTO (1).
+- Límites **de prueba** 10 / 10 / 0 / 0 (administrador / mantenimiento / operador / cliente). En producción, los contratados.
 
 Objetivo: que todos los clientes tengan la misma seguridad que `main` (plan `legacy/planes/PLAN-UX-SEGURIDAD.md`,
 SG-01…SG-25, aplicado en `main` el 2026-09-19/21). En `PORTE-UI-MAIN-AGCHAVIN.md` la seguridad había quedado fuera.
@@ -33,7 +42,7 @@ Diferencias que quedan con `main` en seguridad: solo las dos marcadas arriba (co
 
 ## Siguientes pasos (en orden)
 
-1. **Aplicar la migración en localhost** (`amsys_v3_agchavin`) y probar. En servidor/producción: script solo de esta
+1. ~~Aplicar la migración en localhost~~ (hecho). En servidor/producción: script solo de esta
    migración (`dotnet ef migrations script 20261030152417_OrdenTrabajo_AgregarProgramacion -p AMSYS.Contextos -s AMSYS.WebAdmin -o seguridad.sql`;
    depende de que la de programación vaya antes). Decisión del propietario.
 2. **Datos, antes de que entre nadie** (si no, se bloquean altas o la administración):
