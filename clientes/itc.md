@@ -19,6 +19,8 @@
 
 Datos técnicos de equipo (ya portados a `main`), servicio de actualizar aviso.
 
+**Plan de mantenimiento**: variante E (D + calendario desde la fecha de generación; fallo del factor en ubicaciones) — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
+
 ## Pendientes
 
 —

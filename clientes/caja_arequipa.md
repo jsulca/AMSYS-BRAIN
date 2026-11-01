@@ -19,6 +19,8 @@
 
 `SOLICITUDES` (idéntico a eulen), `ELIMINACION_LOGICA`, `CALIFICACION_OT`, `FERIADOS`, campo `OT.FinProgramado`, estados renombrados (`ABIERTO/CERRADO/CANCELADO`, `CIERRE_PARCIAL`).
 
+**Plan de mantenimiento**: variante A — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
+
 ## Pendientes
 
 Decisión abierta D-MC-03: confirmar si los estados renombrados equivalen a los canónicos.

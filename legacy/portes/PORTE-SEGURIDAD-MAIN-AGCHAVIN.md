@@ -1,6 +1,6 @@
 # Porte del módulo de Seguridad de `main` a la rama `agchavin`
 
-Estado al 2026-10-31. **Commit `d527ecd`** en `agchavin` (sin push), separado del trabajo de programación de OT, que
+Estado al 2026-10-31. **Commit `d527ecd`** en `agchavin` (publicado en origin), separado del trabajo de programación de OT, que
 sigue sin commit. El commit compila solo y su modelo EF cuadra con las migraciones. **Migración aplicada en localhost**
 (`amsys_v3_agchavin`); falta servidor/producción. **Probado en el navegador por el propietario el 2026-10-31.**
 

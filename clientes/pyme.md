@@ -19,6 +19,8 @@
 
 Cliente PanaService. `COSTOS_OT_AVANZADO`, `logoPanaService.jpg`, plantillas Excel. Tiene `if (EmpresaId == X)` en código.
 
+**Plan de mantenimiento**: variante A — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
+
 ## Pendientes
 
 —

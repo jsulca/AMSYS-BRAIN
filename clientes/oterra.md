@@ -19,6 +19,8 @@
 
 `AREAS_IMPACTO` (Area, ImpactoProceso, AvisoPadre), `CONFORMIDAD_AVISO`, `TURNOS_PROGRAMACION`, `INDICADORES_CONFIABILIDAD`, `REPORTE_PDF_OT`, AvisoContador/PuntoMedida, `PROGRAMADO` comentado.
 
+**Plan de mantenimiento**: variante D (C + última sección con tareas) — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
+
 ## Pendientes
 
 Módulos exclusivos de oterra (D-MC-04). Su versión de MTBF/MTTR es la base a revisar (D-MC-06). **La rama local `oterra` está atrasada** (`88854d6`, 2024-12-22) respecto a `origin/oterra`: hacer `git pull` antes de trabajar en ella.

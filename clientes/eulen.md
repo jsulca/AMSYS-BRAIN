@@ -19,6 +19,8 @@
 
 `SOLICITUDES` (Cliente, CategoriaAviso, TipoSolicitudAviso, NotificacionAviso, correo), `ELIMINACION_LOGICA`, campos de Aviso `CorreoA, CopiaA, Solicitante, CodigoExterno, FechaPeticion`, formatos Excel propios. Cambios pedidos por UDEP (2026-10-17).
 
+**Plan de mantenimiento**: variante A — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
+
 ## Pendientes
 
 **Secretos versionados** en `AMSYS.WebAdmin/appsettings.json` (token SendGrid, SMTP): tarea MC-00, rotarlos.

@@ -19,6 +19,8 @@
 
 Dashboard de Home propio.
 
+**Plan de mantenimiento**: variante C (factor siempre en contador, posición absoluta) — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
+
 ## Pendientes
 
 —

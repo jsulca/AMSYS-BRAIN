@@ -19,6 +19,8 @@
 
 `INDICADORES_CONFIABILIDAD` (incluye indicador mundial, `IndicadorGrupo`), `REPORTE_PDF_OT`, Home idéntico a rentanor, campo `Equipo.Orden`.
 
+**Plan de mantenimiento**: variante C (factor siempre en contador, posición absoluta) — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
+
 ## Pendientes
 
 Porte de la UI de `main` hecho el 2026-10-26 (`legacy/portes/PORTE-UI-MAIN-AGCHAVIN.md`). Migración `20261020022722_VistaLista_Crear_Almacen_AgregarActivo` aplicada en localhost el 2026-10-30; **falta en el servidor 10.2.1.2 / producción**. Al 2026-10-31 hay ~45 archivos modificados sin commit en la rama (programación de OT, notificación de tareas, migración `20261030152417_OrdenTrabajo_AgregarProgramacion`).
@@ -28,4 +30,4 @@ Porte de la UI de `main` hecho el 2026-10-26 (`legacy/portes/PORTE-UI-MAIN-AGCHA
 | Fecha | Qué |
 |---|---|
 | 2026-10-31 | Ficha creada (esqueleto) |
-| 2026-10-31 | Porte de Seguridad de `main` (SG-01…25), commit `d527ecd` (sin push), probado en navegador, migración `20261101015429_Seguridad_PortarDesdeMain` aplicada en localhost (no en servidor); rol de instalación `SUPER ADMIN`: `legacy/portes/PORTE-SEGURIDAD-MAIN-AGCHAVIN.md` |
+| 2026-10-31 | Porte de Seguridad de `main` (SG-01…25), commit `d527ecd` (publicado en origin), probado en navegador, migración `20261101015429_Seguridad_PortarDesdeMain` aplicada en localhost (no en servidor); rol de instalación `SUPER ADMIN`: `legacy/portes/PORTE-SEGURIDAD-MAIN-AGCHAVIN.md` |

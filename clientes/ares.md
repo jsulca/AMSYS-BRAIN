@@ -19,6 +19,8 @@
 
 Branding (`logo_ares.png`), cambios en el reporte PDF de OT.
 
+**Plan de mantenimiento**: variante A — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
+
 ## Pendientes
 
 —

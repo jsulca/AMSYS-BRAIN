@@ -19,6 +19,8 @@
 
 Carga masiva de datos y ajuste de permisos (commits del 2026-10-15).
 
+**Plan de mantenimiento**: variante A — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
+
 ## Pendientes
 
 No aparece en PLAN-MULTICLIENTE ni en PENDIENTES-MIGRACION (es posterior). Le faltan 2 commits de `main`.

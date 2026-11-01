@@ -19,6 +19,8 @@
 
 `INDICADORES_CONFIABILIDAD`, `REPORTE_PDF_OT`, `ELIMINACION_LOGICA` (`BaseEntity`), Home idéntico a agchavin, campos de OT `CodigoEJB, HorasServicio, Kilometros, Liberado`, `ImagenCabecera/ImagenPie`.
 
+**Plan de mantenimiento**: variante B (`!=` en contador) — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
+
 ## Pendientes
 
 —
