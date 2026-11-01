@@ -1,6 +1,6 @@
 # Plan: crear AMSYS-BRAIN
 
-Estado: **ejecutado el 2026-10-31** (salvo el paso 7, remoto, pendiente de confirmar). Las rutas `ai/` de este documento son las de origen, antes de la migración.
+Estado: **ejecutado el 2026-10-31** (remoto: GitHub privado `jsulca/AMSYS-BRAIN`). Las rutas `ai/` de este documento son las de origen, antes de la migración.
 
 ## Objetivo
 
