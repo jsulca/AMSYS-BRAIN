@@ -1,0 +1,488 @@
+﻿area;controlador;accion;verbo;declaracion;permiso_exigido
+(raíz);Account;Login;GET;SinAutorizacion;(ninguno)
+(raíz);Account;Login;POST;SinAutorizacion;(ninguno)
+(raíz);Account;Logout;GET;SinAutorizacion;(ninguno)
+(raíz);Account;Perfil;GET;SinAutorizacion;(ninguno)
+(raíz);Account;Perfil;POST;SinAutorizacion;(ninguno)
+(raíz);Error;Page;GET;SinAutorizacion;(ninguno)
+(raíz);Error;UnAuthorizedPartial;GET;SinAutorizacion;(ninguno)
+(raíz);Error;ValidationError;GET;SinAutorizacion;(ninguno)
+(raíz);Home;Index;GET;SinAutorizacion;(ninguno)
+(raíz);Home;Index;POST;SinAutorizacion;(ninguno)
+Administracion;Adjunto;Buscar;GET;por defecto;/Administracion/Adjunto/Buscar  (si no está registrada: /Administracion/Adjunto/Index)
+Administracion;Adjunto;Eliminar;POST;por defecto;/Administracion/Adjunto/Eliminar  (si no está registrada: /Administracion/Adjunto/Index)
+Administracion;Adjunto;EliminarTemporal;POST;por defecto;/Administracion/Adjunto/EliminarTemporal  (si no está registrada: /Administracion/Adjunto/Index)
+Administracion;Adjunto;Index;GET;FiltroAccion;/Administracion/Adjunto/Index
+Administracion;Adjunto;Listar;GET;por defecto;/Administracion/Adjunto/Listar  (si no está registrada: /Administracion/Adjunto/Index)
+Administracion;Adjunto;NuevoTemporal;POST;por defecto;/Administracion/Adjunto/NuevoTemporal  (si no está registrada: /Administracion/Adjunto/Index)
+Administracion;Aspecto;Editar;GET;FiltroAccion;/Administracion/Aspecto/Editar
+Administracion;Aspecto;Editar;POST;por defecto;/Administracion/Aspecto/Editar  (si no está registrada: /Administracion/Aspecto/Index)
+Administracion;Aspecto;Index;GET;FiltroAccion;/Administracion/Aspecto/Index
+Administracion;Aspecto;Listar;GET;por defecto;/Administracion/Aspecto/Listar  (si no está registrada: /Administracion/Aspecto/Index)
+Administracion;Aspecto;Nuevo;GET;FiltroAccion;/Administracion/Aspecto/Nuevo
+Administracion;Aspecto;Nuevo;POST;por defecto;/Administracion/Aspecto/Nuevo  (si no está registrada: /Administracion/Aspecto/Index)
+Administracion;Calificacion;Editar;GET;FiltroAccion;/Administracion/Calificacion/Editar
+Administracion;Calificacion;Editar;POST;por defecto;/Administracion/Calificacion/Editar  (si no está registrada: /Administracion/Calificacion/Index)
+Administracion;Calificacion;Index;GET;FiltroAccion;/Administracion/Calificacion/Index
+Administracion;Calificacion;Listar;GET;por defecto;/Administracion/Calificacion/Listar  (si no está registrada: /Administracion/Calificacion/Index)
+Administracion;Calificacion;Nuevo;GET;FiltroAccion;/Administracion/Calificacion/Nuevo
+Administracion;Calificacion;Nuevo;POST;por defecto;/Administracion/Calificacion/Nuevo  (si no está registrada: /Administracion/Calificacion/Index)
+Administracion;CausaFalla;BuscarCodigo;GET;FiltroAccion;/Administracion/CausaFalla/Index
+Administracion;CausaFalla;Editar;GET;FiltroAccion;/Administracion/CausaFalla/Editar
+Administracion;CausaFalla;Editar;POST;por defecto;/Administracion/CausaFalla/Editar  (si no está registrada: /Administracion/CausaFalla/Index)
+Administracion;CausaFalla;Index;GET;FiltroAccion;/Administracion/CausaFalla/Index
+Administracion;CausaFalla;Listar;GET;por defecto;/Administracion/CausaFalla/Listar  (si no está registrada: /Administracion/CausaFalla/Index)
+Administracion;CausaFalla;Nuevo;GET;FiltroAccion;/Administracion/CausaFalla/Nuevo
+Administracion;CausaFalla;Nuevo;POST;por defecto;/Administracion/CausaFalla/Nuevo  (si no está registrada: /Administracion/CausaFalla/Index)
+Administracion;CentroCosto;BuscarCodigo;GET;FiltroAccion;/Administracion/CentroCosto/Index
+Administracion;CentroCosto;Editar;GET;FiltroAccion;/Administracion/CentroCosto/Editar
+Administracion;CentroCosto;Editar;POST;por defecto;/Administracion/CentroCosto/Editar  (si no está registrada: /Administracion/CentroCosto/Index)
+Administracion;CentroCosto;Index;GET;FiltroAccion;/Administracion/CentroCosto/Index
+Administracion;CentroCosto;Listar;GET;por defecto;/Administracion/CentroCosto/Listar  (si no está registrada: /Administracion/CentroCosto/Index)
+Administracion;CentroCosto;Nuevo;GET;FiltroAccion;/Administracion/CentroCosto/Nuevo
+Administracion;CentroCosto;Nuevo;POST;por defecto;/Administracion/CentroCosto/Nuevo  (si no está registrada: /Administracion/CentroCosto/Index)
+Administracion;ClaseEquipo;Editar;GET;FiltroAccion;/Administracion/ClaseEquipo/Editar
+Administracion;ClaseEquipo;Editar;POST;por defecto;/Administracion/ClaseEquipo/Editar  (si no está registrada: /Administracion/ClaseEquipo/Index)
+Administracion;ClaseEquipo;Index;GET;FiltroAccion;/Administracion/ClaseEquipo/Index
+Administracion;ClaseEquipo;Listar;GET;por defecto;/Administracion/ClaseEquipo/Listar  (si no está registrada: /Administracion/ClaseEquipo/Index)
+Administracion;ClaseEquipo;ListarDatosTecnicos;GET;por defecto;/Administracion/ClaseEquipo/ListarDatosTecnicos  (si no está registrada: /Administracion/ClaseEquipo/Index)
+Administracion;ClaseEquipo;ListarTipos;GET;por defecto;/Administracion/ClaseEquipo/ListarTipos  (si no está registrada: /Administracion/ClaseEquipo/Index)
+Administracion;ClaseEquipo;Nuevo;GET;FiltroAccion;/Administracion/ClaseEquipo/Nuevo
+Administracion;ClaseEquipo;Nuevo;POST;por defecto;/Administracion/ClaseEquipo/Nuevo  (si no está registrada: /Administracion/ClaseEquipo/Index)
+Administracion;Criticidad;Editar;GET;FiltroAccion;/Administracion/Criticidad/Editar
+Administracion;Criticidad;Editar;POST;por defecto;/Administracion/Criticidad/Editar  (si no está registrada: /Administracion/Criticidad/Index)
+Administracion;Criticidad;Index;GET;FiltroAccion;/Administracion/Criticidad/Index
+Administracion;Criticidad;Listar;GET;por defecto;/Administracion/Criticidad/Listar  (si no está registrada: /Administracion/Criticidad/Index)
+Administracion;Criticidad;Nuevo;GET;FiltroAccion;/Administracion/Criticidad/Nuevo
+Administracion;Criticidad;Nuevo;POST;por defecto;/Administracion/Criticidad/Nuevo  (si no está registrada: /Administracion/Criticidad/Index)
+Administracion;CuentaContable;BuscarCodigo;GET;FiltroAccion;/Administracion/CuentaContable/Index
+Administracion;CuentaContable;Editar;GET;FiltroAccion;/Administracion/CuentaContable/Editar
+Administracion;CuentaContable;Editar;POST;por defecto;/Administracion/CuentaContable/Editar  (si no está registrada: /Administracion/CuentaContable/Index)
+Administracion;CuentaContable;Index;GET;FiltroAccion;/Administracion/CuentaContable/Index
+Administracion;CuentaContable;Listar;GET;por defecto;/Administracion/CuentaContable/Listar  (si no está registrada: /Administracion/CuentaContable/Index)
+Administracion;CuentaContable;Nuevo;GET;FiltroAccion;/Administracion/CuentaContable/Nuevo
+Administracion;CuentaContable;Nuevo;POST;por defecto;/Administracion/CuentaContable/Nuevo  (si no está registrada: /Administracion/CuentaContable/Index)
+Administracion;Empleado;BuscarCodigo;GET;FiltroAccion;/Administracion/Empleado/Index
+Administracion;Empleado;Editar;GET;FiltroAccion;/Administracion/Empleado/Editar
+Administracion;Empleado;Editar;POST;por defecto;/Administracion/Empleado/Editar  (si no está registrada: /Administracion/Empleado/Index)
+Administracion;Empleado;Index;GET;FiltroAccion;/Administracion/Empleado/Index
+Administracion;Empleado;Listar;GET;por defecto;/Administracion/Empleado/Listar  (si no está registrada: /Administracion/Empleado/Index)
+Administracion;Empleado;Nuevo;GET;FiltroAccion;/Administracion/Empleado/Nuevo
+Administracion;Empleado;Nuevo;POST;por defecto;/Administracion/Empleado/Nuevo  (si no está registrada: /Administracion/Empleado/Index)
+Administracion;Empleado;Seleccionar;GET;por defecto;/Administracion/Empleado/Seleccionar  (si no está registrada: /Administracion/Empleado/Index)
+Administracion;Especialidad;BuscarCodigo;GET;FiltroAccion;/Administracion/Especialidad/Index
+Administracion;Especialidad;Editar;GET;FiltroAccion;/Administracion/Especialidad/Editar
+Administracion;Especialidad;Editar;POST;por defecto;/Administracion/Especialidad/Editar  (si no está registrada: /Administracion/Especialidad/Index)
+Administracion;Especialidad;Index;GET;FiltroAccion;/Administracion/Especialidad/Index
+Administracion;Especialidad;Listar;GET;por defecto;/Administracion/Especialidad/Listar  (si no está registrada: /Administracion/Especialidad/Index)
+Administracion;Especialidad;Nuevo;GET;FiltroAccion;/Administracion/Especialidad/Nuevo
+Administracion;Especialidad;Nuevo;POST;por defecto;/Administracion/Especialidad/Nuevo  (si no está registrada: /Administracion/Especialidad/Index)
+Administracion;Impacto;BuscarCodigo;GET;FiltroAccion;/Administracion/Impacto/Index
+Administracion;Impacto;Editar;GET;FiltroAccion;/Administracion/Impacto/Editar
+Administracion;Impacto;Editar;POST;por defecto;/Administracion/Impacto/Editar  (si no está registrada: /Administracion/Impacto/Index)
+Administracion;Impacto;Index;GET;FiltroAccion;/Administracion/Impacto/Index
+Administracion;Impacto;Listar;GET;por defecto;/Administracion/Impacto/Listar  (si no está registrada: /Administracion/Impacto/Index)
+Administracion;Impacto;Nuevo;GET;FiltroAccion;/Administracion/Impacto/Nuevo
+Administracion;Impacto;Nuevo;POST;por defecto;/Administracion/Impacto/Nuevo  (si no está registrada: /Administracion/Impacto/Index)
+Administracion;Material;BuscarCodigo;GET;FiltroAccion;/Administracion/Material/Index
+Administracion;Material;Editar;GET;FiltroAccion;/Administracion/Material/Editar
+Administracion;Material;Editar;POST;por defecto;/Administracion/Material/Editar  (si no está registrada: /Administracion/Material/Index)
+Administracion;Material;Index;GET;FiltroAccion;/Administracion/Material/Index
+Administracion;Material;Listar;GET;por defecto;/Administracion/Material/Listar  (si no está registrada: /Administracion/Material/Index)
+Administracion;Material;Nuevo;GET;FiltroAccion;/Administracion/Material/Nuevo
+Administracion;Material;Nuevo;POST;por defecto;/Administracion/Material/Nuevo  (si no está registrada: /Administracion/Material/Index)
+Administracion;Material;Seleccionar;GET;por defecto;/Administracion/Material/Seleccionar  (si no está registrada: /Administracion/Material/Index)
+Administracion;MecanismoFalla;BuscarCodigo;GET;FiltroAccion;/Administracion/MecanismoFalla/Index
+Administracion;MecanismoFalla;Editar;GET;FiltroAccion;/Administracion/MecanismoFalla/Editar
+Administracion;MecanismoFalla;Editar;POST;por defecto;/Administracion/MecanismoFalla/Editar  (si no está registrada: /Administracion/MecanismoFalla/Index)
+Administracion;MecanismoFalla;Index;GET;FiltroAccion;/Administracion/MecanismoFalla/Index
+Administracion;MecanismoFalla;Listar;GET;por defecto;/Administracion/MecanismoFalla/Listar  (si no está registrada: /Administracion/MecanismoFalla/Index)
+Administracion;MecanismoFalla;Nuevo;GET;FiltroAccion;/Administracion/MecanismoFalla/Nuevo
+Administracion;MecanismoFalla;Nuevo;POST;por defecto;/Administracion/MecanismoFalla/Nuevo  (si no está registrada: /Administracion/MecanismoFalla/Index)
+Administracion;MetodoDeteccion;BuscarCodigo;GET;FiltroAccion;/Administracion/MetodoDeteccion/Index
+Administracion;MetodoDeteccion;Editar;GET;FiltroAccion;/Administracion/MetodoDeteccion/Editar
+Administracion;MetodoDeteccion;Editar;POST;por defecto;/Administracion/MetodoDeteccion/Editar  (si no está registrada: /Administracion/MetodoDeteccion/Index)
+Administracion;MetodoDeteccion;Index;GET;FiltroAccion;/Administracion/MetodoDeteccion/Index
+Administracion;MetodoDeteccion;Listar;GET;por defecto;/Administracion/MetodoDeteccion/Listar  (si no está registrada: /Administracion/MetodoDeteccion/Index)
+Administracion;MetodoDeteccion;Nuevo;GET;FiltroAccion;/Administracion/MetodoDeteccion/Nuevo
+Administracion;MetodoDeteccion;Nuevo;POST;por defecto;/Administracion/MetodoDeteccion/Nuevo  (si no está registrada: /Administracion/MetodoDeteccion/Index)
+Administracion;ModoFalla;BuscarCodigo;GET;FiltroAccion;/Administracion/ModoFalla/Index
+Administracion;ModoFalla;Editar;GET;FiltroAccion;/Administracion/ModoFalla/Editar
+Administracion;ModoFalla;Editar;POST;por defecto;/Administracion/ModoFalla/Editar  (si no está registrada: /Administracion/ModoFalla/Index)
+Administracion;ModoFalla;Index;GET;FiltroAccion;/Administracion/ModoFalla/Index
+Administracion;ModoFalla;Listar;GET;por defecto;/Administracion/ModoFalla/Listar  (si no está registrada: /Administracion/ModoFalla/Index)
+Administracion;ModoFalla;Nuevo;GET;FiltroAccion;/Administracion/ModoFalla/Nuevo
+Administracion;ModoFalla;Nuevo;POST;por defecto;/Administracion/ModoFalla/Nuevo  (si no está registrada: /Administracion/ModoFalla/Index)
+Administracion;ModoFalla;Seleccionar;GET;por defecto;/Administracion/ModoFalla/Seleccionar  (si no está registrada: /Administracion/ModoFalla/Index)
+Administracion;Parte;BuscarPorSistema;GET;por defecto;/Administracion/Parte/BuscarPorSistema  (si no está registrada: /Administracion/Parte/Index)
+Administracion;Parte;Editar;GET;FiltroAccion;/Administracion/Parte/Editar
+Administracion;Parte;Editar;POST;por defecto;/Administracion/Parte/Editar  (si no está registrada: /Administracion/Parte/Index)
+Administracion;Parte;Index;GET;FiltroAccion;/Administracion/Parte/Index
+Administracion;Parte;Listar;GET;por defecto;/Administracion/Parte/Listar  (si no está registrada: /Administracion/Parte/Index)
+Administracion;Parte;Nuevo;GET;FiltroAccion;/Administracion/Parte/Nuevo
+Administracion;Parte;Nuevo;POST;por defecto;/Administracion/Parte/Nuevo  (si no está registrada: /Administracion/Parte/Index)
+Administracion;Prioridad;Editar;GET;FiltroAccion;/Administracion/Prioridad/Editar
+Administracion;Prioridad;Editar;POST;por defecto;/Administracion/Prioridad/Editar  (si no está registrada: /Administracion/Prioridad/Index)
+Administracion;Prioridad;Index;GET;FiltroAccion;/Administracion/Prioridad/Index
+Administracion;Prioridad;Listar;GET;por defecto;/Administracion/Prioridad/Listar  (si no está registrada: /Administracion/Prioridad/Index)
+Administracion;Prioridad;Nuevo;GET;FiltroAccion;/Administracion/Prioridad/Nuevo
+Administracion;Prioridad;Nuevo;POST;por defecto;/Administracion/Prioridad/Nuevo  (si no está registrada: /Administracion/Prioridad/Index)
+Administracion;Servicio;BuscarCodigo;GET;FiltroAccion;/Administracion/Servicio/Index
+Administracion;Servicio;Editar;GET;FiltroAccion;/Administracion/Servicio/Editar
+Administracion;Servicio;Editar;POST;por defecto;/Administracion/Servicio/Editar  (si no está registrada: /Administracion/Servicio/Index)
+Administracion;Servicio;Index;GET;FiltroAccion;/Administracion/Servicio/Index
+Administracion;Servicio;Listar;GET;por defecto;/Administracion/Servicio/Listar  (si no está registrada: /Administracion/Servicio/Index)
+Administracion;Servicio;Nuevo;GET;FiltroAccion;/Administracion/Servicio/Nuevo
+Administracion;Servicio;Nuevo;POST;por defecto;/Administracion/Servicio/Nuevo  (si no está registrada: /Administracion/Servicio/Index)
+Administracion;Servicio;Seleccionar;GET;por defecto;/Administracion/Servicio/Seleccionar  (si no está registrada: /Administracion/Servicio/Index)
+Administracion;Sistema;Editar;GET;FiltroAccion;/Administracion/Sistema/Editar
+Administracion;Sistema;Editar;POST;por defecto;/Administracion/Sistema/Editar  (si no está registrada: /Administracion/Sistema/Index)
+Administracion;Sistema;Index;GET;FiltroAccion;/Administracion/Sistema/Index
+Administracion;Sistema;Listar;GET;por defecto;/Administracion/Sistema/Listar  (si no está registrada: /Administracion/Sistema/Index)
+Administracion;Sistema;Nuevo;GET;FiltroAccion;/Administracion/Sistema/Nuevo
+Administracion;Sistema;Nuevo;POST;por defecto;/Administracion/Sistema/Nuevo  (si no está registrada: /Administracion/Sistema/Index)
+Administracion;Sistema;Seleccionar;GET;por defecto;/Administracion/Sistema/Seleccionar  (si no está registrada: /Administracion/Sistema/Index)
+Administracion;SocioNegocio;Editar;GET;FiltroAccion;/Administracion/SocioNegocio/Editar
+Administracion;SocioNegocio;Editar;POST;por defecto;/Administracion/SocioNegocio/Editar  (si no está registrada: /Administracion/SocioNegocio/Index)
+Administracion;SocioNegocio;Index;GET;FiltroAccion;/Administracion/SocioNegocio/Index
+Administracion;SocioNegocio;Listar;GET;por defecto;/Administracion/SocioNegocio/Listar  (si no está registrada: /Administracion/SocioNegocio/Index)
+Administracion;SocioNegocio;Nuevo;GET;FiltroAccion;/Administracion/SocioNegocio/Nuevo
+Administracion;SocioNegocio;Nuevo;POST;por defecto;/Administracion/SocioNegocio/Nuevo  (si no está registrada: /Administracion/SocioNegocio/Index)
+Administracion;SocioNegocio;Seleccionar;GET;por defecto;/Administracion/SocioNegocio/Seleccionar  (si no está registrada: /Administracion/SocioNegocio/Index)
+Administracion;TallerResponsable;BuscarCodigo;GET;FiltroAccion;/Administracion/TallerResponsable/Index
+Administracion;TallerResponsable;Editar;GET;FiltroAccion;/Administracion/TallerResponsable/Editar
+Administracion;TallerResponsable;Editar;POST;por defecto;/Administracion/TallerResponsable/Editar  (si no está registrada: /Administracion/TallerResponsable/Index)
+Administracion;TallerResponsable;Index;GET;FiltroAccion;/Administracion/TallerResponsable/Index
+Administracion;TallerResponsable;Listar;GET;por defecto;/Administracion/TallerResponsable/Listar  (si no está registrada: /Administracion/TallerResponsable/Index)
+Administracion;TallerResponsable;Nuevo;GET;FiltroAccion;/Administracion/TallerResponsable/Nuevo
+Administracion;TallerResponsable;Nuevo;POST;por defecto;/Administracion/TallerResponsable/Nuevo  (si no está registrada: /Administracion/TallerResponsable/Index)
+Administracion;TipoMantenimiento;BuscarCodigo;GET;FiltroAccion;/Administracion/TipoMantenimiento/Index
+Administracion;TipoMantenimiento;Editar;GET;FiltroAccion;/Administracion/TipoMantenimiento/Editar
+Administracion;TipoMantenimiento;Editar;POST;por defecto;/Administracion/TipoMantenimiento/Editar  (si no está registrada: /Administracion/TipoMantenimiento/Index)
+Administracion;TipoMantenimiento;Index;GET;FiltroAccion;/Administracion/TipoMantenimiento/Index
+Administracion;TipoMantenimiento;Listar;GET;por defecto;/Administracion/TipoMantenimiento/Listar  (si no está registrada: /Administracion/TipoMantenimiento/Index)
+Administracion;TipoMantenimiento;Nuevo;GET;FiltroAccion;/Administracion/TipoMantenimiento/Nuevo
+Administracion;TipoMantenimiento;Nuevo;POST;por defecto;/Administracion/TipoMantenimiento/Nuevo  (si no está registrada: /Administracion/TipoMantenimiento/Index)
+Administracion;TipoTarea;Editar;GET;FiltroAccion;/Administracion/TipoTarea/Editar
+Administracion;TipoTarea;Editar;POST;por defecto;/Administracion/TipoTarea/Editar  (si no está registrada: /Administracion/TipoTarea/Index)
+Administracion;TipoTarea;Index;GET;FiltroAccion;/Administracion/TipoTarea/Index
+Administracion;TipoTarea;Listar;GET;por defecto;/Administracion/TipoTarea/Listar  (si no está registrada: /Administracion/TipoTarea/Index)
+Administracion;TipoTarea;Nuevo;GET;FiltroAccion;/Administracion/TipoTarea/Nuevo
+Administracion;TipoTarea;Nuevo;POST;por defecto;/Administracion/TipoTarea/Nuevo  (si no está registrada: /Administracion/TipoTarea/Index)
+Administracion;UnidadMedida;BuscarCodigo;GET;FiltroAccion;/Administracion/UnidadMedida/Index
+Administracion;UnidadMedida;Editar;GET;FiltroAccion;/Administracion/UnidadMedida/Editar
+Administracion;UnidadMedida;Editar;POST;por defecto;/Administracion/UnidadMedida/Editar  (si no está registrada: /Administracion/UnidadMedida/Index)
+Administracion;UnidadMedida;Index;GET;FiltroAccion;/Administracion/UnidadMedida/Index
+Administracion;UnidadMedida;Listar;GET;por defecto;/Administracion/UnidadMedida/Listar  (si no está registrada: /Administracion/UnidadMedida/Index)
+Administracion;UnidadMedida;Nuevo;GET;FiltroAccion;/Administracion/UnidadMedida/Nuevo
+Administracion;UnidadMedida;Nuevo;POST;por defecto;/Administracion/UnidadMedida/Nuevo  (si no está registrada: /Administracion/UnidadMedida/Index)
+Administracion;UnidadMedidaServicio;Editar;GET;FiltroAccion;/Administracion/UnidadMedidaServicio/Editar
+Administracion;UnidadMedidaServicio;Editar;POST;por defecto;/Administracion/UnidadMedidaServicio/Editar  (si no está registrada: /Administracion/UnidadMedidaServicio/Index)
+Administracion;UnidadMedidaServicio;Index;GET;FiltroAccion;/Administracion/UnidadMedidaServicio/Index
+Administracion;UnidadMedidaServicio;Listar;GET;por defecto;/Administracion/UnidadMedidaServicio/Listar  (si no está registrada: /Administracion/UnidadMedidaServicio/Index)
+Administracion;UnidadMedidaServicio;Nuevo;GET;FiltroAccion;/Administracion/UnidadMedidaServicio/Nuevo
+Administracion;UnidadMedidaServicio;Nuevo;POST;por defecto;/Administracion/UnidadMedidaServicio/Nuevo  (si no está registrada: /Administracion/UnidadMedidaServicio/Index)
+Gestion;AlertaPuntoMedida;Contar;GET;por defecto;/Gestion/AlertaPuntoMedida/Contar  (si no está registrada: /Gestion/AlertaPuntoMedida/Index)
+Gestion;AlertaPuntoMedida;Index;GET;FiltroAccion;/Gestion/AlertaPuntoMedida/Index
+Gestion;AlertaPuntoMedida;Listar;GET;por defecto;/Gestion/AlertaPuntoMedida/Listar  (si no está registrada: /Gestion/AlertaPuntoMedida/Index)
+Gestion;ArbolJerarquico;Desmontar;POST;por defecto;/Gestion/ArbolJerarquico/Desmontar  (si no está registrada: /Gestion/ArbolJerarquico/Index)
+Gestion;ArbolJerarquico;Generar;GET;por defecto;/Gestion/ArbolJerarquico/Generar  (si no está registrada: /Gestion/ArbolJerarquico/Index)
+Gestion;ArbolJerarquico;Index;GET;FiltroAccion;/Gestion/ArbolJerarquico/Index
+Gestion;ArbolJerarquico;MontarComponente;POST;por defecto;/Gestion/ArbolJerarquico/MontarComponente  (si no está registrada: /Gestion/ArbolJerarquico/Index)
+Gestion;ArbolJerarquico;MontarEquipo;POST;por defecto;/Gestion/ArbolJerarquico/MontarEquipo  (si no está registrada: /Gestion/ArbolJerarquico/Index)
+Gestion;Aviso;Editar;GET;FiltroAccion;/Gestion/Aviso/Editar
+Gestion;Aviso;Editar;POST;por defecto;/Gestion/Aviso/Editar  (si no está registrada: /Gestion/Aviso/Index)
+Gestion;Aviso;ExportarExcel;POST;por defecto;/Gestion/Aviso/ExportarExcel  (si no está registrada: /Gestion/Aviso/Index)
+Gestion;Aviso;Gestionar;GET;FiltroAccion;/Gestion/Aviso/Gestionar
+Gestion;Aviso;Gestionar;POST;por defecto;/Gestion/Aviso/Gestionar  (si no está registrada: /Gestion/Aviso/Index)
+Gestion;Aviso;Index;GET;FiltroAccion;/Gestion/Aviso/Index
+Gestion;Aviso;Listar;GET;por defecto;/Gestion/Aviso/Listar  (si no está registrada: /Gestion/Aviso/Index)
+Gestion;Aviso;ListarMisAvisos;GET;por defecto;/Gestion/Aviso/ListarMisAvisos  (si no está registrada: /Gestion/Aviso/Index)
+Gestion;Aviso;MisAvisos;GET;FiltroAccion;/Gestion/Aviso/MisAvisos
+Gestion;Aviso;Nuevo;GET;FiltroAccion;/Gestion/Aviso/Nuevo
+Gestion;Aviso;Nuevo;POST;por defecto;/Gestion/Aviso/Nuevo  (si no está registrada: /Gestion/Aviso/Index)
+Gestion;Aviso;NuevoPorAlerta;GET;FiltroAccion;/Gestion/Aviso/Nuevo
+Gestion;Aviso;NuevoPorEquipo;GET;FiltroAccion;/Gestion/Aviso/Nuevo
+Gestion;Aviso;NuevoPorOrdenTrabajo;GET;FiltroAccion;/Gestion/Aviso/Nuevo
+Gestion;Aviso;NuevoPorUbicacion;GET;FiltroAccion;/Gestion/Aviso/Nuevo
+Gestion;Aviso;Ver;GET;FiltroAccion;/Gestion/Aviso/Ver
+Gestion;Contador;Editar;GET;FiltroAccion;/Gestion/Contador/Editar
+Gestion;Contador;Editar;POST;por defecto;/Gestion/Contador/Editar  (si no está registrada: /Gestion/Contador/Index)
+Gestion;Contador;Exponer;GET;FiltroAccion;/Gestion/Contador/Exponer
+Gestion;Contador;Exponer;POST;por defecto;/Gestion/Contador/Exponer  (si no está registrada: /Gestion/Contador/Index)
+Gestion;Contador;ExportarExcel;POST;por defecto;/Gestion/Contador/ExportarExcel  (si no está registrada: /Gestion/Contador/Index)
+Gestion;Contador;Index;GET;FiltroAccion;/Gestion/Contador/Index
+Gestion;Contador;Listar;GET;por defecto;/Gestion/Contador/Listar  (si no está registrada: /Gestion/Contador/Index)
+Gestion;Contador;ListarPorEquipo;GET;por defecto;/Gestion/Contador/ListarPorEquipo  (si no está registrada: /Gestion/Contador/Index)
+Gestion;Contador;Notificar;GET;por defecto;/Gestion/Contador/Notificar  (si no está registrada: /Gestion/Contador/Index)
+Gestion;Contador;Notificar;POST;por defecto;/Gestion/Contador/Notificar  (si no está registrada: /Gestion/Contador/Index)
+Gestion;Contador;Nuevo;GET;FiltroAccion;/Gestion/Contador/Nuevo
+Gestion;Contador;Nuevo;POST;por defecto;/Gestion/Contador/Nuevo  (si no está registrada: /Gestion/Contador/Index)
+Gestion;ContadorHistorial;Listar;GET;por defecto;/Gestion/ContadorHistorial/Listar  (si no está registrada: /Gestion/ContadorHistorial/Index)
+Gestion;ContadorHistorial;Ver;GET;FiltroAccion;/Gestion/ContadorHistorial/Ver
+Gestion;Equipo;BuscarCodigo;GET;FiltroAccion;/Gestion/Equipo/Index
+Gestion;Equipo;BuscarUbicacion;GET;por defecto;/Gestion/Equipo/BuscarUbicacion  (si no está registrada: /Gestion/Equipo/Index)
+Gestion;Equipo;Editar;GET;FiltroAccion;/Gestion/Equipo/Editar
+Gestion;Equipo;Editar;POST;por defecto;/Gestion/Equipo/Editar  (si no está registrada: /Gestion/Equipo/Index)
+Gestion;Equipo;Index;GET;FiltroAccion;/Gestion/Equipo/Index
+Gestion;Equipo;Listar;GET;por defecto;/Gestion/Equipo/Listar  (si no está registrada: /Gestion/Equipo/Index)
+Gestion;Equipo;ListarPorUbicacion;GET;por defecto;/Gestion/Equipo/ListarPorUbicacion  (si no está registrada: /Gestion/Equipo/Index)
+Gestion;Equipo;ListarPrimeros;GET;por defecto;/Gestion/Equipo/ListarPrimeros  (si no está registrada: /Gestion/Equipo/Index)
+Gestion;Equipo;Mantenimiento;GET;por defecto;/Gestion/Equipo/Mantenimiento  (si no está registrada: /Gestion/Equipo/Index)
+Gestion;Equipo;Movimientos;GET;por defecto;/Gestion/Equipo/Movimientos  (si no está registrada: /Gestion/Equipo/Index)
+Gestion;Equipo;Nuevo;GET;FiltroAccion;/Gestion/Equipo/Nuevo
+Gestion;Equipo;Nuevo;POST;por defecto;/Gestion/Equipo/Nuevo  (si no está registrada: /Gestion/Equipo/Index)
+Gestion;Equipo;Seleccionar;GET;por defecto;/Gestion/Equipo/Seleccionar  (si no está registrada: /Gestion/Equipo/Index)
+Gestion;Equipo;Ver;GET;FiltroAccion;/Gestion/Equipo/Ver
+Gestion;EquipoAspecto;Editar;GET;FiltroAccion;/Gestion/EquipoAspecto/Editar
+Gestion;EquipoAspecto;Editar;POST;por defecto;/Gestion/EquipoAspecto/Editar  (si no está registrada: /Gestion/EquipoAspecto/Index)
+Gestion;EquipoAspecto;Exponer;GET;FiltroAccion;/Gestion/EquipoAspecto/Exponer
+Gestion;EquipoAspecto;Exponer;POST;por defecto;/Gestion/EquipoAspecto/Exponer  (si no está registrada: /Gestion/EquipoAspecto/Index)
+Gestion;EquipoAspecto;Index;GET;FiltroAccion;/Gestion/EquipoAspecto/Index
+Gestion;EquipoAspecto;Listar;GET;por defecto;/Gestion/EquipoAspecto/Listar  (si no está registrada: /Gestion/EquipoAspecto/Index)
+Gestion;EquipoAspecto;ListarPorEquipo;GET;por defecto;/Gestion/EquipoAspecto/ListarPorEquipo  (si no está registrada: /Gestion/EquipoAspecto/Index)
+Gestion;EquipoAspecto;Notificar;GET;por defecto;/Gestion/EquipoAspecto/Notificar  (si no está registrada: /Gestion/EquipoAspecto/Index)
+Gestion;EquipoAspecto;Notificar;POST;por defecto;/Gestion/EquipoAspecto/Notificar  (si no está registrada: /Gestion/EquipoAspecto/Index)
+Gestion;EquipoAspecto;Nuevo;GET;FiltroAccion;/Gestion/EquipoAspecto/Nuevo
+Gestion;EquipoAspecto;Nuevo;POST;por defecto;/Gestion/EquipoAspecto/Nuevo  (si no está registrada: /Gestion/EquipoAspecto/Index)
+Gestion;EquipoAspectoHistorial;Listar;GET;por defecto;/Gestion/EquipoAspectoHistorial/Listar  (si no está registrada: /Gestion/EquipoAspectoHistorial/Index)
+Gestion;EquipoAspectoHistorial;Ver;GET;FiltroAccion;/Gestion/EquipoAspectoHistorial/Ver
+Gestion;EquipoSistema;ListarPorEquipo;GET;por defecto;/Gestion/EquipoSistema/ListarPorEquipo  (si no está registrada: /Gestion/EquipoSistema/Index)
+Gestion;HojaRuta;AgregarSecciones;POST;por defecto;/Gestion/HojaRuta/AgregarSecciones  (si no está registrada: /Gestion/HojaRuta/Index)
+Gestion;HojaRuta;BuscarCodigo;GET;FiltroAccion;/Gestion/HojaRuta/Index
+Gestion;HojaRuta;Editar;GET;FiltroAccion;/Gestion/HojaRuta/Editar
+Gestion;HojaRuta;Editar;POST;por defecto;/Gestion/HojaRuta/Editar  (si no está registrada: /Gestion/HojaRuta/Index)
+Gestion;HojaRuta;Index;GET;FiltroAccion;/Gestion/HojaRuta/Index
+Gestion;HojaRuta;Listar;GET;por defecto;/Gestion/HojaRuta/Listar  (si no está registrada: /Gestion/HojaRuta/Index)
+Gestion;HojaRuta;Nuevo;GET;FiltroAccion;/Gestion/HojaRuta/Nuevo
+Gestion;HojaRuta;Nuevo;POST;por defecto;/Gestion/HojaRuta/Nuevo  (si no está registrada: /Gestion/HojaRuta/Index)
+Gestion;HojaRuta;QuitarSeccion;POST;por defecto;/Gestion/HojaRuta/QuitarSeccion  (si no está registrada: /Gestion/HojaRuta/Index)
+Gestion;HojaRuta;Ver;GET;FiltroAccion;/Gestion/HojaRuta/Ver
+Gestion;Inspeccion;Editar;GET;FiltroAccion;/Gestion/Inspeccion/Editar
+Gestion;Inspeccion;Index;GET;FiltroAccion;/Gestion/Inspeccion/Index
+Gestion;Inspeccion;Listar;GET;por defecto;/Gestion/Inspeccion/Listar  (si no está registrada: /Gestion/Inspeccion/Index)
+Gestion;Notificacion;Descarga;GET;FiltroAccion;/Gestion/Notificacion/Descarga
+Gestion;Notificacion;Descarga;POST;por defecto;/Gestion/Notificacion/Descarga  (si no está registrada: /Gestion/Notificacion/Index)
+Gestion;Notificacion;Guardar;POST;por defecto;/Gestion/Notificacion/Guardar  (si no está registrada: /Gestion/Notificacion/Index)
+Gestion;Notificacion;Index;GET;FiltroAccion;/Gestion/Notificacion/Index
+Gestion;Notificacion;Masivo;GET;FiltroAccion;/Gestion/Notificacion/Masivo
+Gestion;Notificacion;Procesar;POST;por defecto;/Gestion/Notificacion/Procesar  (si no está registrada: /Gestion/Notificacion/Index)
+Gestion;NotificacionContador;Listar;GET;por defecto;/Gestion/NotificacionContador/Listar  (si no está registrada: /Gestion/NotificacionContador/Index)
+Gestion;NotificacionContador;Nuevo;GET;por defecto;/Gestion/NotificacionContador/Nuevo  (si no está registrada: /Gestion/NotificacionContador/Index)
+Gestion;NotificacionContador;Nuevo;POST;por defecto;/Gestion/NotificacionContador/Nuevo  (si no está registrada: /Gestion/NotificacionContador/Index)
+Gestion;NotificacionEmpleado;Listar;GET;por defecto;/Gestion/NotificacionEmpleado/Listar  (si no está registrada: /Gestion/NotificacionEmpleado/Index)
+Gestion;NotificacionEmpleado;Nuevo;GET;por defecto;/Gestion/NotificacionEmpleado/Nuevo  (si no está registrada: /Gestion/NotificacionEmpleado/Index)
+Gestion;NotificacionEmpleado;Nuevo;POST;por defecto;/Gestion/NotificacionEmpleado/Nuevo  (si no está registrada: /Gestion/NotificacionEmpleado/Index)
+Gestion;NotificacionEquipoAspecto;Listar;GET;por defecto;/Gestion/NotificacionEquipoAspecto/Listar  (si no está registrada: /Gestion/NotificacionEquipoAspecto/Index)
+Gestion;NotificacionEquipoAspecto;Nuevo;GET;por defecto;/Gestion/NotificacionEquipoAspecto/Nuevo  (si no está registrada: /Gestion/NotificacionEquipoAspecto/Index)
+Gestion;NotificacionEquipoAspecto;Nuevo;POST;por defecto;/Gestion/NotificacionEquipoAspecto/Nuevo  (si no está registrada: /Gestion/NotificacionEquipoAspecto/Index)
+Gestion;NotificacionPuntoMedida;Listar;GET;por defecto;/Gestion/NotificacionPuntoMedida/Listar  (si no está registrada: /Gestion/NotificacionPuntoMedida/Index)
+Gestion;NotificacionPuntoMedida;Nuevo;GET;por defecto;/Gestion/NotificacionPuntoMedida/Nuevo  (si no está registrada: /Gestion/NotificacionPuntoMedida/Index)
+Gestion;NotificacionPuntoMedida;Nuevo;POST;por defecto;/Gestion/NotificacionPuntoMedida/Nuevo  (si no está registrada: /Gestion/NotificacionPuntoMedida/Index)
+Gestion;NotificacionTarea;Calcular;POST;por defecto;/Gestion/NotificacionTarea/Calcular  (si no está registrada: /Gestion/NotificacionTarea/Index)
+Gestion;NotificacionTarea;Index;GET;FiltroAccion;/Gestion/NotificacionTarea/Index
+Gestion;NotificacionTarea;Reporte;GET;FiltroAccion;/Gestion/NotificacionTarea/Reporte
+Gestion;NotificacionTarea;Reporte;POST;por defecto;/Gestion/NotificacionTarea/Reporte  (si no está registrada: /Gestion/NotificacionTarea/Index)
+Gestion;NotificacionUbicacionAspecto;Listar;GET;por defecto;/Gestion/NotificacionUbicacionAspecto/Listar  (si no está registrada: /Gestion/NotificacionUbicacionAspecto/Index)
+Gestion;NotificacionUbicacionAspecto;Nuevo;GET;por defecto;/Gestion/NotificacionUbicacionAspecto/Nuevo  (si no está registrada: /Gestion/NotificacionUbicacionAspecto/Index)
+Gestion;NotificacionUbicacionAspecto;Nuevo;POST;por defecto;/Gestion/NotificacionUbicacionAspecto/Nuevo  (si no está registrada: /Gestion/NotificacionUbicacionAspecto/Index)
+Gestion;OrdenTrabajo;Editar;GET;FiltroAccion;/Gestion/OrdenTrabajo/Editar
+Gestion;OrdenTrabajo;Editar;POST;por defecto;/Gestion/OrdenTrabajo/Editar  (si no está registrada: /Gestion/OrdenTrabajo/Index)
+Gestion;OrdenTrabajo;ExportarExcel;POST;por defecto;/Gestion/OrdenTrabajo/ExportarExcel  (si no está registrada: /Gestion/OrdenTrabajo/Index)
+Gestion;OrdenTrabajo;Generar;POST;por defecto;/Gestion/OrdenTrabajo/Generar  (si no está registrada: /Gestion/OrdenTrabajo/Index)
+Gestion;OrdenTrabajo;Index;GET;FiltroAccion;/Gestion/OrdenTrabajo/Index
+Gestion;OrdenTrabajo;Kanban;GET;por defecto;/Gestion/OrdenTrabajo/Kanban  (si no está registrada: /Gestion/OrdenTrabajo/Index)
+Gestion;OrdenTrabajo;KanbanColumna;GET;por defecto;/Gestion/OrdenTrabajo/KanbanColumna  (si no está registrada: /Gestion/OrdenTrabajo/Index)
+Gestion;OrdenTrabajo;KanbanConteo;GET;por defecto;/Gestion/OrdenTrabajo/KanbanConteo  (si no está registrada: /Gestion/OrdenTrabajo/Index)
+Gestion;OrdenTrabajo;KanbanMover;POST;por defecto;/Gestion/OrdenTrabajo/KanbanMover  (si no está registrada: /Gestion/OrdenTrabajo/Index)
+Gestion;OrdenTrabajo;Listar;GET;por defecto;/Gestion/OrdenTrabajo/Listar  (si no está registrada: /Gestion/OrdenTrabajo/Index)
+Gestion;OrdenTrabajo;Notificar;GET;FiltroAccion;/Gestion/OrdenTrabajo/Notificar
+Gestion;OrdenTrabajo;Notificar;POST;por defecto;/Gestion/OrdenTrabajo/Notificar  (si no está registrada: /Gestion/OrdenTrabajo/Index)
+Gestion;OrdenTrabajo;Nuevo;GET;FiltroAccion;/Gestion/OrdenTrabajo/Nuevo
+Gestion;OrdenTrabajo;Nuevo;POST;por defecto;/Gestion/OrdenTrabajo/Nuevo  (si no está registrada: /Gestion/OrdenTrabajo/Index)
+Gestion;OrdenTrabajo;NuevoPorAviso;GET;FiltroAccion;/Gestion/OrdenTrabajo/Nuevo
+Gestion;OrdenTrabajo;NuevoPorEquipo;GET;FiltroAccion;/Gestion/OrdenTrabajo/Nuevo
+Gestion;OrdenTrabajo;NuevoPorOrdenTrabajo;GET;FiltroAccion;/Gestion/OrdenTrabajo/Nuevo
+Gestion;OrdenTrabajo;NuevoPorUbicacion;GET;FiltroAccion;/Gestion/OrdenTrabajo/Nuevo
+Gestion;OrdenTrabajo;Previsualizar;GET;FiltroAccion;/Gestion/OrdenTrabajo/Previsualizar
+Gestion;OrdenTrabajo;Previsualizar;POST;por defecto;/Gestion/OrdenTrabajo/Previsualizar  (si no está registrada: /Gestion/OrdenTrabajo/Index)
+Gestion;OrdenTrabajo;PrevisualizarExcel;POST;por defecto;/Gestion/OrdenTrabajo/PrevisualizarExcel  (si no está registrada: /Gestion/OrdenTrabajo/Index)
+Gestion;OrdenTrabajo;ReportePdf;GET;FiltroAccion;/Gestion/OrdenTrabajo/ReportePdf
+Gestion;OrdenTrabajo;SeleccionarUno;GET;por defecto;/Gestion/OrdenTrabajo/SeleccionarUno  (si no está registrada: /Gestion/OrdenTrabajo/Index)
+Gestion;OrdenTrabajo;Ver;GET;FiltroAccion;/Gestion/OrdenTrabajo/Ver
+Gestion;OrdenTrabajoLog;Ver;GET;por defecto;/Gestion/OrdenTrabajoLog/Ver  (si no está registrada: /Gestion/OrdenTrabajoLog/Index)
+Gestion;Parada;Anular;POST;FiltroAccion;/Gestion/Parada/Anular
+Gestion;Parada;Index;GET;FiltroAccion;/Gestion/Parada/Index
+Gestion;Parada;Listar;GET;por defecto;/Gestion/Parada/Listar  (si no está registrada: /Gestion/Parada/Index)
+Gestion;Parada;Nuevo;GET;FiltroAccion;/Gestion/Parada/Nuevo
+Gestion;Parada;Nuevo;POST;FiltroAccion;/Gestion/Parada/Nuevo
+Gestion;Parada;Ver;GET;FiltroAccion;/Gestion/Parada/Ver
+Gestion;PlanMantenimiento;Asignar;GET;FiltroAccion;/Gestion/PlanMantenimiento/Asignar
+Gestion;PlanMantenimiento;Comportamiento;POST;por defecto;/Gestion/PlanMantenimiento/Comportamiento  (si no está registrada: /Gestion/PlanMantenimiento/Index)
+Gestion;PlanMantenimiento;Editar;GET;FiltroAccion;/Gestion/PlanMantenimiento/Editar
+Gestion;PlanMantenimiento;Editar;POST;por defecto;/Gestion/PlanMantenimiento/Editar  (si no está registrada: /Gestion/PlanMantenimiento/Index)
+Gestion;PlanMantenimiento;Index;GET;FiltroAccion;/Gestion/PlanMantenimiento/Index
+Gestion;PlanMantenimiento;Listar;GET;por defecto;/Gestion/PlanMantenimiento/Listar  (si no está registrada: /Gestion/PlanMantenimiento/Index)
+Gestion;PlanMantenimiento;Nuevo;GET;FiltroAccion;/Gestion/PlanMantenimiento/Nuevo
+Gestion;PlanMantenimiento;Nuevo;POST;por defecto;/Gestion/PlanMantenimiento/Nuevo  (si no está registrada: /Gestion/PlanMantenimiento/Index)
+Gestion;PlanMantenimiento;Seleccionar;GET;por defecto;/Gestion/PlanMantenimiento/Seleccionar  (si no está registrada: /Gestion/PlanMantenimiento/Index)
+Gestion;PlanMantenimiento;Ver;GET;FiltroAccion;/Gestion/PlanMantenimiento/Ver
+Gestion;PlanMantenimientoEquipo;Editar;GET;por defecto;/Gestion/PlanMantenimientoEquipo/Editar  (si no está registrada: /Gestion/PlanMantenimientoEquipo/Index)
+Gestion;PlanMantenimientoEquipo;Editar;POST;por defecto;/Gestion/PlanMantenimientoEquipo/Editar  (si no está registrada: /Gestion/PlanMantenimientoEquipo/Index)
+Gestion;PlanMantenimientoEquipo;Eliminar;POST;por defecto;/Gestion/PlanMantenimientoEquipo/Eliminar  (si no está registrada: /Gestion/PlanMantenimientoEquipo/Index)
+Gestion;PlanMantenimientoEquipo;Listar;GET;por defecto;/Gestion/PlanMantenimientoEquipo/Listar  (si no está registrada: /Gestion/PlanMantenimientoEquipo/Index)
+Gestion;PlanMantenimientoEquipo;Nuevo;GET;por defecto;/Gestion/PlanMantenimientoEquipo/Nuevo  (si no está registrada: /Gestion/PlanMantenimientoEquipo/Index)
+Gestion;PlanMantenimientoEquipo;Nuevo;POST;por defecto;/Gestion/PlanMantenimientoEquipo/Nuevo  (si no está registrada: /Gestion/PlanMantenimientoEquipo/Index)
+Gestion;PlanMantenimientoEquipo;NuevoVarios;POST;por defecto;/Gestion/PlanMantenimientoEquipo/NuevoVarios  (si no está registrada: /Gestion/PlanMantenimientoEquipo/Index)
+Gestion;PlanMantenimientoUbicacion;Editar;GET;por defecto;/Gestion/PlanMantenimientoUbicacion/Editar  (si no está registrada: /Gestion/PlanMantenimientoUbicacion/Index)
+Gestion;PlanMantenimientoUbicacion;Editar;POST;por defecto;/Gestion/PlanMantenimientoUbicacion/Editar  (si no está registrada: /Gestion/PlanMantenimientoUbicacion/Index)
+Gestion;PlanMantenimientoUbicacion;Eliminar;POST;por defecto;/Gestion/PlanMantenimientoUbicacion/Eliminar  (si no está registrada: /Gestion/PlanMantenimientoUbicacion/Index)
+Gestion;PlanMantenimientoUbicacion;Listar;GET;por defecto;/Gestion/PlanMantenimientoUbicacion/Listar  (si no está registrada: /Gestion/PlanMantenimientoUbicacion/Index)
+Gestion;PlanMantenimientoUbicacion;Nuevo;GET;por defecto;/Gestion/PlanMantenimientoUbicacion/Nuevo  (si no está registrada: /Gestion/PlanMantenimientoUbicacion/Index)
+Gestion;PlanMantenimientoUbicacion;Nuevo;POST;por defecto;/Gestion/PlanMantenimientoUbicacion/Nuevo  (si no está registrada: /Gestion/PlanMantenimientoUbicacion/Index)
+Gestion;ProgramacionEmpleado;DetenerTarea;POST;por defecto;/Gestion/ProgramacionEmpleado/DetenerTarea  (si no está registrada: /Gestion/ProgramacionEmpleado/Index)
+Gestion;ProgramacionEmpleado;Editar;GET;FiltroAccion;/Gestion/ProgramacionEmpleado/Editar
+Gestion;ProgramacionEmpleado;Index;GET;FiltroAccion;/Gestion/ProgramacionEmpleado/Index
+Gestion;ProgramacionEmpleado;IniciarTarea;POST;por defecto;/Gestion/ProgramacionEmpleado/IniciarTarea  (si no está registrada: /Gestion/ProgramacionEmpleado/Index)
+Gestion;PuntoMedida;Editar;GET;FiltroAccion;/Gestion/PuntoMedida/Editar
+Gestion;PuntoMedida;Editar;POST;por defecto;/Gestion/PuntoMedida/Editar  (si no está registrada: /Gestion/PuntoMedida/Index)
+Gestion;PuntoMedida;Exponer;GET;FiltroAccion;/Gestion/PuntoMedida/Exponer
+Gestion;PuntoMedida;Exponer;POST;por defecto;/Gestion/PuntoMedida/Exponer  (si no está registrada: /Gestion/PuntoMedida/Index)
+Gestion;PuntoMedida;Index;GET;FiltroAccion;/Gestion/PuntoMedida/Index
+Gestion;PuntoMedida;Listar;GET;por defecto;/Gestion/PuntoMedida/Listar  (si no está registrada: /Gestion/PuntoMedida/Index)
+Gestion;PuntoMedida;ListarPorEquipo;GET;por defecto;/Gestion/PuntoMedida/ListarPorEquipo  (si no está registrada: /Gestion/PuntoMedida/Index)
+Gestion;PuntoMedida;Notificar;GET;por defecto;/Gestion/PuntoMedida/Notificar  (si no está registrada: /Gestion/PuntoMedida/Index)
+Gestion;PuntoMedida;Notificar;POST;por defecto;/Gestion/PuntoMedida/Notificar  (si no está registrada: /Gestion/PuntoMedida/Index)
+Gestion;PuntoMedida;Nuevo;GET;FiltroAccion;/Gestion/PuntoMedida/Nuevo
+Gestion;PuntoMedida;Nuevo;POST;por defecto;/Gestion/PuntoMedida/Nuevo  (si no está registrada: /Gestion/PuntoMedida/Index)
+Gestion;PuntoMedidaHistorial;Listar;GET;por defecto;/Gestion/PuntoMedidaHistorial/Listar  (si no está registrada: /Gestion/PuntoMedidaHistorial/Index)
+Gestion;PuntoMedidaHistorial;Ver;GET;FiltroAccion;/Gestion/PuntoMedidaHistorial/Ver
+Gestion;Seccion;Buscar;GET;por defecto;/Gestion/Seccion/Buscar  (si no está registrada: /Gestion/Seccion/Index)
+Gestion;Seccion;BuscarCodigo;GET;FiltroAccion;/Gestion/Seccion/Index
+Gestion;Seccion;Detalle;GET;por defecto;/Gestion/Seccion/Detalle  (si no está registrada: /Gestion/Seccion/Index)
+Gestion;Seccion;Editar;GET;FiltroAccion;/Gestion/Seccion/Editar
+Gestion;Seccion;Editar;POST;por defecto;/Gestion/Seccion/Editar  (si no está registrada: /Gestion/Seccion/Index)
+Gestion;Seccion;Index;GET;FiltroAccion;/Gestion/Seccion/Index
+Gestion;Seccion;Listar;GET;por defecto;/Gestion/Seccion/Listar  (si no está registrada: /Gestion/Seccion/Index)
+Gestion;Seccion;Nuevo;GET;FiltroAccion;/Gestion/Seccion/Nuevo
+Gestion;Seccion;Nuevo;POST;por defecto;/Gestion/Seccion/Nuevo  (si no está registrada: /Gestion/Seccion/Index)
+Gestion;Seccion;NuevoPorHR;GET;FiltroAccion;/Gestion/Seccion/Nuevo
+Gestion;Seccion;Seleccionar;GET;por defecto;/Gestion/Seccion/Seleccionar  (si no está registrada: /Gestion/Seccion/Index)
+Gestion;Ubicacion;BuscarCodigo;GET;FiltroAccion;/Gestion/Ubicacion/Index
+Gestion;Ubicacion;Editar;GET;FiltroAccion;/Gestion/Ubicacion/Editar
+Gestion;Ubicacion;Editar;POST;por defecto;/Gestion/Ubicacion/Editar  (si no está registrada: /Gestion/Ubicacion/Index)
+Gestion;Ubicacion;Index;GET;FiltroAccion;/Gestion/Ubicacion/Index
+Gestion;Ubicacion;Listar;GET;por defecto;/Gestion/Ubicacion/Listar  (si no está registrada: /Gestion/Ubicacion/Index)
+Gestion;Ubicacion;Nuevo;GET;FiltroAccion;/Gestion/Ubicacion/Nuevo
+Gestion;Ubicacion;Nuevo;POST;por defecto;/Gestion/Ubicacion/Nuevo  (si no está registrada: /Gestion/Ubicacion/Index)
+Gestion;Ubicacion;Seleccionar;GET;por defecto;/Gestion/Ubicacion/Seleccionar  (si no está registrada: /Gestion/Ubicacion/Index)
+Gestion;Ubicacion;Ver;GET;FiltroAccion;/Gestion/Ubicacion/Ver
+Gestion;UbicacionAspecto;Editar;GET;FiltroAccion;/Gestion/UbicacionAspecto/Editar
+Gestion;UbicacionAspecto;Editar;POST;por defecto;/Gestion/UbicacionAspecto/Editar  (si no está registrada: /Gestion/UbicacionAspecto/Index)
+Gestion;UbicacionAspecto;Exponer;GET;FiltroAccion;/Gestion/UbicacionAspecto/Exponer
+Gestion;UbicacionAspecto;Exponer;POST;por defecto;/Gestion/UbicacionAspecto/Exponer  (si no está registrada: /Gestion/UbicacionAspecto/Index)
+Gestion;UbicacionAspecto;Index;GET;FiltroAccion;/Gestion/UbicacionAspecto/Index
+Gestion;UbicacionAspecto;Listar;GET;por defecto;/Gestion/UbicacionAspecto/Listar  (si no está registrada: /Gestion/UbicacionAspecto/Index)
+Gestion;UbicacionAspecto;ListarPorUbicacion;GET;por defecto;/Gestion/UbicacionAspecto/ListarPorUbicacion  (si no está registrada: /Gestion/UbicacionAspecto/Index)
+Gestion;UbicacionAspecto;Notificar;GET;por defecto;/Gestion/UbicacionAspecto/Notificar  (si no está registrada: /Gestion/UbicacionAspecto/Index)
+Gestion;UbicacionAspecto;Notificar;POST;por defecto;/Gestion/UbicacionAspecto/Notificar  (si no está registrada: /Gestion/UbicacionAspecto/Index)
+Gestion;UbicacionAspecto;Nuevo;GET;FiltroAccion;/Gestion/UbicacionAspecto/Nuevo
+Gestion;UbicacionAspecto;Nuevo;POST;por defecto;/Gestion/UbicacionAspecto/Nuevo  (si no está registrada: /Gestion/UbicacionAspecto/Index)
+Gestion;UbicacionAspectoHistorial;Listar;GET;por defecto;/Gestion/UbicacionAspectoHistorial/Listar  (si no está registrada: /Gestion/UbicacionAspectoHistorial/Index)
+Gestion;UbicacionAspectoHistorial;Ver;GET;FiltroAccion;/Gestion/UbicacionAspectoHistorial/Ver
+Logistica;Almacen;Editar;GET;FiltroAccion;/Logistica/Almacen/Editar
+Logistica;Almacen;Editar;POST;por defecto;/Logistica/Almacen/Editar  (si no está registrada: /Logistica/Almacen/Index)
+Logistica;Almacen;Index;GET;FiltroAccion;/Logistica/Almacen/Index
+Logistica;Almacen;Listar;GET;por defecto;/Logistica/Almacen/Listar  (si no está registrada: /Logistica/Almacen/Index)
+Logistica;Almacen;Nuevo;GET;FiltroAccion;/Logistica/Almacen/Nuevo
+Logistica;Almacen;Nuevo;POST;por defecto;/Logistica/Almacen/Nuevo  (si no está registrada: /Logistica/Almacen/Index)
+Logistica;AlmacenMaterial;Editar;GET;FiltroAccion;/Logistica/AlmacenMaterial/Editar
+Logistica;AlmacenMaterial;Editar;POST;por defecto;/Logistica/AlmacenMaterial/Editar  (si no está registrada: /Logistica/AlmacenMaterial/Index)
+Logistica;AlmacenMaterial;ExportarExcel;POST;por defecto;/Logistica/AlmacenMaterial/ExportarExcel  (si no está registrada: /Logistica/AlmacenMaterial/Index)
+Logistica;AlmacenMaterial;Index;GET;FiltroAccion;/Logistica/AlmacenMaterial/Index
+Logistica;AlmacenMaterial;Listar;GET;por defecto;/Logistica/AlmacenMaterial/Listar  (si no está registrada: /Logistica/AlmacenMaterial/Index)
+Logistica;AlmacenMaterial;Seleccionar;GET;por defecto;/Logistica/AlmacenMaterial/Seleccionar  (si no está registrada: /Logistica/AlmacenMaterial/Index)
+Logistica;HojaAceptacion;Anular;POST;por defecto;/Logistica/HojaAceptacion/Anular  (si no está registrada: /Logistica/HojaAceptacion/Index)
+Logistica;HojaAceptacion;Index;GET;FiltroAccion;/Logistica/HojaAceptacion/Index
+Logistica;HojaAceptacion;Listar;GET;por defecto;/Logistica/HojaAceptacion/Listar  (si no está registrada: /Logistica/HojaAceptacion/Index)
+Logistica;HojaAceptacion;Nuevo;GET;FiltroAccion;/Logistica/HojaAceptacion/Nuevo
+Logistica;HojaAceptacion;Nuevo;POST;por defecto;/Logistica/HojaAceptacion/Nuevo  (si no está registrada: /Logistica/HojaAceptacion/Index)
+Logistica;HojaAceptacion;Ver;GET;FiltroAccion;/Logistica/HojaAceptacion/Ver
+Logistica;Movimiento;ExportarExcel;POST;por defecto;/Logistica/Movimiento/ExportarExcel  (si no está registrada: /Logistica/Movimiento/Index)
+Logistica;Movimiento;Index;GET;FiltroAccion;/Logistica/Movimiento/Index
+Logistica;Movimiento;Listar;GET;por defecto;/Logistica/Movimiento/Listar  (si no está registrada: /Logistica/Movimiento/Index)
+Logistica;NotaEntrada;Anular;POST;por defecto;/Logistica/NotaEntrada/Anular  (si no está registrada: /Logistica/NotaEntrada/Index)
+Logistica;NotaEntrada;Index;GET;FiltroAccion;/Logistica/NotaEntrada/Index
+Logistica;NotaEntrada;Listar;GET;por defecto;/Logistica/NotaEntrada/Listar  (si no está registrada: /Logistica/NotaEntrada/Index)
+Logistica;NotaEntrada;Nuevo;GET;FiltroAccion;/Logistica/NotaEntrada/Nuevo
+Logistica;NotaEntrada;Nuevo;POST;por defecto;/Logistica/NotaEntrada/Nuevo  (si no está registrada: /Logistica/NotaEntrada/Index)
+Logistica;NotaEntrada;Ver;GET;FiltroAccion;/Logistica/NotaEntrada/Ver
+Logistica;NotaSalida;Anular;POST;por defecto;/Logistica/NotaSalida/Anular  (si no está registrada: /Logistica/NotaSalida/Index)
+Logistica;NotaSalida;Index;GET;FiltroAccion;/Logistica/NotaSalida/Index
+Logistica;NotaSalida;Listar;GET;por defecto;/Logistica/NotaSalida/Listar  (si no está registrada: /Logistica/NotaSalida/Index)
+Logistica;NotaSalida;Nuevo;GET;FiltroAccion;/Logistica/NotaSalida/Nuevo
+Logistica;NotaSalida;Nuevo;POST;por defecto;/Logistica/NotaSalida/Nuevo  (si no está registrada: /Logistica/NotaSalida/Index)
+Logistica;NotaSalida;Ver;GET;FiltroAccion;/Logistica/NotaSalida/Ver
+Reporte;Aviso;HistorialFalla;GET;por defecto;/Reporte/Aviso/HistorialFalla  (si no está registrada: /Reporte/Aviso/Index)
+Reporte;Aviso;HistorialFalla;POST;por defecto;/Reporte/Aviso/HistorialFalla  (si no está registrada: /Reporte/Aviso/Index)
+Reporte;Aviso;HistorialModoFalla;GET;por defecto;/Reporte/Aviso/HistorialModoFalla  (si no está registrada: /Reporte/Aviso/Index)
+Reporte;Aviso;HistorialModoFalla;POST;por defecto;/Reporte/Aviso/HistorialModoFalla  (si no está registrada: /Reporte/Aviso/Index)
+Reporte;Indicador;Index;GET;por defecto;/Reporte/Indicador/Index  (si no está registrada: /Reporte/Indicador/Index)
+Reporte;Indicador;Index;POST;por defecto;/Reporte/Indicador/Index  (si no está registrada: /Reporte/Indicador/Index)
+Reporte;IndicadorGrupo;Eliminar;POST;por defecto;/Reporte/IndicadorGrupo/Eliminar  (si no está registrada: /Reporte/IndicadorGrupo/Index)
+Reporte;IndicadorGrupo;Guardar;POST;por defecto;/Reporte/IndicadorGrupo/Guardar  (si no está registrada: /Reporte/IndicadorGrupo/Index)
+Reporte;IndicadorGrupo;Listar;GET;por defecto;/Reporte/IndicadorGrupo/Listar  (si no está registrada: /Reporte/IndicadorGrupo/Index)
+Reporte;OrdenTrabajo;Costo;GET;por defecto;/Reporte/OrdenTrabajo/Costo  (si no está registrada: /Reporte/OrdenTrabajo/Index)
+Reporte;OrdenTrabajo;Costo;POST;por defecto;/Reporte/OrdenTrabajo/Costo  (si no está registrada: /Reporte/OrdenTrabajo/Index)
+Reporte;OrdenTrabajo;Tarea;GET;por defecto;/Reporte/OrdenTrabajo/Tarea  (si no está registrada: /Reporte/OrdenTrabajo/Index)
+Reporte;OrdenTrabajo;Tarea;POST;por defecto;/Reporte/OrdenTrabajo/Tarea  (si no está registrada: /Reporte/OrdenTrabajo/Index)
+Reporte;Plan;Index;GET;por defecto;/Reporte/Plan/Index  (si no está registrada: /Reporte/Plan/Index)
+Reporte;Plan;Planificacion;GET;por defecto;/Reporte/Plan/Planificacion  (si no está registrada: /Reporte/Plan/Index)
+Reporte;Plan;PlanificacionExcel;POST;por defecto;/Reporte/Plan/PlanificacionExcel  (si no está registrada: /Reporte/Plan/Index)
+Reporte;Proyeccion;Calendario;GET;FiltroAccion;/Reporte/Proyeccion/Calendario
+Reporte;Proyeccion;Calendario;POST;por defecto;/Reporte/Proyeccion/Calendario  (si no está registrada: /Reporte/Proyeccion/Index)
+Reporte;Proyeccion;Contador;GET;FiltroAccion;/Reporte/Proyeccion/Contador
+Reporte;Proyeccion;Contador;POST;por defecto;/Reporte/Proyeccion/Contador  (si no está registrada: /Reporte/Proyeccion/Index)
+Seguridad;Empresa;Editar;GET;FiltroAccion;/Seguridad/Empresa/Editar
+Seguridad;Empresa;Editar;POST;por defecto;/Seguridad/Empresa/Editar  (si no está registrada: /Seguridad/Empresa/Index)
+Seguridad;Empresa;Index;GET;FiltroAccion;/Seguridad/Empresa/Index
+Seguridad;Empresa;Listar;GET;por defecto;/Seguridad/Empresa/Listar  (si no está registrada: /Seguridad/Empresa/Index)
+Seguridad;Empresa;Nuevo;GET;FiltroAccion;/Seguridad/Empresa/Nuevo
+Seguridad;Empresa;Nuevo;POST;por defecto;/Seguridad/Empresa/Nuevo  (si no está registrada: /Seguridad/Empresa/Index)
+Seguridad;Menu;Editar;GET;FiltroAccion;/Seguridad/Menu/Editar
+Seguridad;Menu;Editar;POST;por defecto;/Seguridad/Menu/Editar  (si no está registrada: /Seguridad/Menu/Index)
+Seguridad;Menu;Index;GET;FiltroAccion;/Seguridad/Menu/Index
+Seguridad;Menu;Nuevo;GET;FiltroAccion;/Seguridad/Menu/Nuevo
+Seguridad;Menu;Nuevo;POST;por defecto;/Seguridad/Menu/Nuevo  (si no está registrada: /Seguridad/Menu/Index)
+Seguridad;Organizacion;Editar;GET;FiltroAccion;/Seguridad/Organizacion/Editar
+Seguridad;Organizacion;Editar;POST;por defecto;/Seguridad/Organizacion/Editar  (si no está registrada: /Seguridad/Organizacion/Index)
+Seguridad;Organizacion;Index;GET;FiltroAccion;/Seguridad/Organizacion/Index
+Seguridad;Organizacion;Listar;GET;por defecto;/Seguridad/Organizacion/Listar  (si no está registrada: /Seguridad/Organizacion/Index)
+Seguridad;Organizacion;Nuevo;GET;FiltroAccion;/Seguridad/Organizacion/Nuevo
+Seguridad;Organizacion;Nuevo;POST;por defecto;/Seguridad/Organizacion/Nuevo  (si no está registrada: /Seguridad/Organizacion/Index)
+Seguridad;Pagina;Editar;GET;por defecto;/Seguridad/Pagina/Editar  (si no está registrada: /Seguridad/Pagina/Index)
+Seguridad;Pagina;Editar;POST;por defecto;/Seguridad/Pagina/Editar  (si no está registrada: /Seguridad/Pagina/Index)
+Seguridad;Pagina;Index;GET;por defecto;/Seguridad/Pagina/Index  (si no está registrada: /Seguridad/Pagina/Index)
+Seguridad;Pagina;Listar;GET;por defecto;/Seguridad/Pagina/Listar  (si no está registrada: /Seguridad/Pagina/Index)
+Seguridad;Pagina;Nuevo;GET;por defecto;/Seguridad/Pagina/Nuevo  (si no está registrada: /Seguridad/Pagina/Index)
+Seguridad;Pagina;Nuevo;POST;por defecto;/Seguridad/Pagina/Nuevo  (si no está registrada: /Seguridad/Pagina/Index)
+Seguridad;Renovacion;Nuevo;GET;por defecto;/Seguridad/Renovacion/Nuevo  (si no está registrada: /Seguridad/Renovacion/Index)
+Seguridad;Renovacion;Nuevo;POST;por defecto;/Seguridad/Renovacion/Nuevo  (si no está registrada: /Seguridad/Renovacion/Index)
+Seguridad;Rol;Editar;GET;FiltroAccion;/Seguridad/Rol/Editar
+Seguridad;Rol;Editar;POST;por defecto;/Seguridad/Rol/Editar  (si no está registrada: /Seguridad/Rol/Index)
+Seguridad;Rol;Index;GET;FiltroAccion;/Seguridad/Rol/Index
+Seguridad;Rol;Listar;GET;por defecto;/Seguridad/Rol/Listar  (si no está registrada: /Seguridad/Rol/Index)
+Seguridad;Rol;Nuevo;GET;FiltroAccion;/Seguridad/Rol/Nuevo
+Seguridad;Rol;Nuevo;POST;por defecto;/Seguridad/Rol/Nuevo  (si no está registrada: /Seguridad/Rol/Index)
+Seguridad;Usuario;Editar;GET;por defecto;/Seguridad/Usuario/Editar  (si no está registrada: /Seguridad/Usuario/Index)
+Seguridad;Usuario;Editar;POST;por defecto;/Seguridad/Usuario/Editar  (si no está registrada: /Seguridad/Usuario/Index)
+Seguridad;Usuario;EditarAdmin;GET;FiltroAccion;/Seguridad/Usuario/EditarAdmin
+Seguridad;Usuario;EditarAdmin;POST;por defecto;/Seguridad/Usuario/EditarAdmin  (si no está registrada: /Seguridad/Usuario/Index)
+Seguridad;Usuario;Index;GET;por defecto;/Seguridad/Usuario/Index  (si no está registrada: /Seguridad/Usuario/Index)
+Seguridad;Usuario;Listar;GET;por defecto;/Seguridad/Usuario/Listar  (si no está registrada: /Seguridad/Usuario/Index)
+Seguridad;Usuario;ListarMisUsuarios;GET;por defecto;/Seguridad/Usuario/ListarMisUsuarios  (si no está registrada: /Seguridad/Usuario/Index)
+Seguridad;Usuario;Nuevo;GET;por defecto;/Seguridad/Usuario/Nuevo  (si no está registrada: /Seguridad/Usuario/Index)
+Seguridad;Usuario;Nuevo;POST;por defecto;/Seguridad/Usuario/Nuevo  (si no está registrada: /Seguridad/Usuario/Index)
+Seguridad;Usuario;NuevoAdmin;GET;por defecto;/Seguridad/Usuario/NuevoAdmin  (si no está registrada: /Seguridad/Usuario/Index)
+Seguridad;Usuario;NuevoAdmin;POST;por defecto;/Seguridad/Usuario/NuevoAdmin  (si no está registrada: /Seguridad/Usuario/Index)
+Seguridad;Usuario;Todos;GET;FiltroAccion;/Seguridad/Usuario/Todos
