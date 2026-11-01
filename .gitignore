@@ -1,0 +1,16 @@
+# Temporales
+*.tmp
+*.bak
+*~
+~$*
+Thumbs.db
+desktop.ini
+.DS_Store
+.idea/
+.vs/
+.vscode/
+
+# Comprimidos y exportaciones regenerables
+*.zip
+*.7z
+*.tgz
