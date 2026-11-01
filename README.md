@@ -15,7 +15,7 @@ raíz de este repositorio** (p. ej. `negocio/BUSINESS-RULES.md`).
 |---|---|
 | `ESTADO.md` | Tablero corto: en qué está cada frente y dónde seguir |
 | `negocio/` | Contexto del sistema, modelo de dominio, reglas de negocio, flujos (Aviso, OT) |
-| `clientes/` | Una ficha por rama del legacy (`_plantilla.md` para nuevas) |
+| `clientes/` | Una ficha por rama del legacy (`_plantilla.md` para nuevas; `ex/` para los que dejaron de ser clientes) |
 | `legacy/` | Arquitectura y estado del legacy, `ramas.md`, `planes/` (PLAN-UX-*, MULTICLIENTE), `portes/`, `analisis/` (md, sql, csv), `tareas/` (MNT-NNN) |
 | `plataforma/` | Arquitectura, estado, decisiones, roadmap y `tareas/` (con capturas) de la nueva plataforma. Historial git traído de `D:\Documentos\Amsys` |
 | `migracion/` | Plan de la nueva plataforma, pendientes de migración, olas por cliente |

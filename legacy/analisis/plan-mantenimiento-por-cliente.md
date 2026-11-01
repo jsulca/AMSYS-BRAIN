@@ -3,7 +3,7 @@
 > **Unificado el 2026-10-31**: todas las ramas calculan como `main` (decisión del propietario: "el comportamiento de
 > main para todos"). Commits **locales, sin push**: main `8bc50b6` + `5d228c9`; agchavin `5b9825d`, akdrilling `2b4cef5`,
 > ares `2fb1ee1`, caja_arequipa `d17a18c`, energiaycombustion `ddee110`, eulen `8bb1462`, itc `cf5a77b`, oterra `70d395b`,
-> pyme `729aaa4`, rentanor `88a48c5`. Lo de abajo describe el estado **anterior** (para saber qué cambió en cada cliente).
+> pyme `729aaa4` (itc y rentanor: ramas borradas el 2026-10-31, commits en el bundle de `clientes/ex/`). Lo de abajo describe el estado **anterior** (para saber qué cambió en cada cliente).
 >
 > Mejoras sobre `main`, aplicadas a todos:
 > - La decisión por objeto vive en funciones puras (`AvanzarPorCalendario`, `AvanzarPorContador`, `SumarIntervalo`,

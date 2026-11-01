@@ -1,4 +1,8 @@
-# Cliente: itc
+# Cliente: itc (ex cliente)
+
+> **Ex cliente desde el 2026-10-31.** Ramas `itc` borradas (local y `origin`) a pedido del propietario.
+> Respaldo: `D:\Documentos\Alphamanufacturas\AMSYSespaldos-ramasentanor-itc-2026-10-31.bundle`
+> (`itc` local `cf5a77b`, `origin/itc` `5908370`). Restaurar: `git fetch <bundle> itc:itc`.
 
 > Esqueleto creado el 2026-10-31 a partir de `git log`, `legacy/planes/PLAN-MULTICLIENTE.md` y
 > `migracion/PENDIENTES-MIGRACION.md`. Completar el detalle al tocar la rama.
@@ -19,7 +23,7 @@
 
 Datos técnicos de equipo (ya portados a `main`), servicio de actualizar aviso.
 
-**Plan de mantenimiento**: igual que `main` desde el 2026-10-31 (commit `cf5a77b`, sin push). Antes: variante E (D + calendario desde la fecha de generación; fallo del factor en ubicaciones) — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
+**Plan de mantenimiento**: igual que `main` desde el 2026-10-31 (commit no publicado; está en el bundle). Antes: variante E (D + calendario desde la fecha de generación; fallo del factor en ubicaciones) — ver `legacy/analisis/plan-mantenimiento-por-cliente.md` (revisado 2026-10-31).
 
 ## Pendientes
 
@@ -30,4 +34,5 @@ Datos técnicos de equipo (ya portados a `main`), servicio de actualizar aviso.
 | Fecha | Qué |
 |---|---|
 | 2026-10-31 | Ficha creada (esqueleto) |
+| 2026-10-31 | Deja de ser cliente: ramas borradas, respaldo en bundle |
 | 2026-10-31 | Plan de mantenimiento unificado con main (`cf5a77b`, sin push) |

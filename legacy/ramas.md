@@ -6,7 +6,8 @@ Estado al 2026-10-31. Repo `D:\Documentos\Alphamanufacturas\AMSYS\AMSYS`, remoto
 
 - `main` es el producto base. Cada cliente es una **rama de larga vida** con su propia base de datos, sus
   migraciones EF y su `appsettings.json` (diagnóstico completo en `legacy/planes/PLAN-MULTICLIENTE.md` §1).
-- Ramas: agchavin, akdrilling, ares, caja_arequipa, energiaycombustion, eulen, itc, main, oterra, pyme, rentanor.
+- Ramas: agchavin, akdrilling, ares, caja_arequipa, energiaycombustion, eulen, main, oterra, pyme.
+  `itc` y `rentanor` se borraron el 2026-10-31 (ya no son clientes; respaldo en `clientes/ex/`).
   Una ficha por rama en `clientes/`.
 - Las mejoras de `main` **no llegan solas** a los clientes: hay que portarlas.
 
