@@ -109,3 +109,4 @@ Los primeros son cambios de una línea que se pueden entregar el mismo día.
 | Fecha | Qué |
 |---|---|
 | 2026-11-05 | Plan creado. Nada implementado. |
+| 2026-11-05 | P3 y P5 implementados en `oterra` (sin commit): `Equipo/Index.cshtml` con Activo = SI por defecto; `Material/Index.cshtml` recarga la página actual tras guardar y retrocede una si quedó vacía. Compila; falta probar en navegador |
