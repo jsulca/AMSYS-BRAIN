@@ -39,4 +39,5 @@ Hallazgos al escribirlo:
 | 2026-10-31 | Plan de mantenimiento unificado con main (`5b9825d`, publicado) |
 | 2026-10-31 | Porte de Seguridad de `main` (SG-01…25), commit `d527ecd` (publicado en origin), probado en navegador, migración `20261101015429_Seguridad_PortarDesdeMain` aplicada en localhost (no en servidor); rol de instalación `SUPER ADMIN`: `legacy/portes/PORTE-SEGURIDAD-MAIN-AGCHAVIN.md` |
 | 2026-11-05 | Manual de usuario estático en `wwwroot/manual/` + enlaces en cabecera y pie (sin commit) |
-| 2026-11-05 | Manual: capítulos nuevos Ubicaciones y equipos (árbol jerárquico) y Administración (metadatos); renumeración (sin commit) |
+| 2026-11-05 | Manual: capítulos nuevos Ubicaciones y equipos (árbol jerárquico) y Administración (metadatos); renumeración |
+| 2026-11-05 | Manual commiteado y publicado en `agchavin`: `4ea59bd` |
