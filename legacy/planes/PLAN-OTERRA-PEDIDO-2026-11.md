@@ -110,3 +110,4 @@ Los primeros son cambios de una línea que se pueden entregar el mismo día.
 |---|---|
 | 2026-11-05 | Plan creado. Nada implementado. |
 | 2026-11-05 | P3 y P5 implementados en `oterra` (sin commit): `Equipo/Index.cshtml` con Activo = SI por defecto; `Material/Index.cshtml` recarga la página actual tras guardar y retrocede una si quedó vacía. Compila; falta probar en navegador |
+| 2026-11-05 | Commits P3 `b170b26` y P5 `5a70a2d` (sin push). P4 implementado sin commit: Activo = SI por defecto, columna USO (`Listar?conUso=true`, una consulta por página con `MaterialRepositorio.ContarUsoAsync`) y modal `Material/_Relaciones` (acción `Relaciones`, valida empresa) con pestañas Equipos, Secciones y OT (últimas 100 por fecha de registro). Compila; falta probar en navegador. El modal `_Seleccionar` de materiales no se tocó |

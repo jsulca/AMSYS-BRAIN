@@ -35,3 +35,4 @@ Módulos exclusivos de oterra (D-MC-04). Su versión de MTBF/MTTR es la base a r
 | 2026-10-31 | Plan de mantenimiento unificado con main (`70d395b`, sin push) |
 | 2026-11-05 | Plan del pedido de 6 cambios (`legacy/planes/PLAN-OTERRA-PEDIDO-2026-11.md`), sin implementar |
 | 2026-11-05 | P3 (equipos activos por defecto) y P5 (materiales conservan página tras guardar), sin commit |
+| 2026-11-05 | Commits P3 `b170b26`, P5 `5a70a2d` (sin push); P4 (materiales activos + relación) implementado sin commit |
