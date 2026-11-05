@@ -6,7 +6,7 @@
 | Campo | Valor |
 |---|---|
 | Rama legacy | `oterra` |
-| Último commit (revisado 2026-10-31) | `c01cd75 2026-09-13` (`origin/oterra`) |
+| Último commit (revisado 2026-11-05) | `d07e32d 2026-11-05` (`origin/oterra`) |
 | Commits propios / atrasados respecto a `main` | 30 / 122 |
 | Divergencia | 🔴 Máxima (20 migraciones propias, 597 archivos, base de 2023) |
 | Ola de migración | 4 (última) |
@@ -25,7 +25,7 @@
 
 **Pedido del cliente (2026-11-05)**: 6 cambios (Excel de equipos con repuestos, persistencia de filtros en avisos, activos por defecto en equipos y materiales, relación del material, árbol que conserva su estado). Plan en `legacy/planes/PLAN-OTERRA-PEDIDO-2026-11.md`.
 
-Módulos exclusivos de oterra (D-MC-04). Su versión de MTBF/MTTR es la base a revisar (D-MC-06). Al 2026-11-05 la rama local `oterra` está en `e6e923c`, 7 commits por delante de `origin/oterra` (sin push).
+Módulos exclusivos de oterra (D-MC-04). Su versión de MTBF/MTTR es la base a revisar (D-MC-06). Al 2026-11-05 la rama `oterra` está en `d07e32d`, publicada en `origin`.
 
 ## Bitácora
 
@@ -37,3 +37,4 @@ Módulos exclusivos de oterra (D-MC-04). Su versión de MTBF/MTTR es la base a r
 | 2026-11-05 | P3 (equipos activos por defecto) y P5 (materiales conservan página tras guardar), sin commit |
 | 2026-11-05 | Commits P3 `b170b26`, P5 `5a70a2d` (sin push); P4 (materiales activos + relación) implementado sin commit |
 | 2026-11-05 | Pedido completo: P4 `9a87ed6`, P2 `7030a25`, P6 `934b9e2`, P1 `e6e923c` (sin push). Falta prueba completa y push |
+| 2026-11-05 | Push de `oterra` (`c01cd75..d07e32d`): plan de mantenimiento unificado + pedido de 6 cambios |
