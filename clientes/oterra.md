@@ -23,7 +23,9 @@
 
 ## Pendientes
 
-Módulos exclusivos de oterra (D-MC-04). Su versión de MTBF/MTTR es la base a revisar (D-MC-06). **La rama local `oterra` está atrasada** (`88854d6`, 2024-12-22) respecto a `origin/oterra`: hacer `git pull` antes de trabajar en ella.
+**Pedido del cliente (2026-11-05)**: 6 cambios (Excel de equipos con repuestos, persistencia de filtros en avisos, activos por defecto en equipos y materiales, relación del material, árbol que conserva su estado). Plan en `legacy/planes/PLAN-OTERRA-PEDIDO-2026-11.md`.
+
+Módulos exclusivos de oterra (D-MC-04). Su versión de MTBF/MTTR es la base a revisar (D-MC-06). Al 2026-11-05 la rama local `oterra` está en `70d395b`, 1 commit por delante de `origin/oterra` (sin push).
 
 ## Bitácora
 
@@ -31,3 +33,4 @@ Módulos exclusivos de oterra (D-MC-04). Su versión de MTBF/MTTR es la base a r
 |---|---|
 | 2026-10-31 | Ficha creada (esqueleto) |
 | 2026-10-31 | Plan de mantenimiento unificado con main (`70d395b`, sin push) |
+| 2026-11-05 | Plan del pedido de 6 cambios (`legacy/planes/PLAN-OTERRA-PEDIDO-2026-11.md`), sin implementar |
