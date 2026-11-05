@@ -4,6 +4,18 @@ Estado al 2026-10-31. **Commit `d527ecd`** en `agchavin` (publicado en origin), 
 sigue sin commit. El commit compila solo y su modelo EF cuadra con las migraciones. **Migración aplicada en localhost**
 (`amsys_v3_agchavin`); falta servidor/producción. **Probado en el navegador por el propietario el 2026-10-31.**
 
+### Servidor 10.2.1.2 preparado (2026-11-05)
+
+- Migración aplicada (junto con las de VistaLista y programación de OT) tras respaldo `pg_dump`. `elemento` estaba vacía.
+- Rol de instalación `SUPER ADMIN` ya existía (id 1). Perfiles como en localhost.
+- Límites **contratados**: 21 total; 6 administrador / 15 mantenimiento / 0 operador / 0 cliente (decisión del propietario).
+- Estados: TECNICO pierde anular OT (4) y rechazar aviso (4); ADMINISTRADOR conserva todos.
+- SG-13 página del rastro y SG-16 los 4 controles, concedidos solo a SUPER ADMIN.
+- Pantallas propias registradas: `ProgramacionEmpleado` (Index, Editar) y `NotificacionTarea` (Index, Reporte), con menús
+  bajo Órdenes de Trabajo para SUPER ADMIN, ADMINISTRADOR y TECNICO. Otros controladores sin página son auxiliares (AJAX)
+  o de reportes: revisar el log de "Autorización (sólo registro)" tras desplegar antes de poner `AutorizacionSoloRegistra=false`.
+- **Pendiente: desplegar el código** de `agchavin` en el servidor.
+
 ### Localhost preparado (2026-10-31)
 
 - Migración `20261101015429_Seguridad_PortarDesdeMain` aplicada (la tabla `elemento` estaba vacía: sin claves provisionales).

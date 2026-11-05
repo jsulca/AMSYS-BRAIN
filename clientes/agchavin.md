@@ -11,7 +11,7 @@
 | Divergencia | 🔴 Muy alta (10 migraciones propias) |
 | Ola de migración | 3 (con rentanor) |
 | Base de datos legacy | `amsys_v3_agchavin` |
-| Servidor / despliegue | Por documentar (sin claves) |
+| Servidor / despliegue | BD en `10.2.1.2` (PostgreSQL 13.7, `amsys_v3_agchavin`, servidor compartido con otros clientes). Despliegue de la web: por documentar (sin claves) |
 | Configuración en la plataforma | Pendiente (`D:\Documentos\Amsys\tools\clientes\`) |
 | Estado de migración | Pendiente |
 
@@ -43,3 +43,4 @@ Hallazgos al escribirlo:
 | 2026-11-05 | Manual commiteado y publicado en `agchavin`: `4ea59bd` |
 | 2026-11-05 | Revisión de migraciones en `10.2.1.2` (`amsys_v3_agchavin`, solo lectura con `dotnet ef migrations list`): 33/36 aplicadas, última `20250831143101_Actualizar_OrdenTrabajo_PMS`. **Pendientes**: `20261020022722_VistaLista_Crear_Almacen_AgregarActivo`, `20261030152417_OrdenTrabajo_AgregarProgramacion`, `20261101015429_Seguridad_PortarDesdeMain` |
 | 2026-11-05 | Script idempotente de las 3 pendientes generado en la raíz del legacy: `migracion-agchavin.sql` (sin versionar; solo esquema, sin datos). Tras aplicarlo faltan los datos de Seguridad: pasos 2–3 de `legacy/portes/PORTE-SEGURIDAD-MAIN-AGCHAVIN.md` |
+| 2026-11-05 | **10.2.1.2 actualizado** (`amsys_v3_agchavin`). Respaldo previo `pg_dump -Fc` en `D:\Documentos\Alphamanufacturas\AMSYSackupsmsys_v3_agchavin_10.2.1.2_antes-migraciones_20261105.dump`. Aplicadas las 3 migraciones (36/36). Datos de Seguridad: perfiles (SUPER ADMIN y ADMINISTRADOR → 0, TECNICO → 1); límites 21 total / 6 admin / 15 mant / 0 / 0; TECNICO sin anular OT ni rechazar aviso; página Rastro de seguridad + 4 controles SG-16 solo para SUPER ADMIN; páginas y menús (bajo Órdenes de Trabajo, ids 114–116) de Mis Órdenes de Trabajo, Monitoreo y Reporte de actividades para SUPER ADMIN, ADMINISTRADOR y TECNICO. **Falta desplegar el código** (`4ea59bd`): procedimiento no documentado |
