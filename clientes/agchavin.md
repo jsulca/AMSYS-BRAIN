@@ -41,3 +41,4 @@ Hallazgos al escribirlo:
 | 2026-11-05 | Manual de usuario estático en `wwwroot/manual/` + enlaces en cabecera y pie (sin commit) |
 | 2026-11-05 | Manual: capítulos nuevos Ubicaciones y equipos (árbol jerárquico) y Administración (metadatos); renumeración |
 | 2026-11-05 | Manual commiteado y publicado en `agchavin`: `4ea59bd` |
+| 2026-11-05 | Revisión de migraciones en `10.2.1.2` (`amsys_v3_agchavin`, solo lectura con `dotnet ef migrations list`): 33/36 aplicadas, última `20250831143101_Actualizar_OrdenTrabajo_PMS`. **Pendientes**: `20261020022722_VistaLista_Crear_Almacen_AgregarActivo`, `20261030152417_OrdenTrabajo_AgregarProgramacion`, `20261101015429_Seguridad_PortarDesdeMain` |
