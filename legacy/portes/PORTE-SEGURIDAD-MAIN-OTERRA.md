@@ -1,6 +1,8 @@
 # Porte del módulo de Seguridad de `main` a la rama `oterra`
 
-Plan del 2026-11-06. **Sin implementar.** Base: `oterra` en `d07e32d` (2026-11-05), `main` en `5d228c9` (local; `origin/main`
+Plan del 2026-11-06. **Implementado el 2026-11-06 en la rama `seguridad-desde-main` (desde `d07e32d`), sin commit.**
+Compila la solución completa y el modelo EF cuadra con la migración `20261106161710_Seguridad_PortarDesdeMain`.
+**Migración no aplicada** (el `appsettings.Development.json` apunta al servidor `10.2.1.2`). **No probado en el navegador.** Base: `oterra` en `d07e32d` (2026-11-05), `main` en `5d228c9` (local; `origin/main`
 en `be8869b`). Modelo: `legacy/portes/PORTE-SEGURIDAD-MAIN-AGCHAVIN.md` (commit `d527ecd`), que ya resolvió casi todo.
 
 **Condición del propietario:** se conserva el **área del usuario** (`Usuario.AreaId`), propia de oterra.
@@ -34,8 +36,8 @@ tiene algo propio y **una sola migración nueva generada en oterra**.
 
 | Id | Decisión | Recomendación |
 |---|---|---|
-| D1 | Front de las vistas de Seguridad | **B**: traer las vistas de main y añadir a `helper.js` / `site.css` de oterra **solo** las funciones y clases que usan (aditivo; no cambia las demás pantallas). `Rol/Index` y `SeguridadLog/Index` sin columnas configurables (tabla fija). La alternativa A (portar antes toda la UI de main, como en agchavin) es un trabajo aparte de ~200 archivos |
-| D2 | Nombre del rol de instalación (`AppSettings.RolInstalacion`) | Usar el rol que ya administra oterra en `amsys_v3_oterra` (consultar `select id, nombre from rol`), como se hizo con `SUPER ADMIN` en agchavin |
+| D1 | Front de las vistas de Seguridad (**decidido: B**, 2026-11-06) | **B**: traer las vistas de main y añadir a `helper.js` / `site.css` de oterra **solo** las funciones y clases que usan (aditivo; no cambia las demás pantallas). `Rol/Index` y `SeguridadLog/Index` sin columnas configurables (tabla fija). La alternativa A (portar antes toda la UI de main, como en agchavin) es un trabajo aparte de ~200 archivos |
+| D2 | Nombre del rol de instalación (`AppSettings.RolInstalacion`) (**decidido: `SUPER ADMINISTRADOR`, id 1**) | Usar el rol que ya administra oterra en `amsys_v3_oterra` (consultar `select id, nombre from rol`), como se hizo con `SUPER ADMIN` en agchavin |
 | D3 | `AutorizacionSoloRegistra` | `true` al desplegar; `false` solo tras revisar el log unos días |
 | D4 | Navegación `Usuario.NotificacionesMaterial` de main | **No** traerla (igual que agchavin): no es de seguridad y generaría una FK ajena en la migración |
 
@@ -149,6 +151,32 @@ Checklist de `PORTE-SEGURIDAD-MAIN-AGCHAVIN.md`, más:
       y menús (arrastrar).
 - [ ] App móvil: login con la clave en claro y llamadas posteriores con el token.
 
+## Qué se hizo (2026-11-06)
+
+| Parte | Cómo |
+|---|---|
+| Seguridad (entidades, configuración EF, repositorios, lógicas, servicios, `Areas/Seguridad`, `Commons/Session`, `Commons/Token/FiltroToken`, `RespuestaValidacion`, `Account`, utilitarios de clave/token, DTOs, `Perfil`, `Licencia`, `EstadoLicencia`, `_PieModalCatalogo`) | `git checkout main -- …` |
+| `Empresa.cs` | Se queda la de **oterra** (navegaciones a Area, Conformidad, ImpactoProceso, Parada) |
+| `Usuario.cs` / `Usuario.Config.cs` | main + `AreaId`/`Area` (A1, A2); sin `NotificacionesMaterial` (D4) |
+| `Usuario.Logica.cs` | La de agchavin (`d527ecd`, main sin `IEmailService`) + `_.AreaId` fuera de la edición de instalación (A3) |
+| Usuario: modelo, controlador, `_Nuevo`, `_Editar` | main + `AreaId`, `IAreaServicio`, `ViewBag.Areas` y selector (A5-A7). `_ViewImports` conserva `Administracion.Genericos` |
+| `UserInformation.cs` | main + `AreaId` (A8) |
+| `AMSYSContexto`, `BaseRepositorio` | `DbSet<SeguridadLog>`; `Queryable()` y `Detach()` |
+| `Program.cs`, `appsettings.json` | Como agchavin; `RolInstalacion = "SUPER ADMINISTRADOR"`, `AutorizacionSoloRegistra = true` |
+| `Home`/`Error` | `[SinAutorizacion]` |
+| `_Sidebar` | Oculta menús de instalación y ordena por `Orden` |
+| API móvil | `AutenticarAsync` con la clave en claro |
+| Logística | `[ExigeElemento]` en Anular (nota de entrada, salida, hoja de aceptación) y `puedeAnular` en sus `Index` |
+| `helper.js` | Añadido de main: `error.estructurados` (y `error.show` lo usa), `html`, `fecha`, `tabla`, `filtros.inicializar/chips`, `catalogo`, `limiteUsuarios`, `clave`. Lo de oterra (`filtros.guardar/restaurar/limpiar`, `pagination`) intacto |
+| `site.css` / `constantes.js` | Bloque al final con filtros, chips, `tabla-lista`, badges, `barra-acciones`, `tabla-apilable`, `fila-resaltada`; `TIPOPLAN` |
+| Migración | Solo lo previsto en F2 + `UPDATE elemento SET clave = 'elemento-' \|\| id`. No toca `usuario.areaid` (A10 comprobado) |
+
+## Siguiente
+
+1. Revisar el diff y commit en `seguridad-desde-main` (152 archivos).
+2. Respaldo y migración en una base de prueba (localhost) → F9 (datos) → F10 (pruebas en navegador).
+3. Merge a `oterra` y despliegue con `AutorizacionSoloRegistra=true`.
+
 ## Riesgos
 
 - **Contraseñas sin vuelta atrás**: un usuario que entra queda regrabado en PBKDF2; si se revierte el código, ya no
@@ -161,4 +189,5 @@ Checklist de `PORTE-SEGURIDAD-MAIN-AGCHAVIN.md`, más:
 
 | Fecha | Qué |
 |---|---|
-| 2026-11-06 | Plan escrito (sin implementar). Pendientes D1 y D2 |
+| 2026-11-06 | Plan escrito. Decisiones: D1 = B, D2 = `SUPER ADMINISTRADOR` (id 1) |
+| 2026-11-06 | Implementado en `seguridad-desde-main` sin commit; compila, migración generada sin aplicar |
