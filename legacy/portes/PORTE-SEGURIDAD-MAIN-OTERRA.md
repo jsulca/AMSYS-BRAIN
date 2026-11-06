@@ -173,7 +173,7 @@ Checklist de `PORTE-SEGURIDAD-MAIN-AGCHAVIN.md`, más:
 
 ## Siguiente
 
-1. Revisar el diff y commit en `seguridad-desde-main` (152 archivos).
+1. ~~Commit en `seguridad-desde-main`~~ hecho: `5ff36be` (154 archivos).
 2. Respaldo y migración en una base de prueba (localhost) → F9 (datos) → F10 (pruebas en navegador).
 3. Merge a `oterra` y despliegue con `AutorizacionSoloRegistra=true`.
 
@@ -191,3 +191,4 @@ Checklist de `PORTE-SEGURIDAD-MAIN-AGCHAVIN.md`, más:
 |---|---|
 | 2026-11-06 | Plan escrito. Decisiones: D1 = B, D2 = `SUPER ADMINISTRADOR` (id 1) |
 | 2026-11-06 | Implementado en `seguridad-desde-main` sin commit; compila, migración generada sin aplicar |
+| 2026-11-06 | Commit `5ff36be` en `seguridad-desde-main` (154 archivos); migración aún sin aplicar |
