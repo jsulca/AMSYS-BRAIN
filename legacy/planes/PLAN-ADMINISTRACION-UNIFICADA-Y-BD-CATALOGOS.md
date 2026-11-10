@@ -414,7 +414,7 @@ réplica (B1). Así el trabajo de la Parte B no se hace dos veces (`DU-07`).
 
 | `DU-03` | Precisión de `Material.Precio` | a) (20,2) de eulen en todas · b) Sin precisión fija | 🟡 Aplicado **b** en la Fase 0 (sin precisión fija, como ya estaba en `main`): es el superconjunto, admite los valores de eulen y no redondea los de nadie. En eulen la migración ampliará `numeric(20,2)` a `numeric` sin pérdida. **Confirmar** |
 
-| `DU-04` | Uso de Material | a) *En uso* de `main` (AD-10) · b) Panel `_Relaciones` de oterra · c) Ambos | **c** si oterra lo usa, migrando el panel al patrón de `main` |
+| `DU-04` | Uso de Material | a) *En uso* de `main` (AD-10) · b) Panel `_Relaciones` de oterra · c) Ambos | 🟢 **c** aplicado (2026-11-10): era el pedido P4 de oterra |
 
 | `DU-05` | Id global de empresa | a) Llave GUID + id global sólo en la central · b) Renumerar `empresa.id` por rangos | **a** |
 
@@ -441,6 +441,12 @@ réplica (B1). Así el trabajo de la Parte B no se hace dos veces (`DU-07`).
 | Fase 0 (UA-01…UA-06) | HECHO (local, sin push) | 2026-11-10 | main `634f165` | Ver §2.4 |
 | akdrilling | HECHO (local, sin push) | 2026-11-10 | `f70a89a` | cherry-pick de la Fase 0; módulo = main. `legacy/portes/PORTE-ADMINISTRACION-MAIN-AGCHAVIN-AKDRILLING.md` |
 | agchavin | HECHO (local, sin push) | 2026-11-10 | `3b801b9` | Módulo = main; migración `Administracion_DesdeMain`; 65/65 sobre copia de su BD. Mismo documento |
+| DU-04 | HECHO en main `4a89abe` y sincronizado | 2026-11-10 | | Relación del material (pedido P4 de oterra) llevada a main; lista de materiales en Activo = SI |
+| pyme | HECHO (local, sin push) | 2026-11-10 | `48f3715`, `821b629` | `legacy/portes/PORTE-ADMINISTRACION-MAIN-PYME-EULEN-CAJA-OTERRA.md` |
+| eulen | HECHO (local, sin push) | 2026-11-10 | `0b67420`, `7f3d139` | Convención `AreaPorEspacioDeNombres` (eulen usa `[Area]`). 79/80 en copia |
+| caja_arequipa | HECHO (local, sin push) | 2026-11-10 | `0c35995`, `0c80a69` | Fecha necesaria del aviso ajustada (empresa, plazo opcional). 63/64 en copia |
+| oterra | HECHO (local, sin push) | 2026-11-10 | `29611e2`, `48a44ab` | Relaciones sin colección inversa, namespaces de main. 75/80 en copia (403 por permisos) |
+| **Parte A** | **TERMINADA** | 2026-11-10 | | Módulo de Administración idéntico en las 7 ramas. Faltan recorridos en navegador y aplicar scripts en servidor |
 
 | DU-01 | HECHO (local, sin push) | 2026-11-10 | pyme `b708cef`, eulen `2000173`, caja_arequipa `198b230`, oterra `136a9dc` | pyme/eulen/caja: `helper.js`, `site.css` y `_PieModalCatalogo.cshtml` = los de `main` (las ramas eran un subconjunto: sólo se agregan clases y funciones; cambia el texto de paginación a «Mostrando x - y de n registros» y el botón de cerrar del error pasa a Bootstrap 5). oterra: sólo se agregó `helper.codigoDuplicado`, `.nav-link.con-error`, `.select2-selection.is-invalid` y el parcial (ya tenía `catalogo`, `filtros`, `tabla`, `html`; se conserva su tema y su persistencia de filtros). agchavin ya era idéntica. `constantes.js` y `columnas.js` no hacen falta (las constantes que usa Administración ya existen en todas). Falta probar en navegador cuando lleguen las vistas |
 

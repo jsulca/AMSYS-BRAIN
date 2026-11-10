@@ -32,3 +32,4 @@ Referencia para los portes a las ramas de cliente (ver `legacy/ramas.md`).
 | 2026-10-31 | Ficha creada (esqueleto) |
 | 2026-10-31 | Plan de mantenimiento unificado con main (`8bc50b6 + 5d228c9`, sin push) |
 | 2026-11-10 | Fase 0 del plan de Administración unificada (`634f165`, sin push): campos opcionales de Prioridad/Material/Adjunto, 7 catálogos opcionales, `BaseEntity`, migración `Administracion_Superconjunto`. Bug corregido: el precio del material se perdía al crearlo |
+| 2026-11-10 | DU-04: relación del material con equipos, secciones y OT, traída del pedido P4 de oterra (`4a89abe`, sin push) |

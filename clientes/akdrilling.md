@@ -32,3 +32,4 @@ No aparece en PLAN-MULTICLIENTE ni en PENDIENTES-MIGRACION (es posterior). Le fa
 | 2026-10-31 | Ficha creada (esqueleto) |
 | 2026-10-31 | Plan de mantenimiento unificado con main (`2b4cef5`, sin push) |
 | 2026-11-10 | Módulo de Administración = main (`f70a89a`, cherry-pick de la Fase 0, sin push); migración `Administracion_Superconjunto` por aplicar en servidor |
+| 2026-11-10 | Relación del material (DU-04) sincronizada (`ec3685d`, sin push) |

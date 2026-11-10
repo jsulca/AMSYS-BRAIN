@@ -31,3 +31,4 @@ Decisión abierta D-MC-03: confirmar si los estados renombrados equivalen a los 
 |---|---|
 | 2026-10-31 | Ficha creada (esqueleto) |
 | 2026-10-31 | Plan de mantenimiento unificado con main (`d17a18c`, sin push) |
+| 2026-11-10 | Módulo de Administración = main (sin push; migración `Administracion_DesdeMain`, script en `legacy/portes/sql/caja_arequipa-Administracion_DesdeMain.sql`). Detalle: `legacy/portes/PORTE-ADMINISTRACION-MAIN-PYME-EULEN-CAJA-OTERRA.md` |

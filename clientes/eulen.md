@@ -31,3 +31,4 @@
 |---|---|
 | 2026-10-31 | Ficha creada (esqueleto) |
 | 2026-10-31 | Plan de mantenimiento unificado con main (`8bb1462`, sin push) |
+| 2026-11-10 | Módulo de Administración = main (sin push; migración `Administracion_DesdeMain`, script en `legacy/portes/sql/eulen-Administracion_DesdeMain.sql`). Detalle: `legacy/portes/PORTE-ADMINISTRACION-MAIN-PYME-EULEN-CAJA-OTERRA.md` |
