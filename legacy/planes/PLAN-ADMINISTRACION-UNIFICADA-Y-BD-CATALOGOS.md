@@ -62,7 +62,7 @@ MetodoDeteccion, `Material.Precio`.
 
 | Paso | Qué | Detalle |
 |---|---|---|
-| **UA-01** | Campos extra opcionales | `Prioridad.HorasAtencion decimal?`, `Prioridad.DespuesDelDia bool?` (caja) · `Material.Marca string?` y `Precio` con `HasPrecision(20,2)` (eulen; `DU-03`) · `Adjunto.Token string?` (eulen; se genera con GUID al crear, columna nula) |
+| **UA-01** | Campos extra opcionales | `Material.Precio decimal?` **ya es opcional en `main`** (sólo falta la columna en pyme y oterra) · `Prioridad.HorasAtencion decimal?`, `Prioridad.DespuesDelDia bool?` (caja) · `Material.Marca string?` y `Precio` con `HasPrecision(20,2)` (eulen; `DU-03`) · `Adjunto.Token string?` (eulen; se genera con GUID al crear, columna nula) |
 | **UA-02** | Catálogos de eulen/caja | `Cliente` (Nombre, Correos), `CategoriaAviso`, `TipoSolicitudAviso` (Codigo, Descripcion) — tomar la versión de `eulen` (idéntica a caja) y llevarla al patrón de `main`: `BuscarPorIdAsync(id, empresaId)`, `ActualizarAsync → bool`, `helper.catalogo`, *En uso*, código duplicado |
 | **UA-03** | Catálogo `Feriado` (caja) | Igual que UA-02. Mantener `BaseEntity` sólo si `main` ya la tiene; si no, campos explícitos |
 | **UA-04** | Catálogos de oterra | `Area`, `Conformidad`, `ImpactoProceso` al patrón de `main`. `Area.Codigo` pasa a `string?` en `main` (en oterra es obligatorio: la validación de obligatoriedad se hace en el formulario si `DU-02` lo marca) |
@@ -171,7 +171,7 @@ réplica (B1). Así el trabajo de la Parte B no se hace dos veces (`DU-07`).
 
 | Id | Pregunta | Opciones | Recomendación |
 |---|---|---|---|
-| `DU-01` | Ramas sin UI de `main` | a) Portar antes toda la UI (como agchavin) · b) Sólo `helper.js` + parciales que usa Administración | **b** para avanzar; **a** después |
+| `DU-01` | Ramas sin UI de `main` | a) Portar antes toda la UI (como agchavin) · b) Sólo `helper.js` + parciales que usa Administración | 🟢 **b** (propietario, 2026-11-10) — HECHO |
 | `DU-02` | Cómo se ocultan los catálogos extra | a) Página de Seguridad sólo sembrada para el cliente · b) Flag por empresa (`EmpresaModulo`, `PLAN-MULTICLIENTE` §3.1) | **a** ahora (no requiere código nuevo) |
 | `DU-03` | Precisión de `Material.Precio` | a) (20,2) de eulen en todas · b) Sin precisión fija | **a** |
 | `DU-04` | Uso de Material | a) *En uso* de `main` (AD-10) · b) Panel `_Relaciones` de oterra · c) Ambos | **c** si oterra lo usa, migrando el panel al patrón de `main` |
@@ -186,3 +186,4 @@ réplica (B1). Así el trabajo de la Parte B no se hace dos veces (`DU-07`).
 | Paso | Estado | Fecha | Commit | Nota |
 |---|---|---|---|---|
 | — | PROPUESTA | 2026-11-10 | | Plan redactado tras comparar el módulo en las 7 ramas |
+| DU-01 | HECHO (local, sin push) | 2026-11-10 | pyme `b708cef`, eulen `2000173`, caja_arequipa `198b230`, oterra `136a9dc` | pyme/eulen/caja: `helper.js`, `site.css` y `_PieModalCatalogo.cshtml` = los de `main` (las ramas eran un subconjunto: sólo se agregan clases y funciones; cambia el texto de paginación a «Mostrando x - y de n registros» y el botón de cerrar del error pasa a Bootstrap 5). oterra: sólo se agregó `helper.codigoDuplicado`, `.nav-link.con-error`, `.select2-selection.is-invalid` y el parcial (ya tenía `catalogo`, `filtros`, `tabla`, `html`; se conserva su tema y su persistencia de filtros). agchavin ya era idéntica. `constantes.js` y `columnas.js` no hacen falta (las constantes que usa Administración ya existen en todas). Falta probar en navegador cuando lleguen las vistas |
