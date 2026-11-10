@@ -40,3 +40,4 @@ Módulos exclusivos de oterra (D-MC-04). Su versión de MTBF/MTTR es la base a r
 | 2026-11-05 | Push de `oterra` (`c01cd75..d07e32d`): plan de mantenimiento unificado + pedido de 6 cambios |
 | 2026-11-06 | Plan del porte de Seguridad de `main` conservando el área del usuario: `legacy/portes/PORTE-SEGURIDAD-MAIN-OTERRA.md` (sin implementar) |
 | 2026-11-06 | Porte de Seguridad implementado en la rama `seguridad-desde-main` (sin commit): compila, migración `20261106161710_Seguridad_PortarDesdeMain` sin aplicar, `AreaId` conservado |
+| 2026-11-08 | Porte probado en copia local de `amsys_v3_oterra` (contenedor Docker `amsys-oterra-test`, puerto 5433). Respaldo de 10.2.1.2 en `D:\Documentos\Alphamanufacturas\AMSYS\backups\amsys_v3_oterra_10.2.1.2_antes-seguridad_20261108.dump`. Detalle en `legacy/portes/PORTE-SEGURIDAD-MAIN-OTERRA.md` |

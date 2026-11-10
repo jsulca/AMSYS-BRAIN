@@ -192,3 +192,44 @@ Checklist de `PORTE-SEGURIDAD-MAIN-AGCHAVIN.md`, más:
 | 2026-11-06 | Plan escrito. Decisiones: D1 = B, D2 = `SUPER ADMINISTRADOR` (id 1) |
 | 2026-11-06 | Implementado en `seguridad-desde-main` sin commit; compila, migración generada sin aplicar |
 | 2026-11-06 | Commit `5ff36be` en `seguridad-desde-main` (154 archivos); migración aún sin aplicar |
+| 2026-11-08 | Prueba en copia local (ver «Prueba del 2026-11-08») |
+| 2026-11-08 | **Migración aplicada en 10.2.1.2** (`amsys_v3_oterra`) por el propietario; respaldo previo `backups\amsys_v3_oterra_10.2.1.2_antes-Seguridad_PortarDesdeMain_20261108_1233.dump`. Verificado: 47 usuarios, 32 con área. El propietario lo probó todo OK. El usuario 1 (administrador) ya está en PBKDF2. **Pendiente en esa base:** perfiles de los 6 roles (NULL) y límites por perfil (0 en las 2 empresas) antes de desplegar el código |
+| 2026-11-08 | Commit `d3adba0` (corrección del área en `FiltroAutorizacion` y `CatalogoRutas`). Fast-forward de `oterra` a `d3adba0` y push; rama `seguridad-desde-main` borrada (nunca estuvo en origin). **Falta llevar `d3adba0` a `main` y `agchavin`** |
+
+## Prueba del 2026-11-08
+
+**Entorno.** No hay PostgreSQL local: contenedor Docker `amsys-oterra-test` (borrado el 2026-11-08 tras la prueba) (`postgres:13`, puerto **5433**, misma clave que
+localhost) con la copia de `amsys_v3_oterra` de 10.2.1.2 (PG 13.7, 21 MB). Respaldo `pg_dump -Fc` en
+`D:\Documentos\Alphamanufacturas\AMSYS\backups\amsys_v3_oterra_10.2.1.2_antes-seguridad_20261108.dump`. La app se arrancó con
+`ConnectionStrings__AMSYS_PG` apuntando al contenedor (sin tocar `appsettings`). **10.2.1.2 no se tocó.**
+
+**Migración.** Script generado con `dotnet ef migrations script` y aplicado al contenedor: solo lo de F2, no toca
+`usuario.areaid` (A10 ✓). 32 de 47 usuarios conservan su área.
+
+**F9 (PROVISIONAL, solo en la copia).** Perfiles: roles 1-4 (SUPER ADMINISTRADOR, ADMINISTRADOR ALPHA, ADMINISTRADOR
+CLIENTE, GERENTE/JEFE) → 0; GESTION MANTTO. → 1; GENERADOR AVISOS → 2. Límites = consumo actual + margen (OTERRA 9/9/33/0,
+TEST-OTERRA 3/2/2/0). Página del rastro y los 4 controles SG-16 concedidos al rol 1. SG-15 sin tocar. Claves de prueba
+fijadas en usuarios 1, 4 y 47 de la copia. **Para producción hay que decidir perfiles y límites contratados.**
+
+**Resultados (por HTTP con curl; la extensión de Chrome no estaba conectada).**
+- [x] Login con clave antigua → regrabada en `pbkdf2$sha256$210000` (web y API móvil).
+- [x] 5 fallos → bloqueo 15 min con mensaje; rastro registra accesos fallidos y correctos.
+- [x] Alta de usuario con área → `areaid` guardado; editar cambiando área → guardado y preseleccionado; `EditarAdmin` no la borra.
+- [x] Usuario con área → `Aviso/Nuevo` preselecciona su área.
+- [x] Todas las pantallas de Seguridad y Logística responden 200 sin excepciones; `puedeAnular` en Logística.
+- [x] Con `AutorizacionSoloRegistra=false`: admin entra en todo; rol 5 recibe 403 en Seguridad, Logística y en el POST de Anular.
+- [x] API móvil: login con clave en claro devuelve JWT; clave mala → mensaje de error.
+- [ ] Prueba visual (modales, chips, árbol, arrastrar menús) — pendiente en navegador.
+
+**Fallo encontrado y corregido (viene de `main`, sin commit en la rama):** los controladores de `Areas` no llevan
+`[Area]`, así que `FiltroAutorizacion` construía la ruta con el área vacía (`//usuario/index`) y nunca casaba con el
+catálogo: con `AutorizacionSoloRegistra=false` se habría negado Seguridad → Usuarios incluso al SUPER ADMINISTRADOR (las
+acciones con `[FiltroAccion]` no pasan por ese filtro y no se veían afectadas). Corregido: el área se toma de
+`RouteData`. Lo mismo en `CatalogoRutas` (área desde el namespace `Areas.<Area>.Controllers`), que si no marcaba todas las
+páginas como inexistentes. **Hay que llevar la corrección a `main` y a `agchavin`.**
+
+**Riesgos anotados.**
+- `ControlIntentos` cuenta también **por IP** con el mismo máximo (5): 5 fallos de cualquiera desde la misma IP (planta
+  detrás de NAT, o proxy inverso si `RemoteIpAddress` es el del proxy) bloquean a **todos** 15 minutos. Visto en la prueba.
+- 8 usuarios tienen área **inactiva** (8, 9, 10). El selector solo lista activas: al editarlos y guardar, el área pasa a
+  NINGUNO sin aviso. Ya ocurría en `oterra` antes del porte.
