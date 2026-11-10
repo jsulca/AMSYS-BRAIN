@@ -450,3 +450,30 @@ réplica (B1). Así el trabajo de la Parte B no se hace dos veces (`DU-07`).
 
 | DU-01 | HECHO (local, sin push) | 2026-11-10 | pyme `b708cef`, eulen `2000173`, caja_arequipa `198b230`, oterra `136a9dc` | pyme/eulen/caja: `helper.js`, `site.css` y `_PieModalCatalogo.cshtml` = los de `main` (las ramas eran un subconjunto: sólo se agregan clases y funciones; cambia el texto de paginación a «Mostrando x - y de n registros» y el botón de cerrar del error pasa a Bootstrap 5). oterra: sólo se agregó `helper.codigoDuplicado`, `.nav-link.con-error`, `.select2-selection.is-invalid` y el parcial (ya tenía `catalogo`, `filtros`, `tabla`, `html`; se conserva su tema y su persistencia de filtros). agchavin ya era idéntica. `constantes.js` y `columnas.js` no hacen falta (las constantes que usa Administración ya existen en todas). Falta probar en navegador cuando lleguen las vistas |
 
+
+---
+
+## 6. Cómo retomar (punto de guardado 2026-11-10)
+
+**Estado:** Parte A terminada. Todo en commits locales del repo legacy, **sin push** (worktrees ya eliminados; sólo queda el checkout principal en `agchavin`).
+
+| Rama | Último commit | Commits sin push |
+|---|---|---|
+| main | `4a89abe` | 4 |
+| agchavin | `018b7d3` | 2 |
+| akdrilling | `ec3685d` | 3 |
+| pyme | `821b629` | 4 |
+| eulen | `7f3d139` | 4 |
+| caja_arequipa | `0c80a69` | 4 |
+| oterra | `48a44ab` | 3 |
+
+Comprobación rápida al volver: `git diff main <rama> -- AMSYS.Configuraciones/Administracion AMSYS.Entidades/Administracion AMSYS.Logicas/Administracion AMSYS.Repositorios/Administracion AMSYS.Servicios/Administracion AMSYS.WebAdmin/Areas/Administracion` debe salir vacío.
+
+**Siguientes pasos (en este orden, cada uno con confirmación del propietario):**
+1. Recorrido en navegador por rama (adjuntos en aviso/OT/equipo/sección, catálogos propios, relación de Material, paginación nueva de `helper.js`).
+2. Push de las 7 ramas.
+3. Aplicar en servidor los scripts de `legacy/portes/sql/` (respaldo `pg_dump -Fc` antes) y desplegar.
+4. Decisiones abiertas: confirmar DU-03 (precio sin precisión fija); DU-05…DU-07 (Parte B); activar o no `EliminarTemporalesService` en agchavin; borrar o no `origin/ares` y `origin/energiaycombustion`.
+5. Limpieza local: BD de prueba `amsys_v3_{demo,agchavin,eulen,caja_arequipa,oterra}_prueba_admin` (borrables).
+
+Herramientas de prueba: `legacy/portes/herramientas/`.
