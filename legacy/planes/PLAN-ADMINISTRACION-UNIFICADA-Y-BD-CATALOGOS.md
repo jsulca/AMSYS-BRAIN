@@ -72,6 +72,38 @@ MetodoDeteccion, `Material.Precio`.
 Prueba: compila la solución, los catálogos de `main` siguen funcionando, los nuevos se ven sólo al dar
 permiso a la página.
 
+### 2.4 Fase 0 aplicada (2026-11-10, `main` `634f165`)
+
+- **UA-01**: `Prioridad.HorasAtencion decimal?` y `DespuesDelDia bool?` en entidad, modelo, lógica y formulario
+  (con texto que dice que son opcionales). `Material.Marca string?` en formulario, filtro y lista (como línea bajo
+  la descripción, sin columna vacía). **Bug corregido**: `MaterialModel.Nuevo` no tenía `Precio`, así que el precio
+  escrito al crear un material se perdía. `Adjunto.Token string?` se genera (GUID) al crear o mover un adjunto;
+  `Adjunto/Buscar/{id}` acepta el id **o** el token (los enlaces de eulen usan el token). `Material.Precio` sin
+  cambios (DU-03).
+- **UA-02…UA-04**: `Cliente`, `CategoriaAviso`, `TipoSolicitudAviso`, `Feriado`, `Area`, `Conformidad`,
+  `ImpactoProceso` con el patrón de `main` (entidad en `AMSYS.Entidades.Administracion`, filtro, config estática,
+  repositorio, servicio con `BuscarPorIdAsync(id, empresaId)` y `ActualizarAsync → bool`, controlador con
+  `RespuestaValidacion`, `helper.catalogo`, aviso de código repetido donde hay `Codigo`). Sin columna *En uso*:
+  en `main` nada los referencia. `Feriado` hereda `BaseEntity` (nuevo en `main`, idéntico al de eulen/caja) y
+  conserva `AgregarHorasHabiles` con un parámetro opcional `empresaId` (en caja contaba los feriados de todas
+  las empresas) y filtrando eliminados. Sin acción de eliminar, igual que en caja.
+- **UA-05**: `GuardarAsync(List<Material>)` de agchavin **no se trajo**: sólo lo usa una línea comentada de
+  `AddDataApp`. DU-04 (panel de relaciones de Material de oterra) sigue pendiente.
+- **UA-06**: migración `20261110145523_Administracion_Superconjunto` — 4 columnas nulas
+  (`prioridad.horasatencion`, `prioridad.despuesdeldia`, `material.marca`, `adjunto.token`) y 7 tablas con
+  índice por `empresaid`. No siembra páginas.
+- **Activación por cliente (DU-02)**: `legacy/portes/sql/activar-catalogos-opcionales.sql` registra las páginas
+  Index/Nuevo/Editar, la opción de menú y los permisos por rol; es idempotente.
+
+**Pruebas** (2026-11-10): copia local `amsys_v3_demo_prueba_admin` (contenedor `bdpostgresql`, creada desde
+`amsys_v3_demo`; la original no se tocó). Todas las migraciones de `main` aplicadas sin error; script de
+activación ejecutado dos veces sin duplicar; clave de prueba puesta al usuario 1 **sólo en la copia**. 78
+comprobaciones HTTP: alta, validación (400 con errores), lista, filtros, edición, id inexistente rechazado,
+código repetido, Feriado (año calculado al crear y editar), Prioridad con y sin plazo, Material con precio y
+marca en el alta. Todas correctas salvo artefactos de la consola (la ñ). Las pruebas encontraron que la API
+serializa fechas como `dd/MM/yyyy HH:mm`: corregida la lista de Feriados. Sintaxis JS de las 27 pantallas y
+modales tocados verificada con Node. **Falta** un recorrido en navegador.
+
 ### 2.3 Rama por rama (en orden de menor a mayor riesgo)
 
 Pasos comunes a cada rama (`PORTE-ADMINISTRACION-MAIN-<RAMA>.md` con el formato de `ramas.md`):
@@ -172,8 +204,8 @@ réplica (B1). Así el trabajo de la Parte B no se hace dos veces (`DU-07`).
 | Id | Pregunta | Opciones | Recomendación |
 |---|---|---|---|
 | `DU-01` | Ramas sin UI de `main` | a) Portar antes toda la UI (como agchavin) · b) Sólo `helper.js` + parciales que usa Administración | 🟢 **b** (propietario, 2026-11-10) — HECHO |
-| `DU-02` | Cómo se ocultan los catálogos extra | a) Página de Seguridad sólo sembrada para el cliente · b) Flag por empresa (`EmpresaModulo`, `PLAN-MULTICLIENTE` §3.1) | **a** ahora (no requiere código nuevo) |
-| `DU-03` | Precisión de `Material.Precio` | a) (20,2) de eulen en todas · b) Sin precisión fija | **a** |
+| `DU-02` | Cómo se ocultan los catálogos extra | a) Página de Seguridad sólo sembrada para el cliente · b) Flag por empresa (`EmpresaModulo`, `PLAN-MULTICLIENTE` §3.1) | 🟢 **a** (propietario, 2026-11-10). Script: `legacy/portes/sql/activar-catalogos-opcionales.sql` |
+| `DU-03` | Precisión de `Material.Precio` | a) (20,2) de eulen en todas · b) Sin precisión fija | 🟡 Aplicado **b** en la Fase 0 (sin precisión fija, como ya estaba en `main`): es el superconjunto, admite los valores de eulen y no redondea los de nadie. En eulen la migración ampliará `numeric(20,2)` a `numeric` sin pérdida. **Confirmar** |
 | `DU-04` | Uso de Material | a) *En uso* de `main` (AD-10) · b) Panel `_Relaciones` de oterra · c) Ambos | **c** si oterra lo usa, migrando el panel al patrón de `main` |
 | `DU-05` | Id global de empresa | a) Llave GUID + id global sólo en la central · b) Renumerar `empresa.id` por rangos | **a** |
 | `DU-06` | Tablas de la primera ola | Lista de §3.3 | Excluir Adjunto, Empleado y Material |
@@ -186,4 +218,5 @@ réplica (B1). Así el trabajo de la Parte B no se hace dos veces (`DU-07`).
 | Paso | Estado | Fecha | Commit | Nota |
 |---|---|---|---|---|
 | — | PROPUESTA | 2026-11-10 | | Plan redactado tras comparar el módulo en las 7 ramas |
+| Fase 0 (UA-01…UA-06) | HECHO (local, sin push) | 2026-11-10 | main `634f165` | Ver §2.4 |
 | DU-01 | HECHO (local, sin push) | 2026-11-10 | pyme `b708cef`, eulen `2000173`, caja_arequipa `198b230`, oterra `136a9dc` | pyme/eulen/caja: `helper.js`, `site.css` y `_PieModalCatalogo.cshtml` = los de `main` (las ramas eran un subconjunto: sólo se agregan clases y funciones; cambia el texto de paginación a «Mostrando x - y de n registros» y el botón de cerrar del error pasa a Bootstrap 5). oterra: sólo se agregó `helper.codigoDuplicado`, `.nav-link.con-error`, `.select2-selection.is-invalid` y el parcial (ya tenía `catalogo`, `filtros`, `tabla`, `html`; se conserva su tema y su persistencia de filtros). agchavin ya era idéntica. `constantes.js` y `columnas.js` no hacen falta (las constantes que usa Administración ya existen en todas). Falta probar en navegador cuando lleguen las vistas |
