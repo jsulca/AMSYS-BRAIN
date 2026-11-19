@@ -32,3 +32,4 @@
 | 2026-10-31 | Ficha creada (esqueleto) |
 | 2026-10-31 | Plan de mantenimiento unificado con main (`8bb1462`, sin push) |
 | 2026-11-10 | Módulo de Administración = main (sin push; migración `Administracion_DesdeMain`, script en `legacy/portes/sql/eulen-Administracion_DesdeMain.sql`). Detalle: `legacy/portes/PORTE-ADMINISTRACION-MAIN-PYME-EULEN-CAJA-OTERRA.md` |
+| 2026-11-16 | Vista previa del comportamiento del plan desde main `0d9fb5a` → `e0e05a5` (sin push): nuevo partial `_Comportamiento.cshtml`; Ver y Asignar dejan la tabla inline (que pintaba todas las posiciones) y usan el partial. Sin la vista previa en vivo de Nuevo/Editar (acción `Comportamiento` de main no portada). Compila; sin prueba en navegador |
