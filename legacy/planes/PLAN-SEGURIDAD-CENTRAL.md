@@ -117,7 +117,7 @@ BD (por confirmar si es 10.2.1.2 u otro).
 | `amsys_v3_demo` | | | |
 | `amsys_v3_akdrilling` | | | |
 | `amsys_v3_agchavin` | | | |
-| `amsys_v3_caja_arequipa` | 6 – EULEN CAJA AREQUIPA (**propuesta**, falta confirmar) | 1, 3, 4, 7, 8; 5 tras mover sus 2 usuarios a la 6 (`sc-00/amsys_v3_caja_arequipa.md`) | 2026-11-19 |
+| `amsys_v3_caja_arequipa` | 6 – EULEN CAJA AREQUIPA | 1, 3, 4, 5, 7, 8 — **limpiadas** (incluidos los 2 usuarios de soporte de la 5; su autoría en la 6 pasó al usuario 1) | 2026-11-19 |
 | `amsys_v3_eulen` | | | |
 | `amsys_v3_oterra` | | | |
 | `amsys_v3_pyme` | | | |
@@ -128,3 +128,4 @@ BD (por confirmar si es 10.2.1.2 u otro).
 |---|---|
 | 2026-11-19 | Análisis del módulo, mapa de cadenas de conexión, plan y SQL de diagnóstico S-0 |
 | 2026-11-19 | S-0 ejecutado en `amsys_v3_caja_arequipa` (sólo lectura): 7 empresas, sólo la 6 es real; usuarios de la 5 (soporte) figuran en 27 OT de la 6 → no borrar en cascada. Resultado en `legacy/analisis/sc-00/amsys_v3_caja_arequipa.md` |
+| 2026-11-19 | **S-2 aplicado en `amsys_v3_caja_arequipa` (10.2.1.2)** con `legacy/portes/sql/caja_arequipa-SC02-limpieza-empresas.sql` (ensayo con ROLLBACK y luego COMMIT). Respaldo previo `D:\Documentos\Alphamanufacturas\AMSYSackupsmsys_v3_caja_arequipa_10.2.1.2_antes-limpieza-SC02_20261119.dump`. Borradas 6 empresas y 33 usuarios, 420 filas en total; reasignadas al usuario 1: 27 OT, 30 `ordentrabajolog`, 54 `avisolog`. Verificado: empresa 6 con sus 28 411 filas, 0 huérfanas en todas las FK. Roles sin usuarios (3, 4, 5, 6, 8, 9) **no** se borraron |

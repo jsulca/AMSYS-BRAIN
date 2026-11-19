@@ -1,6 +1,6 @@
 # Estado de los frentes
 
-Última actualización: 2026-11-19 (plan de Seguridad central)
+Última actualización: 2026-11-19 (limpieza de empresas en caja_arequipa)
 
 | Frente | Estado | Detalle |
 |---|---|---|
@@ -12,5 +12,5 @@
 | Migración de clientes | Ningún cliente migrado. Ola 1: ares, energiaycombustion, pyme. **itc y rentanor ya no son clientes** (ramas borradas 2026-10-31) | `migracion/clientes-olas.md`, `migracion/PENDIENTES-MIGRACION.md` |
 | Plan de mantenimiento | **Unificado con main en las 9 ramas** (2026-10-31; itc y rentanor borradas), con mejoras; commits locales **sin push** | `legacy/analisis/plan-mantenimiento-por-cliente.md` |
 | Administración unificada / BD de catálogos | **Parte A terminada (2026-11-10, sin push)**: módulo de Administración idéntico a `main` en las 7 ramas (main `4a89abe`; agchavin `018b7d3`, akdrilling `ec3685d`, pyme `821b629`, eulen `7f3d139`, caja_arequipa `0c80a69`, oterra `48a44ab`). Scripts SQL por rama en `legacy/portes/sql/`. Pendientes: recorridos en navegador, aplicar scripts en servidores, confirmar DU-03, DU-05…DU-07 (Parte B) | `legacy/planes/PLAN-ADMINISTRACION-UNIFICADA-Y-BD-CATALOGOS.md`, `legacy/portes/PORTE-ADMINISTRACION-MAIN-*.md` |
-| Seguridad central (limpiar → ordenar → centralizar) | **Propuesta (2026-11-19)**. S-0 listo: SQL de diagnóstico por BD; falta ejecutarlo y que el propietario marque qué empresa sirve en cada BD. Decisiones DS-C-01…05 abiertas | `legacy/planes/PLAN-SEGURIDAD-CENTRAL.md`, `legacy/analisis/sc-00-diagnostico-empresas.sql` |
+| Seguridad central (limpiar → ordenar → centralizar) | **Propuesta (2026-11-19)**. **caja_arequipa limpiada en 10.2.1.2 (S-2, 2026-11-19)**: sólo queda la empresa 6. Faltan S-0/S-2 en las otras 6 BD. Decisiones DS-C-01…05 abiertas | `legacy/planes/PLAN-SEGURIDAD-CENTRAL.md`, `legacy/analisis/sc-00-diagnostico-empresas.sql` |
 | AMSYS-BRAIN | Creado el 2026-10-31; remoto privado `jsulca/AMSYS-BRAIN` (GitHub). Plan completo (2026-10-31) | `meta/PLAN-AMSYS-BRAIN.md` |

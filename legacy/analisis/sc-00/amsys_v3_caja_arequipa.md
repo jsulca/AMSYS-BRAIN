@@ -58,3 +58,11 @@ la empresa 5, mover sus usuarios a la empresa 6 (o a un usuario de soporte de la
 
 Roles 3, 5, 6, 8, 9 (y 4 si nadie de la 6 lo usa) se pueden borrar después. Los 3 correos repetidos se
 revisan aparte (¿cuentas duplicadas de una misma agencia?).
+
+## Resultado de la limpieza (2026-11-19)
+
+Aplicada (`legacy/portes/sql/caja_arequipa-SC02-limpieza-empresas.sql`). Las FK hacia `usuario` resultaron ser
+`NO ACTION`/`RESTRICT`, no `CASCADE`: borrar al usuario habría fallado, no borrado OT. Queda 1 empresa, 154 usuarios,
+8 456 OT y 9 130 avisos (los de la 6, sin cambios). Las 27 OT del usuario de soporte quedan a nombre del usuario 1.
+Pendiente: roles sin usuarios (3, 4, 5, 6, 8, 9), los 3 correos repetidos, y archivos físicos de los 149 adjuntos
+borrados (si estaban en disco, siguen allí).
