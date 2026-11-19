@@ -117,7 +117,7 @@ BD (por confirmar si es 10.2.1.2 u otro).
 | `amsys_v3_demo` | | | |
 | `amsys_v3_akdrilling` | | | |
 | `amsys_v3_agchavin` | | | |
-| `amsys_v3_caja_arequipa` | | | |
+| `amsys_v3_caja_arequipa` | 6 – EULEN CAJA AREQUIPA (**propuesta**, falta confirmar) | 1, 3, 4, 7, 8; 5 tras mover sus 2 usuarios a la 6 (`sc-00/amsys_v3_caja_arequipa.md`) | 2026-11-19 |
 | `amsys_v3_eulen` | | | |
 | `amsys_v3_oterra` | | | |
 | `amsys_v3_pyme` | | | |
@@ -126,4 +126,5 @@ BD (por confirmar si es 10.2.1.2 u otro).
 
 | Fecha | Qué |
 |---|---|
-| 2026-11-19 | Análisis del módulo, mapa de cadenas de conexión, plan y SQL de diagnóstico S-0. Sin ejecutar en el servidor (el agente no tuvo permiso para conectarse a 10.2.1.2) |
+| 2026-11-19 | Análisis del módulo, mapa de cadenas de conexión, plan y SQL de diagnóstico S-0 |
+| 2026-11-19 | S-0 ejecutado en `amsys_v3_caja_arequipa` (sólo lectura): 7 empresas, sólo la 6 es real; usuarios de la 5 (soporte) figuran en 27 OT de la 6 → no borrar en cascada. Resultado en `legacy/analisis/sc-00/amsys_v3_caja_arequipa.md` |
