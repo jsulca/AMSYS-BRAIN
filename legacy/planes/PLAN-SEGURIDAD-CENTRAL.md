@@ -118,7 +118,7 @@ BD (por confirmar si es 10.2.1.2 u otro).
 | `amsys_v3_akdrilling` | | | |
 | `amsys_v3_agchavin` | 1 – AyG Chavin (única) | Ninguna. Sólo revisar el correo repetido de los usuarios 8/9 (`sc-00/amsys_v3_agchavin.md`) | 2026-11-19 |
 | `amsys_v3_caja_arequipa` | 6 – EULEN CAJA AREQUIPA | 1, 3, 4, 5, 7, 8 — **limpiadas** (incluidos los 2 usuarios de soporte de la 5; su autoría en la 6 pasó al usuario 1) | 2026-11-19 |
-| `amsys_v3_eulen` | 1 RIPLEY, 7 UDEP, 8 HUAWEI, 9 PUCP, 10 SURA (**propuesta**) | 6 CAJA AREQUIPA (copia ya presente en su BD), 5 ALPHAMANUFACTURAS; decidir 3 INTCOMEX y 4 DHL (`sc-00/amsys_v3_eulen.md`) | 2026-11-19 |
+| `amsys_v3_eulen` | 1 RIPLEY, 3 INTCOMEX, 4 DHL, 7 UDEP, 8 HUAWEI, 9 PUCP, 10 SURA | 6 CAJA AREQUIPA y 5 ALPHAMANUFACTURAS — **limpiadas** | 2026-11-19 |
 | `amsys_v3_oterra` | | | |
 | `amsys_v3_pyme` | | | |
 
@@ -131,3 +131,4 @@ BD (por confirmar si es 10.2.1.2 u otro).
 | 2026-11-19 | **S-2 aplicado en `amsys_v3_caja_arequipa` (10.2.1.2)** con `legacy/portes/sql/caja_arequipa-SC02-limpieza-empresas.sql` (ensayo con ROLLBACK y luego COMMIT). Respaldo previo `D:\Documentos\Alphamanufacturas\AMSYSackupsmsys_v3_caja_arequipa_10.2.1.2_antes-limpieza-SC02_20261119.dump`. Borradas 6 empresas y 33 usuarios, 420 filas en total; reasignadas al usuario 1: 27 OT, 30 `ordentrabajolog`, 54 `avisolog`. Verificado: empresa 6 con sus 28 411 filas, 0 huérfanas en todas las FK. Roles sin usuarios (3, 4, 5, 6, 8, 9) **no** se borraron |
 | 2026-11-19 | S-0 en `amsys_v3_agchavin`: una sola empresa (AyG Chavin), sin huérfanas; 1 correo repetido (usuarios 8 inactivo / 9) |
 | 2026-11-19 | S-0 en `amsys_v3_eulen`: BD multiempresa real (9 empresas). La 6 es copia de sep. 2025 de Caja (todo ya está en su BD); la 5 son pruebas. Las cuentas de soporte cambian de `empresaid` para operar en cada empresa |
+| 2026-11-19 | **S-2 aplicado en `amsys_v3_eulen` (10.2.1.2)** con `legacy/portes/sql/eulen-SC02-limpieza-empresas.sql` (versión multiempresa: conserva toda empresa fuera de la lista; ensayo + COMMIT). Decisión del propietario: borrar sólo 6 y 5; INTCOMEX y DHL se conservan. Respaldo previo `D:\Documentos\Alphamanufacturas\AMSYSackupsmsys_v3_eulen_10.2.1.2_antes-limpieza-SC02_20261119.dump`. Borrados 150 usuarios, 65 OT, 335 avisos, 673 equipos, 2 708 `usuarioorganizacion`, entre otros; sin reasignaciones. Verificado: las 7 empresas conservadas con sus 59 521 filas, 0 huérfanas. Roles AGENCIA y CLIENTE quedan sin usuarios (no borrados) |

@@ -50,3 +50,10 @@ y 4 clientes están inactivos. Ningún dato de otra empresa referencia filas de 
 
 Tras limpiar la 6, los roles AGENCIA y CLIENTE quedan sin usuarios. El script SC-02 hay que adaptarlo para
 conservar **varias** empresas (hoy verifica una sola).
+
+## Resultado de la limpieza (2026-11-19)
+
+Decisión del propietario: borrar **sólo** 6 CAJA AREQUIPA y 5 ALPHAMANUFACTURAS; INTCOMEX y DHL se conservan.
+Aplicada con `legacy/portes/sql/eulen-SC02-limpieza-empresas.sql`. Quedan 7 empresas (1, 3, 4, 7, 8, 9, 10) con sus
+datos intactos (59 521 filas verificadas antes del COMMIT, 0 huérfanas). Pendiente: roles AGENCIA y CLIENTE sin usuarios;
+las cuentas de soporte 1 y 3 siguen moviéndose de empresa; 1 OT y 4 materiales de INTCOMEX apuntan a catálogos de RIPLEY.
