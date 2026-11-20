@@ -119,7 +119,7 @@ BD (por confirmar si es 10.2.1.2 u otro).
 | `amsys_v3_agchavin` | 1 – AyG Chavin (única) | Ninguna. Sólo revisar el correo repetido de los usuarios 8/9 (`sc-00/amsys_v3_agchavin.md`) | 2026-11-19 |
 | `amsys_v3_caja_arequipa` | 6 – EULEN CAJA AREQUIPA | 1, 3, 4, 5, 7, 8 — **limpiadas** (incluidos los 2 usuarios de soporte de la 5; su autoría en la 6 pasó al usuario 1) | 2026-11-19 |
 | `amsys_v3_eulen` | 1 RIPLEY, 3 INTCOMEX, 4 DHL, 7 UDEP, 8 HUAWEI, 9 PUCP, 10 SURA | 6 CAJA AREQUIPA y 5 ALPHAMANUFACTURAS — **limpiadas** | 2026-11-19 |
-| `amsys_v3_oterra` | 1 OTERRA (**propuesta**) | 2 TEST-OTERRA (pruebas, aislada); opcional usuarios duplicados 44/45/46 y prueba 25 (`sc-00/amsys_v3_oterra.md`) | 2026-11-19 |
+| `amsys_v3_oterra` | 1 OTERRA | 2 TEST-OTERRA y usuarios duplicados 45 y 46 — **limpiados**. Quedan las cuentas de prueba 25/44 (`prueba@`), por decisión | 2026-11-19 |
 | `amsys_v3_pyme` | | | |
 
 ## 8. Registro de avance
@@ -133,3 +133,4 @@ BD (por confirmar si es 10.2.1.2 u otro).
 | 2026-11-19 | S-0 en `amsys_v3_eulen`: BD multiempresa real (9 empresas). La 6 es copia de sep. 2025 de Caja (todo ya está en su BD); la 5 son pruebas. Las cuentas de soporte cambian de `empresaid` para operar en cada empresa |
 | 2026-11-19 | **S-2 aplicado en `amsys_v3_eulen` (10.2.1.2)** con `legacy/portes/sql/eulen-SC02-limpieza-empresas.sql` (versión multiempresa: conserva toda empresa fuera de la lista; ensayo + COMMIT). Decisión del propietario: borrar sólo 6 y 5; INTCOMEX y DHL se conservan. Respaldo previo `D:\Documentos\Alphamanufacturas\AMSYSackupsmsys_v3_eulen_10.2.1.2_antes-limpieza-SC02_20261119.dump`. Borrados 150 usuarios, 65 OT, 335 avisos, 673 equipos, 2 708 `usuarioorganizacion`, entre otros; sin reasignaciones. Verificado: las 7 empresas conservadas con sus 59 521 filas, 0 huérfanas. Roles AGENCIA y CLIENTE quedan sin usuarios (no borrados) |
 | 2026-11-19 | S-0 en `amsys_v3_oterra`: OTERRA + TEST-OTERRA (pruebas, sin referencias cruzadas); 3 correos repetidos (usuarios duplicados y de prueba) |
+| 2026-11-19 | **S-2 aplicado en `amsys_v3_oterra` (10.2.1.2)** con `legacy/portes/sql/oterra-SC02-limpieza-empresas.sql` (añade el parámetro `usuarios_borrar` para usuarios sueltos de empresas conservadas). Borrados: empresa 2 TEST-OTERRA (24 filas + logs/detalle) y usuarios 45, 46 y 47 (59 `usuarioorganizacion`); sin reasignaciones. Respaldo previo `D:\Documentos\Alphamanufacturas\AMSYSackupsmsys_v3_oterra_10.2.1.2_antes-limpieza-SC02_20261119.dump`. Verificado: OTERRA 5 502 filas (5 504 − 2 usuarios), 0 huérfanas; quedan 44 usuarios, 329 OT, 1 846 avisos |

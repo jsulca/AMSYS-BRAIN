@@ -28,3 +28,9 @@ ADMINISTRADOR ALPHA, id 47) y 24 filas. **Aislada**: ninguna FK ni log cruza ent
 | Conservar | Limpiar | Opcional |
 |---|---|---|
 | 1 OTERRA | 2 TEST-OTERRA (con su usuario 47) | Usuarios duplicados sin datos 45 y 46; cuentas de prueba 25/44 (la 25 tiene 1 aviso: reasignar) |
+
+## Resultado de la limpieza (2026-11-19)
+
+Decisión del propietario: borrar TEST-OTERRA y los duplicados 45 y 46. Aplicada con
+`legacy/portes/sql/oterra-SC02-limpieza-empresas.sql`. Queda 1 empresa, 44 usuarios, datos de OTERRA intactos. Sigue el
+correo repetido `prueba@` (usuarios 25 y 44), que se decidió no tocar por ahora.
