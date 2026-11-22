@@ -42,7 +42,7 @@ catálogos sobre los datos reales (p. ej. Especialidad 40 331 usos, Prioridad 13
   decidir si se activa.
 - Ningún catálogo opcional activado (agchavin no los usa).
 - Falta: recorrido en navegador (subir un adjunto a un aviso/OT/equipo para probar el nuevo `MoverAsync`),
-  aplicar el script en 10.2.1.2 y desplegar.
+  y desplegar. Script aplicado en 10.2.1.2 y en local el 2026-11-22; commit publicado en origin el 2026-11-22.
 
 ### Checklist en navegador
 - [ ] Catálogos: crear, editar, desactivar uno en uso (aviso), código repetido (Causa de falla)
